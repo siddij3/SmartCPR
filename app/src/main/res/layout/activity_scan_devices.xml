@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="com.smartcpr.junaid.smartcpr.ScanDevicesActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/scan_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:id="@+id/text_scan_title"
+        android:textColor="#8b8a8a"/>
+
+    <fragment
+        android:id="@+id/fragment_button"
+        android:name="com.smartcpr.junaid.smartcpr.ScanButtonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/fragment_scan_bluetooth"
+        android:layout_marginBottom="0dp"/>
+
+
+
+</RelativeLayout>
+
