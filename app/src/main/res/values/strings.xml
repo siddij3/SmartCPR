@@ -3,4 +3,7 @@
     <string name="scan_title">Scan Devices</string>
     <string name="main_scan_button">Scan</string>
     <string name="title_activity_device">DeviceActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="bluetooth_scanning">Scanning Bluetooth Devices</string>
+    <string name="bluetooth_connectiD">Scanning Bluetooth Devices</string>
 </resources>

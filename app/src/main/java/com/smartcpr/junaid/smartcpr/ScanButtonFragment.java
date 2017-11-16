@@ -1,6 +1,7 @@
 package com.smartcpr.junaid.smartcpr;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -15,12 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -30,67 +29,86 @@ import java.util.ArrayList;
 public class ScanButtonFragment extends Fragment {
 
     private final static String TAG = "ScanButtonFragment";
-    private final int REQUEST_ENABLE_BT = 1;
     private static Button mScanButton;
+    private final int REQUEST_ENABLE_BT = 1;
+
     private BluetoothAdapter mBluetoothAdapter;
-    private ListView lvNewDevices;
-
+    //private ListView lvNewDevices;
     private ArrayList<BluetoothDevice> mBTDevices;
-    private ArrayList<String> mBTDeviceDetails;
 
+    ScanButtonListener activityCommander;
 
+    public interface ScanButtonListener {
+        void addDevice(BluetoothDevice BTDevice);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity;
+        if (context instanceof Activity){
+            activity = (Activity) context;
+            try {
+                activityCommander = (ScanButtonListener)activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString());
+            }
+        } else  {
+            try {
+                activityCommander = (ScanButtonListener)context;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString());
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Shows Fragment with Button and ListView
         View view = inflater.inflate(R.layout.fragment_scan_bluetooth, container, false);
 
+        //Initializes Bluetooth
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        lvNewDevices = view.findViewById(R.id.main_list_devices);
 
+        //Initializes Lists that contain the Bluetooth Device and it's details
         mBTDevices = new ArrayList<>();
-        mBTDeviceDetails = new ArrayList<>();
 
-        mScanButton  = view.findViewById(R.id.main_scan_button);
+        //Click Event for Scan Button
+        mScanButton = view.findViewById(R.id.main_scan_button);
         mScanButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        mScanButtonClicked(view);
+                        mScanButtonClicked();
                     }
                 }
         );
 
-        lvNewDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
-                getActivity().registerReceiver(mBondState, filter);
-                pairDevice(adapterView, view, i, l);
-            }
-        });
-
         return view;
     }
 
-    private void mScanButtonClicked(View view) {
+    //Turns on Bluetooth if not already enabled
+    private void mScanButtonClicked() {
         if (mBluetoothAdapter == null) {
-            Log.d(TAG,"Device does not support Bluetooth" );
+            Log.d(TAG, "Device does not support Bluetooth");
             return;
         }
 
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            Log.d(TAG,"Enabling Bluetooth" );
-
+            Log.d(TAG, "Enabling Bluetooth");
         }
-        Log.d(TAG,"Bluetooth Enabled");
+
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         getActivity().registerReceiver(mReceiver, filter);
-        discoverDevices(view);
+
+        discoverDevices();
+
+        Log.d(TAG, "Bluetooth Enabled");
     }
 
-    private void discoverDevices(View view) {
-        if(mBluetoothAdapter.isDiscovering()){
+    private void discoverDevices() {
+        if (mBluetoothAdapter.isDiscovering()) {
             mBluetoothAdapter.cancelDiscovery();
             Log.d(TAG, "Canceling discovery.");
         }
@@ -98,41 +116,14 @@ public class ScanButtonFragment extends Fragment {
         //check BT permissions in manifest
         checkBTPermissions();
 
-        Log.d(TAG, "Starting Discovery discovery.");
         mBluetoothAdapter.startDiscovery();
+        Log.d(TAG, "Starting Discovery discovery.");
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         getActivity().registerReceiver(mDiscovery, filter);
     }
 
-    private void pairDevice (AdapterView<?> adapterView, View view, int i, long l) {
-        mBluetoothAdapter.cancelDiscovery();
-
-        //Found the Problem
-        String deviceDetails = (String) lvNewDevices.getItemAtPosition(i);
-        BluetoothDevice device = mBTDevices.get(i);
-        Log.d(TAG, "onItemClick " + deviceDetails);
-        Log.d(TAG, "onItemClick (Device) " + device);
-
-        String deviceName = device.getName();
-        Log.d(TAG, "onItemClick: deviceDetails = " + deviceName);
-
-        //create the bond.
-        //NOTE: Requires API 17+? I think this is JellyBean
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.d(TAG, "Trying to pair with " + deviceName);
-            Log.d(TAG, "The size of the array is: " + mBTDevices.size());
-            Log.d(TAG, "The index selected is: " + i);
-            Log.d(TAG, mBTDevices.get(i).getName());
-
-            mBTDevices.get(i).createBond();
-            Toast.makeText(getContext(), "Pairing with " + deviceName, 2);
-        }
-
-    }
-
-
-    //Asynchronous method
+    //Asynchronous method turns on Bluetooth Receiver if it's off
     public final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -143,14 +134,14 @@ public class ScanButtonFragment extends Fragment {
 
                 switch (state) {
                     case BluetoothAdapter.STATE_OFF:
-                        Log.d(TAG,"STATE OFF");
+                        Log.d(TAG, "STATE OFF");
                         break;
                     case BluetoothAdapter.STATE_TURNING_OFF:
                         Log.d(TAG, "STATE TURNING OFF");
                         break;
                     case BluetoothAdapter.STATE_ON:
                         Log.d(TAG, "STATE ON");
-                        
+                        discoverDevices();
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         Log.d(TAG, "STATE TURNING ON");
@@ -166,68 +157,34 @@ public class ScanButtonFragment extends Fragment {
             final String action = intent.getAction();
             Log.d(TAG, action + "\tACTION FOUND");
 
-            if (action.equals(BluetoothDevice.ACTION_FOUND)){
-                BluetoothDevice device = intent.getParcelableExtra (BluetoothDevice.EXTRA_DEVICE);
-                String deviceDetails = device.getName() + "\n" + device.getAddress();
+            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
-                if (mBTDeviceDetails.contains(deviceDetails)) {
+                if (mBTDevices.contains(device)) {
                     Log.d(TAG, "onReceive: " + device.getName() + "already exists");
 
-                } else if (!mBTDeviceDetails.contains(deviceDetails)) {
-                    if (device.getName() != "null") {
+                } else if (!mBTDevices.contains(device)) {
+                    if (device.getName() != null && (device.getName().length() > 0)) {
 
-                        mBTDeviceDetails.add(deviceDetails);
-                        mBTDevices.add(device);
+                        activityCommander.addDevice(device);
+
                         Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
-
-                        //Refreshes List to avoid duplication?
-                        //lvNewDevices.setAdapter(new ArrayAdapter<>(context,
-                        //      android.R.layout.simple_list_item_1,
-                        //    new ArrayList<>()));
                     }
-
-                    lvNewDevices.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, mBTDeviceDetails));
-
-                }
-
-            }
-        }
-    };
-
-    private final BroadcastReceiver mBondState = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-
-            if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
-                BluetoothDevice mDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                //3 cases:
-                //case1: bonded already
-                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
-                    Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
-                }
-                //case2: creating a bone
-                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
-                    Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
-                }
-                //case3: breaking a bond
-                if (mDevice.getBondState() == BluetoothDevice.BOND_NONE) {
-                    Log.d(TAG, "BroadcastReceiver: BOND_NONE.");
                 }
             }
         }
     };
 
 
-        private void checkBTPermissions() {
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+    private void checkBTPermissions() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             int permissionCheck = ActivityCompat.checkSelfPermission(getActivity(), "Manifest.permission.ACCESS_FINE_LOCATION");
             permissionCheck += ActivityCompat.checkSelfPermission(getActivity(), "Manifest.permission.ACCESS_COARSE_LOCATION");
             if (permissionCheck != 0) {
 
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
             }
-        }else{
+        } else {
             Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
         }
     }
@@ -237,6 +194,5 @@ public class ScanButtonFragment extends Fragment {
         super.onDestroyView();
         getActivity().unregisterReceiver(mReceiver);
         getActivity().unregisterReceiver(mDiscovery);
-        getActivity().unregisterReceiver(mBondState);
     }
 }
