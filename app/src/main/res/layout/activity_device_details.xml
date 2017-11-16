@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartcpr.junaid.smartcpr.DeviceDetailsActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.DeviceDetailsActivity"
+    android:gravity="center_horizontal">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/device_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_device_info"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:textColor="#3B3B3B"
+        android:textSize="30dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/device_info_title"
+        android:id="@+id/fragment_details_layout"
+        >
+
+        <fragment
+            android:id="@+id/fragment_device_details"
+            android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_text_device_details" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            >
+
+            <fragment
+                android:id="@+id/fragment_train_button"
+                android:name="com.smartcpr.junaid.smartcpr.TrainButtonFragment"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                tools:layout="@layout/fragment_button_train" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

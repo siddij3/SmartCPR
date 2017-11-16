@@ -6,4 +6,10 @@
     <string name="title_activity_settings">Settings</string>
     <string name="bluetooth_scanning">Scanning Bluetooth Devices</string>
     <string name="bluetooth_connectiD">Scanning Bluetooth Devices</string>
+    <string name="title_device_info">Device Info</string>
+    <string name="details_train_button">Train</string>
+    <string name="text_device_name_label">Device Name:</string>
+    <string name="text_device_name" />
+    <string name="text_device_physical_address_label">Physical Address:</string>
+    <string name="text_device_physical_address" />
 </resources>
