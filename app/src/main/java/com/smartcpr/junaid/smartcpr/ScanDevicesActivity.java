@@ -1,13 +1,12 @@
 package com.smartcpr.junaid.smartcpr;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.ArrayList;
-
-public class ScanDevicesActivity extends AppCompatActivity implements ScanButtonFragment.ScanButtonListener {
+public class ScanDevicesActivity extends AppCompatActivity implements ScanButtonFragment.ScanButtonListener,
+                                                                ListDevicesFragment.ListDevicesListener {
     private final static String TAG = "ScanDevicesActivity";
 
     @Override
@@ -24,6 +23,15 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
         listDevicesFragment.addDevicesToList(BTdevice);
     }
 
+    @Override
+    public void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded) {
+        if (isBluetoothDeviceBonded) {
+            Intent myIntent = new Intent(ScanDevicesActivity.this,
+                    DeviceDetailsActivity.class);
+            startActivity(myIntent);
+
+        }
+    }
 
     @Override
     protected void onStop() {
