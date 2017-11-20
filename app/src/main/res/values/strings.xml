@@ -3,4 +3,17 @@
     <string name="scan_title">Scan Devices</string>
     <string name="main_scan_button">Scan</string>
     <string name="title_activity_device">DeviceActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="bluetooth_scanning">Scanning Bluetooth Devices</string>
+    <string name="title_device_info">Device Info</string>
+    <string name="details_train_button">Train</string>
+    <string name="text_device_name_label">Device Name:</string>
+    <string name="text_device_name">Tmp Name</string>
+    <string name="text_device_physical_address_label">Physical Address:</string>
+    <string name="text_device_physical_address">Tmp Address</string>
+    <string name="pick_victim">Select the Victim\'s Age</string>
+    <string name="victim_infant">infant</string>
+    <string name="victim_child">child</string>
+    <string name="victim_youth">youth</string>
+    <string name="victim_adult">adult</string>
 </resources>

@@ -16,16 +16,21 @@
         android:textColor="#8b8a8a"/>
 
     <fragment
-        android:id="@+id/fragment_button"
-        android:name="com.smartcpr.junaid.smartcpr.ScanButtonFragment"
+        android:id="@+id/fragment_list"
+        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/fragment_button"
+        tools:layout="@layout/fragment_list_devices" />
+
+    <fragment
+        android:id="@+id/fragment_button"
+        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        tools:layout="@layout/fragment_scan_bluetooth"
-        android:layout_marginBottom="0dp"/>
-
-
+        tools:layout="@layout/fragment_scan_bluetooth" />
 
 </RelativeLayout>
 

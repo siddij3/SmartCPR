@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="infant_max">3</integer>
+    <integer name="infant_min">2</integer>
+
+    <integer name="child_max">4</integer>
+    <integer name="child_min">3</integer>
+
+    <integer name="youth_max">5</integer>
+    <integer name="youth_min">4</integer>
+
+    <integer name="adult_max">6</integer>
+    <integer name="adult_min">5</integer>
+</resources>

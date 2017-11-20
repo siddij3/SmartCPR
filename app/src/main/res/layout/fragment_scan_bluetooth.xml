@@ -6,15 +6,9 @@
     <Button
         android:id="@+id/main_scan_button"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:text="@string/main_scan_button"/>
 
-
-    <ListView
-        android:id="@+id/main_list_devices"
-        android:layout_width="match_parent"
-        android:layout_above="@+id/main_scan_button"
-        android:layout_height="match_parent"/>
 
 </RelativeLayout>
