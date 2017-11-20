@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.junaid.smartcpr.ObjectClasses;
 
 /**
  * Created by junaid on 11/16/17.

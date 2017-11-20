@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.junaid.smartcpr.ScanDevicesFragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.smartcpr.junaid.smartcpr.R;
 
 import java.util.ArrayList;
 

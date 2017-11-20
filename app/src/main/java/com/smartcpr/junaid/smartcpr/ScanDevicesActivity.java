@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment;
+import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment;
+
 public class ScanDevicesActivity extends AppCompatActivity implements ScanButtonFragment.ScanButtonListener,
                                                                 ListDevicesFragment.ListDevicesListener {
     private final static String TAG = "ScanDevicesActivity";
@@ -24,12 +27,22 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
     }
 
     @Override
-    public void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded) {
+    public void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded, BluetoothDevice mBluetoothDevice) {
         if (isBluetoothDeviceBonded) {
-            Intent myIntent = new Intent(ScanDevicesActivity.this,
+            Intent intent = new Intent(ScanDevicesActivity.this,
                     DeviceDetailsActivity.class);
-            startActivity(myIntent);
 
+            Bundle bundle = new Bundle();
+
+            bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_NAME,
+                                mBluetoothDevice.getName());
+            bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS,
+                                mBluetoothDevice.getAddress());
+
+            intent.putExtras(bundle);
+
+            Log.d(TAG, "bluetoothDeviceBonded: Passing info through an intent before starting new activity");
+            startActivity(intent);
         }
     }
 

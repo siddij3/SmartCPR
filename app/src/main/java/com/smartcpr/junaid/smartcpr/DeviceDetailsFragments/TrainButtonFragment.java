@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.smartcpr.junaid.smartcpr.R;
 
 
 /**
@@ -60,6 +62,7 @@ public class TrainButtonFragment extends Fragment {
                         Log.d(TAG, "onClick: Pressed TRAIN Button");
                         openDialogBox();
 
+                        mTrainButton.setClickable(false);
                     }
 
                     private void openDialogBox() {

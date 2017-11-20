@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.junaid.smartcpr.ScanDevicesFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.smartcpr.junaid.smartcpr.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -139,10 +141,14 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
                 }
                 //case2: creating a bone
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
+                    lvNewDevices.setClickable(true);
+                    lvNewDevices.setEnabled(true);
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
                 }
                 //case3: breaking a bond
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_NONE) {
+                    lvNewDevices.setClickable(true);
+                    lvNewDevices.setEnabled(true);
                     Log.d(TAG, "BroadcastReceiver: BOND_NONE.");
                 }
             }
@@ -170,10 +176,11 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         lvNewDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lvNewDevices.setClickable(false);
+                lvNewDevices.setEnabled(false);
                 IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
                 getActivity().registerReceiver(mBondState, filter);
                 Log.d(TAG, "onItemClick: Clicked on an Item from the List");
-
                 pairDevice(i, l);
 
             }
@@ -182,10 +189,28 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: Pausing Fragment");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        lvNewDevices.setClickable(true);
+        lvNewDevices.setEnabled(true);
+
+        Log.d(TAG, "onResume: Resuming Fragment");
+
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d(TAG, "onDestroyView: Destroying Activity");
+
         getActivity().unregisterReceiver(mBondState);
     }
 }
