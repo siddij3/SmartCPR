@@ -5,21 +5,32 @@ package com.smartcpr.junaid.smartcpr;
  */
 
 public class Victim {
-    private String victimAge;
+    private String victim;
 
     private int maxDepth;
     private int minDepth;
 
-    public int maxRate;
-    public int minRate;
+    private int maxRate;
+    private int minRate;
+    private double depthTolerance;
 
-    public Victim(String victimAge, int maxDepth, int minDepth) {
-        this.victimAge = victimAge;
+
+    public Victim(String victim, int maxDepth, int minDepth, double depthTolerance) {
+        this.victim = victim;
         this.maxDepth = maxDepth;
         this.minDepth = minDepth;
+        this.depthTolerance = depthTolerance;
 
         maxRate = 120;
         minRate = 100;
+    }
+
+    public double getDepthTolerance() {
+        return depthTolerance;
+    }
+
+    public void setDepthTolerance(double depthTolerance) {
+        this.depthTolerance = depthTolerance;
     }
 
     public int getMaxDepth() {
@@ -38,11 +49,4 @@ public class Victim {
         this.minDepth = minDepth;
     }
 
-    public String getVictimAge() {
-        return victimAge;
-    }
-
-    public void setVictimAge(String victimAge) {
-        this.victimAge = victimAge;
-    }
 }

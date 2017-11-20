@@ -27,7 +27,7 @@
 
         <fragment
             android:id="@+id/fragment_device_details"
-            android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragment"
+            android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_text_device_details" />
@@ -43,7 +43,7 @@
 
             <fragment
                 android:id="@+id/fragment_train_button"
-                android:name="com.smartcpr.junaid.smartcpr.TrainButtonFragment"
+                android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.TrainButtonFragment"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 tools:layout="@layout/fragment_button_train" />

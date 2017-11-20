@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="victim">
+        <item>Adult</item>
+        <item>Youth</item>
+        <item>Child</item>
+        <item>Infant</item>
+    </string-array>
+</resources>

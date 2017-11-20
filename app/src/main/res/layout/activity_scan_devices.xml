@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragment_list"
-        android:name="com.smartcpr.junaid.smartcpr.ListDevicesFragment"
+        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/fragment_button"
-        android:name="com.smartcpr.junaid.smartcpr.ScanButtonFragment"
+        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"

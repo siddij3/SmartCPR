@@ -5,31 +5,34 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/device_name"
+    <RelativeLayout
+        android:id="@+id/layout_device_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/device_physical_address">
+        android:layout_above="@+id/layout_device_physical_address">
 
         <TextView
-            android:id="@+id/textView"
+            android:text="@string/text_device_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_device_name_label"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingLeft="40dp"
+            android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/text_device_name"
             android:text="@string/text_device_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:layout_alignParentRight="true"
+            android:paddingRight="50dp"
+            android:textSize="18sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/device_physical_address"
+    <RelativeLayout
+        android:id="@+id/layout_device_physical_address"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_alignParentBottom="true"
@@ -39,14 +42,19 @@
             android:text="@string/text_device_physical_address_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingLeft="40dp"
+            android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/text_device_physical_address"
+            android:text="@string/text_device_physical_address"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_device_physical_address"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:paddingRight="50dp"
+            android:textSize="18sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

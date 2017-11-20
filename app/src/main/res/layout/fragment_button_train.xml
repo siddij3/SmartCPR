@@ -9,6 +9,7 @@
             android:gravity="center"
             android:textSize="25dp"
             android:textColor="#0A4219"
+            android:id="@+id/train_button"
             android:text="@string/details_train_button"/>
 
 </LinearLayout>

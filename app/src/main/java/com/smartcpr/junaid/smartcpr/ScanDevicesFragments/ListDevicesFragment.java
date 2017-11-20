@@ -39,10 +39,10 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
 
     private ArrayAdapter<String> mBTDevicesAdapter;
 
-    ListDevicesListener activityCommander;
+    ListDevicesListener listDevicesListener;
 
     public interface ListDevicesListener {
-        void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded);
+        void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded, BluetoothDevice bluetoothDevice);
     }
 
     @Override
@@ -52,13 +52,13 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         if (context instanceof Activity){
             activity = (Activity) context;
             try {
-                activityCommander = (ListDevicesListener)activity;
+                listDevicesListener = (ListDevicesListener)activity;
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString());
             }
         } else  {
             try {
-                activityCommander = (ListDevicesListener)context;
+                listDevicesListener = (ListDevicesListener)context;
             } catch (ClassCastException e) {
                 throw new ClassCastException(context.toString());
             }
@@ -106,7 +106,7 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
                 if (device.toString().equals(deviceToBePaired.toString())) {
                     Log.d(TAG, "pairDevice: "  + tmp + " = " + deviceToBePairedName);
                     isDeviceBonded = true;
-                    activityCommander.bluetoothDeviceBonded(isDeviceBonded);
+                    listDevicesListener.bluetoothDeviceBonded(isDeviceBonded, deviceToBePaired);
                     return;
                 }
             }
@@ -129,20 +129,20 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
-                BluetoothDevice mDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                BluetoothDevice mBluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //3 cases:
                 //case1: bonded already
-                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
+                if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
                     isDeviceBonded = true;
-                    activityCommander.bluetoothDeviceBonded(isDeviceBonded);
+                    listDevicesListener.bluetoothDeviceBonded(isDeviceBonded, mBluetoothDevice);
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
                 }
                 //case2: creating a bone
-                if (mDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
+                if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
                 }
                 //case3: breaking a bond
-                if (mDevice.getBondState() == BluetoothDevice.BOND_NONE) {
+                if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_NONE) {
                     Log.d(TAG, "BroadcastReceiver: BOND_NONE.");
                 }
             }

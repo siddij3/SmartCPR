@@ -34,7 +34,7 @@ public class ScanButtonFragment extends Fragment {
     //private ListView lvNewDevices;
     private ArrayList<BluetoothDevice> mBTDevices;
 
-    ScanButtonListener activityCommander;
+    ScanButtonListener scanButtonListener;
 
     public interface ScanButtonListener {
         void addDevice(BluetoothDevice BTDevice);
@@ -47,13 +47,13 @@ public class ScanButtonFragment extends Fragment {
         if (context instanceof Activity){
             activity = (Activity) context;
             try {
-                activityCommander = (ScanButtonListener)activity;
+                scanButtonListener = (ScanButtonListener)activity;
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString());
             }
         } else  {
             try {
-                activityCommander = (ScanButtonListener)context;
+                scanButtonListener = (ScanButtonListener)context;
             } catch (ClassCastException e) {
                 throw new ClassCastException(context.toString());
             }
@@ -164,7 +164,7 @@ public class ScanButtonFragment extends Fragment {
                 } else if (!mBTDevices.contains(device)) {
                     if (device.getName() != null && (device.getName().length() > 0)) {
 
-                        activityCommander.addDevice(device);
+                        scanButtonListener.addDevice(device);
 
                         Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
                     }
