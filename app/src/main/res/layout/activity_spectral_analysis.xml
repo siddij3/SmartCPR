@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.smartcpr.junaid.smartcpr.SpectralAnalysisActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/title_compression_targets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/compression_title_target"
+        android:textStyle="italic"
+        android:textSize="30sp" />
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/compression_target_header"
+        android:layout_below="@id/title_compression_targets">
+
+        <fragment
+            android:id="@+id/fragment_rate_compression_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            tools:layout="@layout/fragment_compression_targets"
+            class = "com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionTargetsFragment"/>
+
+
+        <fragment
+            android:id= "@+id/fragment_analysis_feedback"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/rate_compression_target"
+            tools:layout="@layout/fragment_analysis_feedback"
+            class = "com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.AnalysisFeedbackFragment"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

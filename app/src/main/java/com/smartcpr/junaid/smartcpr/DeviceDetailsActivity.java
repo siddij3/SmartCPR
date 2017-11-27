@@ -53,60 +53,27 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         Log.d(TAG, "onCreate: Address "  + mBTDevicePhysicalAddress);
 
         deviceDetailsFragment = (DeviceDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_device_details);
-        Log.d(TAG, deviceDetailsFragment.toString());
         deviceDetailsFragment.setDetailsText(mBTDeviceName, mBTDevicePhysicalAddress);
+        Log.d(TAG, deviceDetailsFragment.toString());
 
     }
 
-    private void setDetails () {
-        adultMinRate = getResources().getInteger(R.integer.adult_min);
-        adultMaxRate = getResources().getInteger(R.integer.adult_max);
 
-        youthMinRate = getResources().getInteger(R.integer.youth_min);
-        youthMaxRate = getResources().getInteger(R.integer.youth_max);
-
-        childMinRate = getResources().getInteger(R.integer.child_min);
-        childMaxRate = getResources().getInteger(R.integer.child_max);
-
-        infantMinRate = getResources().getInteger(R.integer.infant_min);
-        infantMaxRate = getResources().getInteger(R.integer.infant_max);
-
-        Log.d(TAG, "setDetails: Details Set");
-    }
 
 
     @Override
     public void cprVictim(String strCprVictim) {
-        setDetails();
-        Log.d(TAG, "cprVictim: " + strCprVictim);
-
-        if (strCprVictim == getString(R.string.victim_adult)) {
-            victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
-
-        } else if (strCprVictim == getString(R.string.victim_youth)) {
-            victim = new Victim(getString(R.string.victim_adult), youthMaxRate, youthMinRate, 1);
-
-        } else if (strCprVictim == getString(R.string.victim_child)) {
-            victim = new Victim(getString(R.string.victim_adult), childMaxRate, childMinRate, 0.5);
-
-        } else if (strCprVictim == getString(R.string.victim_infant)) {
-            victim = new Victim(getString(R.string.victim_adult), infantMaxRate, infantMinRate, 0.5);
-
-        }
+        Log.d(TAG, "cprVictim: " + strCprVictim.toString());
 
         Intent intent = new Intent(DeviceDetailsActivity.this,
               SpectralAnalysisActivity.class);
 
-    /*
         Bundle bundle = new Bundle();
 
-        bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_NAME,
-                mBluetoothDevice.getName());
-        bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS,
-                mBluetoothDevice.getAddress());
+        bundle.putString(SpectralAnalysisActivity.EXTRA_VICTIM_AGE, strCprVictim.toString());
 
         intent.putExtras(bundle);
-*/
+
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
 

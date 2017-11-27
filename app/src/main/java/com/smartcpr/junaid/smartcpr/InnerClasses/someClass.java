@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.ObjectClasses;
+package com.smartcpr.junaid.smartcpr.InnerClasses;
 
 import com.smartcpr.junaid.smartcpr.SpectralAnalysisActivity;
 

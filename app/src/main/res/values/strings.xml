@@ -12,8 +12,22 @@
     <string name="text_device_physical_address_label">Physical Address:</string>
     <string name="text_device_physical_address">Tmp Address</string>
     <string name="pick_victim">Select the Victim\'s Age</string>
-    <string name="victim_infant">infant</string>
-    <string name="victim_child">child</string>
-    <string name="victim_youth">youth</string>
-    <string name="victim_adult">adult</string>
+    <string name="victim_infant">Infant</string>
+    <string name="victim_child">Child</string>
+    <string name="victim_youth">Youth</string>
+    <string name="victim_adult">Adult</string>
+    <string name="rate_feedback_good">Good</string>
+    <string name="rate_feedback_fast">Too Fast</string>
+    <string name="rate_feedback_slow">Too Slow</string>
+    <string name="depth_feedback_good">Good</string>
+    <string name="depth_feedback_deep">Too Deep</string>
+    <string name="depth_feedback_shallow">Too Shallow</string>
+    <string name="depth_feedback_acceptable">Acceptable Depth</string>
+    <string name="rate_feedback_acceptable">Acceptable Rate</string>
+    <string name="depth_current">0 cm</string>
+    <string name="rate_current">0 bpm</string>
+    <string name="compression_current_title">Current:</string>
+    <string name="compression_title_target">Targets:</string>
+    <string name="compression_depth_target">120 cpm</string>
+    <string name="compression_rate_target">5 - 6 cm</string>
 </resources>
