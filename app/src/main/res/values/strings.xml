@@ -16,4 +16,17 @@
     <string name="victim_child">child</string>
     <string name="victim_youth">youth</string>
     <string name="victim_adult">adult</string>
+    <string name="text_spectral_compression_greater_than_140"><![CDATA[> 140]]></string>
+    <string name="text_spectral_compression_135">135</string>
+    <string name="text_spectral_compression_130">130</string>
+    <string name="text_spectral_compression_125">125</string>
+    <string name="text_spectral_compression_less_than_80"><![CDATA[< 80]]></string>
+    <string name="text_spectral_compression_120">120</string>
+    <string name="text_spectral_compression_115">115</string>
+    <string name="text_spectral_compression_110">110</string>
+    <string name="text_spectral_compression_105">105</string>
+    <string name="text_spectral_compression_100">100</string>
+    <string name="text_spectral_compression_95">95</string>
+    <string name="text_spectral_compression_90">90</string>
+    <string name="text_spectral_compression_85">85</string>
 </resources>
