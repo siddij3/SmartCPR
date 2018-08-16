@@ -97,16 +97,7 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         Intent intent = new Intent(DeviceDetailsActivity.this,
               SpectralAnalysisActivity.class);
 
-    /*
-        Bundle bundle = new Bundle();
 
-        bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_NAME,
-                mBluetoothDevice.getName());
-        bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS,
-                mBluetoothDevice.getAddress());
-
-        intent.putExtras(bundle);
-*/
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
 
