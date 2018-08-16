@@ -49,4 +49,9 @@ public class Victim {
         this.minDepth = minDepth;
     }
 
+    public int getMaxRate() { return maxRate; }
+
+    public int getMinRate() { return minRate; }
+
+    public String getVictim() { return victim; }
 }
