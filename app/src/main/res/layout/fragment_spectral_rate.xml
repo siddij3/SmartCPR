@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/text_spectral_compression_greater_than_140"
+        android:text="@string/text_spectral_compression_greater_than_140"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_135"
+        android:text="@string/text_spectral_compression_135"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_130"
+        android:text="@string/text_spectral_compression_130"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_125"
+        android:text="@string/text_spectral_compression_125"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/text_spectral_compression_120"
+        android:text="@string/text_spectral_compression_120"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_115"
+        android:text="@string/text_spectral_compression_115"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_110"
+        android:text="@string/text_spectral_compression_110"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_105"
+        android:text="@string/text_spectral_compression_105"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_100"
+        android:text="@string/text_spectral_compression_100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_95"
+        android:text="@string/text_spectral_compression_95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_90"
+        android:text="@string/text_spectral_compression_90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_85"
+        android:text="@string/text_spectral_compression_85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_spectral_compression_less_than_80"
+        android:text="@string/text_spectral_compression_less_than_80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+</LinearLayout>

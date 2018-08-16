@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_device_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/layout_device_physical_address">
+        android:layout_height="80dp" >
+
 
         <TextView
             android:text="@string/text_device_name_label"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="40dp"
-            android:textSize="18sp" />
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"
+            android:paddingStart="20dp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
 
-        <TextView
-            android:id="@+id/text_device_name"
-            android:text="@string/text_device_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingRight="50dp"
-            android:textSize="18sp" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_device_name"
+        android:text="@string/text_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="30sp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_device_physical_address"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_gravity="fill_vertical">
+
 
         <TextView
             android:text="@string/text_device_physical_address_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="40dp"
-            android:textSize="18sp" />
+            android:layout_gravity="center_vertical"
+            android:textSize="18sp"
+            android:paddingStart="20dp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
 
-        <TextView
-            android:id="@+id/text_device_physical_address"
-            android:text="@string/text_device_physical_address"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingRight="50dp"
-            android:textSize="18sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_device_physical_address"
+        android:text="@string/text_device_physical_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="30sp" />
+
+</LinearLayout>
