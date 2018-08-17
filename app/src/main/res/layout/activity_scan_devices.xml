@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment_list"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout="@layout/fragment_scan_bluetooth" />
+        tools:layout="@layout/fragment_scan_devices" />
 
 </android.support.constraint.ConstraintLayout>
 
