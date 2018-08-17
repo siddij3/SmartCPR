@@ -95,7 +95,7 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         }
 
         Intent intent = new Intent(DeviceDetailsActivity.this,
-              SpectralAnalysisActivity.class);
+              CompressionFeedbackActivity.class);
 
 
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
