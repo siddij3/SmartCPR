@@ -70,7 +70,7 @@ public class ScanButtonFragment extends Fragment {
         //Initializes Bluetooth
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        //Initializes Lists that contain the Bluetooth Device and it's details
+        //Initializes Lists that 2contain the Bluetooth Device and it's details
         mBTDevices = new ArrayList<>();
 
         //Click Event for Scan Button
