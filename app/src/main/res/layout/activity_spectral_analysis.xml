@@ -4,6 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartcpr.junaid.smartcpr.SpectralAnalysisActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.CompressionFeedbackActivity">
+
+    <fragment
+        android:id="@+id/fragment_compression_depth"
+        android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_spectral_rate" />
+
 
 </android.support.constraint.ConstraintLayout>

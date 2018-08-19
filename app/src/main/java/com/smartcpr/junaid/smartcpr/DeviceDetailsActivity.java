@@ -9,6 +9,8 @@ import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment
 import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.TrainButtonFragment;
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Victim;
 
+import java.util.Objects;
+
 public class DeviceDetailsActivity extends AppCompatActivity implements TrainButtonFragment.TrainButtonListener{
 
     private final static String TAG = "DeviceDetailsActivity";
@@ -32,9 +34,6 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
     private int infantMinRate;
     private int infantMaxRate;
 
-    private String mBTDeviceName;
-    private String mBTDevicePhysicalAddress;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +43,8 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        mBTDeviceName =
-                bundle.getString(EXTRA_BLUETOOTH_DEVICE_NAME);
-        mBTDevicePhysicalAddress =
-                bundle.getString(EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS);
+        String mBTDeviceName = Objects.requireNonNull(bundle).getString(EXTRA_BLUETOOTH_DEVICE_NAME);
+        String mBTDevicePhysicalAddress = bundle.getString(EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS);
 
         Log.d(TAG, "onCreate: DeviceName "  + mBTDeviceName);
         Log.d(TAG, "onCreate: Address "  + mBTDevicePhysicalAddress);
@@ -80,23 +77,22 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         setDetails();
         Log.d(TAG, "cprVictim: " + strCprVictim);
 
-        if (strCprVictim == getString(R.string.victim_adult)) {
+        if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
             victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
 
-        } else if (strCprVictim == getString(R.string.victim_youth)) {
+        } else if (Objects.equals(strCprVictim, getString(R.string.victim_youth))) {
             victim = new Victim(getString(R.string.victim_adult), youthMaxRate, youthMinRate, 1);
 
-        } else if (strCprVictim == getString(R.string.victim_child)) {
+        } else if (Objects.equals(strCprVictim, getString(R.string.victim_child))) {
             victim = new Victim(getString(R.string.victim_adult), childMaxRate, childMinRate, 0.5);
 
-        } else if (strCprVictim == getString(R.string.victim_infant)) {
+        } else if (Objects.equals(strCprVictim, getString(R.string.victim_infant))) {
             victim = new Victim(getString(R.string.victim_adult), infantMaxRate, infantMinRate, 0.5);
 
         }
 
         Intent intent = new Intent(DeviceDetailsActivity.this,
-              SpectralAnalysisActivity.class);
-
+              CompressionFeedbackActivity.class);
 
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
