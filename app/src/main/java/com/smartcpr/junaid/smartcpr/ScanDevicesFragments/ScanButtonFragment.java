@@ -21,6 +21,7 @@ import android.widget.Button;
 import com.smartcpr.junaid.smartcpr.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * ScanButtonFragment Fragment
@@ -146,7 +147,7 @@ public class ScanButtonFragment extends Fragment {
             String action = intent.getAction();
             Log.d(TAG, "onReceive: ACTION CHANGED.");
             Log.d(TAG, action);
-            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+            if (Objects.equals(action, BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
                 switch (state) {
@@ -174,7 +175,7 @@ public class ScanButtonFragment extends Fragment {
             final String action = intent.getAction();
             Log.d(TAG, action + "\tACTION FOUND");
 
-            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
+            if (Objects.equals(action, BluetoothDevice.ACTION_FOUND)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                 if (mBTDevices.contains(device)) {
