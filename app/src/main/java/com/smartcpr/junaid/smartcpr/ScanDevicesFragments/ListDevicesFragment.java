@@ -1,16 +1,14 @@
 package com.smartcpr.junaid.smartcpr.ScanDevicesFragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +19,31 @@ import android.widget.ListView;
 
 import com.smartcpr.junaid.smartcpr.R;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * Created by junaid on 11/15/17.
+ * ListDevicesFragment Fragment
+ *
+ * Functions:
+ *
+ * onAttach: Implements the interface ListDevicesListener, which calls
+ *           bluetoothDeviceBonded function in ScanDevicesActivity Activity
+ *
+ * addDevicesToList: Adds a new device to the list and checks for duplicates
+ *
+ * pairDevice: Gets the details from the device tapped on the list and pairs the device
+ *
+ * mBondState: Gets Bluetooth states before, during and after pairing
+ *
+ * onCreateView: Initializes Lists that contain the Bluetooth Device and it's details
+ *               and listens for tap on list item device
+ *
+ *
  */
 
-public class ListDevicesFragment extends android.support.v4.app.Fragment {
+public class ListDevicesFragment extends Fragment {
 
     private final static String TAG = "ListDevicesFragment";
 
@@ -129,22 +142,26 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
             final String action = intent.getAction();
             if (Objects.requireNonNull(action).equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
                 BluetoothDevice mBluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
                 //3 cases:
                 //case1: bonded already
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
                     listDevicesListener.bluetoothDeviceBonded(true, mBluetoothDevice);
+
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
                 }
                 //case2: creating a bone
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDING) {
                     lvNewDevices.setClickable(true);
                     lvNewDevices.setEnabled(true);
+
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDING.");
                 }
                 //case3: breaking a bond
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_NONE) {
                     lvNewDevices.setClickable(true);
                     lvNewDevices.setEnabled(true);
+
                     Log.d(TAG, "BroadcastReceiver: BOND_NONE.");
                 }
             }
@@ -172,8 +189,10 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lvNewDevices.setClickable(false);
                 lvNewDevices.setEnabled(false);
+
                 IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
                 getActivity().registerReceiver(mBondState, filter);
+
                 Log.d(TAG, "onItemClick: Clicked on an Item from the List");
                 pairDevice(i);
 

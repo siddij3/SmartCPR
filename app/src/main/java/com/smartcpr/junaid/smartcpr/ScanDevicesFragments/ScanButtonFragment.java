@@ -23,14 +23,30 @@ import com.smartcpr.junaid.smartcpr.R;
 import java.util.ArrayList;
 
 /**
- * Created by junaid on 11/9/17.
+ * ScanButtonFragment Fragment
+ *
+ * Functions:
+ *
+ * onAttach: Implements the interface ScanButtonListener, which calls
+ *           addDevice function in ScanDevicesActivity Activity
+ *
+ * onCreateView: Initializes Bluetooth settings and listens for button clicks,
+ *               calling the function mScanButtonClicked
+ *
+ * mScanButtonClicked: Turns on bluetooth function on phone and calls discoverDevices function
+ *
+ * discoverDevices: Checks for permissions and begins discovering area for Bluetooth devices
+ *
+ * mReceiver: Gets Bluetooth Receiver states before, during and after activation
+ *
+ * mDiscovery: Scans surrounding area for bluetooth capable devices and adds them to a list
+ *
+ * checkBTPermissions: Checks for Android permissions regarding bluetooth (prevents legal stuff?)
+ *
  */
-
 public class ScanButtonFragment extends Fragment {
 
     private final static String TAG = "ScanButtonFragment";
-    private static Button mScanButton;
-    private final int REQUEST_ENABLE_BT = 1;
 
     private BluetoothAdapter mBluetoothAdapter;
     //private ListView lvNewDevices;
@@ -70,11 +86,11 @@ public class ScanButtonFragment extends Fragment {
         //Initializes Bluetooth
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        //Initializes Lists that 2contain the Bluetooth Device and it's details
+        //Initializes Lists that contain the Bluetooth Device and it's details
         mBTDevices = new ArrayList<>();
 
         //Click Event for Scan Button
-        mScanButton = view.findViewById(R.id.main_scan_button);
+        Button mScanButton = view.findViewById(R.id.main_scan_button);
         mScanButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
@@ -95,6 +111,7 @@ public class ScanButtonFragment extends Fragment {
 
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            int REQUEST_ENABLE_BT = 1;
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             Log.d(TAG, "Enabling Bluetooth");
         }
@@ -178,8 +195,7 @@ public class ScanButtonFragment extends Fragment {
 
     private void checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            int permissionCheck = ActivityCompat.checkSelfPermission(getActivity(), "Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += ActivityCompat.checkSelfPermission(getActivity(), "Manifest.permission.ACCESS_COARSE_LOCATION");
+            int permissionCheck = ActivityCompat.checkSelfPermission(getActivity(), "Manifest.permission.ACCESS_COARSE_LOCATION");
             if (permissionCheck != 0) {
 
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
