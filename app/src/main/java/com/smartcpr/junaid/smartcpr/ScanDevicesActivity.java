@@ -8,7 +8,7 @@ import android.util.Log;
 import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment;
 import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment;
 /**
- * ScanDevicesActivity Activity
+ * ScanDevicesActivity Ac
  *
  * First activity after user opens app
  * Scan Button scans nearby Bluetooth Devices and lists them
