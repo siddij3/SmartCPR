@@ -7,6 +7,20 @@ import android.util.Log;
 
 import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment;
 import com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment;
+/**
+ * ScanDevicesActivity Activity
+ *
+ * First activity after user opens app
+ * Scan Button scans nearby Bluetooth Devices and lists them
+ * Tapping the Device allows user to pair the device
+ *
+ * Primary Functions
+ *
+ * addDevice: Adds scanned device to list in UI
+ * bluetoothDeviceBonded: Takes Info of paired Bluetooth device and bundles it
+ *                          DeviceDetailsActivity
+ *
+ */
 
 public class ScanDevicesActivity extends AppCompatActivity implements ScanButtonFragment.ScanButtonListener,
                                                                 ListDevicesFragment.ListDevicesListener {
@@ -28,12 +42,13 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
 
     @Override
     public void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded, BluetoothDevice mBluetoothDevice) {
+
+        //Creates DeviceDetailsActivity activity and passes bluetooth data to the it
         if (isBluetoothDeviceBonded) {
             Intent intent = new Intent(ScanDevicesActivity.this,
                     DeviceDetailsActivity.class);
 
             Bundle bundle = new Bundle();
-
             bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_NAME,
                                 mBluetoothDevice.getName());
             bundle.putString(DeviceDetailsActivity.EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS,
