@@ -7,7 +7,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textColor="#0A4219"
             android:id="@+id/train_button"
             android:text="@string/details_train_button"/>

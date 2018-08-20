@@ -23,6 +23,7 @@ import com.smartcpr.junaid.smartcpr.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,7 +38,6 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
     private ListView lvNewDevices;
     private ArrayList<BluetoothDevice> mBTDevices;
     private ArrayList<String> mBTDeviceDetails;
-    private Boolean isDeviceBonded;
 
     private ArrayAdapter<String> mBTDevicesAdapter;
 
@@ -81,7 +81,7 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private void pairDevice(int i, long l) {
+    private void pairDevice(int i) {
         mBluetoothAdapter.cancelDiscovery();
 
         String deviceDetails = (String) lvNewDevices.getItemAtPosition(i);
@@ -107,8 +107,7 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
 
                 if (device.toString().equals(deviceToBePaired.toString())) {
                     Log.d(TAG, "pairDevice: "  + tmp + " = " + deviceToBePairedName);
-                    isDeviceBonded = true;
-                    listDevicesListener.bluetoothDeviceBonded(isDeviceBonded, deviceToBePaired);
+                    listDevicesListener.bluetoothDeviceBonded(true, deviceToBePaired);
                     return;
                 }
             }
@@ -116,13 +115,11 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
 
         //create the bond.
         //NOTE: Requires API 17+? I think this is JellyBean
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.d(TAG, "Trying to pair with " + deviceToBePairedName);
-            Log.d(TAG, "The size of the array is: " + mBTDevices.size());
-            Log.d(TAG, "The index selected is: " + i);
+        Log.d(TAG, "Trying to pair with " + deviceToBePairedName);
+        Log.d(TAG, "The size of the array is: " + mBTDevices.size());
+        Log.d(TAG, "The index selected is: " + i);
 
-            deviceToBePaired.createBond();
-        }
+        deviceToBePaired.createBond();
 
     }
 
@@ -130,13 +127,12 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
+            if (Objects.requireNonNull(action).equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
                 BluetoothDevice mBluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //3 cases:
                 //case1: bonded already
                 if (mBluetoothDevice.getBondState() == BluetoothDevice.BOND_BONDED) {
-                    isDeviceBonded = true;
-                    listDevicesListener.bluetoothDeviceBonded(isDeviceBonded, mBluetoothDevice);
+                    listDevicesListener.bluetoothDeviceBonded(true, mBluetoothDevice);
                     Log.d(TAG, "BroadcastReceiver: BOND_BONDED.");
                 }
                 //case2: creating a bone
@@ -159,8 +155,6 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
         //Shows Fragment with Button and ListView
         View view = inflater.inflate(R.layout.fragment_list_devices, container, false);
 
-        isDeviceBonded = false;
-
         //Initializes Lists that contain the Bluetooth Device and it's details
         mBTDevices = new ArrayList<>();
         mBTDeviceDetails = new ArrayList<>();
@@ -181,7 +175,7 @@ public class ListDevicesFragment extends android.support.v4.app.Fragment {
                 IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
                 getActivity().registerReceiver(mBondState, filter);
                 Log.d(TAG, "onItemClick: Clicked on an Item from the List");
-                pairDevice(i, l);
+                pairDevice(i);
 
             }
         });
