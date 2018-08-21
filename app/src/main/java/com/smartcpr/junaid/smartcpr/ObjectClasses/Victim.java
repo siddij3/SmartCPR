@@ -5,13 +5,13 @@ package com.smartcpr.junaid.smartcpr.ObjectClasses;
  */
 
 public class Victim {
-    private String victim;
+    private final String victim;
 
     private int maxDepth;
     private int minDepth;
 
-    private int maxRate;
-    private int minRate;
+    private final int maxRate;
+    private final int minRate;
     private double depthTolerance;
 
 

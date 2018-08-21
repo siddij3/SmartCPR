@@ -1,7 +1,6 @@
 package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,15 +11,21 @@ import android.widget.TextView;
 import com.smartcpr.junaid.smartcpr.R;
 
 /**
- * Created by junaid on 11/16/17.
+ * DeviceDetailsFragment Fragment
+ *
+ * Functions:
+ *
+ * onCreateView: Sets the xml layout of the device details to the fragment
+ * setDetailsText: Sets the text labels to the details of the device
+ *
  */
 
 public class DeviceDetailsFragment extends Fragment{
     private final static String TAG = "DeviceDetailsFragment";
 
 
-    private static TextView mDeviceName;
-    private static TextView mDevicePhysicalAddress;
+    private TextView mDeviceName;
+    private TextView mDevicePhysicalAddress;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

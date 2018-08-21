@@ -11,16 +11,35 @@ import com.smartcpr.junaid.smartcpr.ObjectClasses.Victim;
 
 import java.util.Objects;
 
-public class DeviceDetailsActivity extends AppCompatActivity implements TrainButtonFragment.TrainButtonListener{
+
+/**
+ * DeviceDetailsActivity Activity
+ *
+ * First activity after user opens app
+ * Scan Button scans nearby Bluetooth Devices and lists them
+ * Tapping the Device allows user to pair the device
+ *
+ * Primary Functions
+ *
+ * onCreate: Unpacks bundled device details from ScanDevicesActivity
+ *            and verifies the device details by showing the name and MAC address in large text
+ * setDetails: Initializes CPR depth specifications for different age groups as per
+ *
+ * cprVictim: Takes Info of paired Bluetooth device and bundles it
+ *                          DeviceDetailsActivity
+ *
+ */
+
+public class DeviceDetailsActivity extends AppCompatActivity implements
+        TrainButtonFragment.TrainButtonListener{
 
     private final static String TAG = "DeviceDetailsActivity";
 
-    public static final String EXTRA_BLUETOOTH_DEVICE_NAME = "com.smartcpr.junaid.smartcpr.bluetoothdevicename";
-    public static final String EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS = "com.smartcpr.junaid.smartcpr.bluetoothdevicephysicaladdress";
+    public static final String EXTRA_BLUETOOTH_DEVICE_NAME
+            = "com.smartcpr.junaid.smartcpr.bluetoothdevicename";
 
-    private DeviceDetailsFragment deviceDetailsFragment;
-
-    Victim victim;
+    public static final String EXTRA_BLUETOOTH_DEVICE_PHYSICAL_ADDRESS
+            = "com.smartcpr.junaid.smartcpr.bluetoothdevicephysicaladdress";
 
     private int adultMinRate;
     private int adultMaxRate;
@@ -34,12 +53,13 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
     private int infantMinRate;
     private int infantMaxRate;
 
-
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_details);
 
+        //Unpacks bundled info from ScanDevicesActivity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
@@ -49,7 +69,8 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         Log.d(TAG, "onCreate: DeviceName "  + mBTDeviceName);
         Log.d(TAG, "onCreate: Address "  + mBTDevicePhysicalAddress);
 
-        deviceDetailsFragment = (DeviceDetailsFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_device_details);
+        //Shows Device Details in UI
+        DeviceDetailsFragment deviceDetailsFragment = (DeviceDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_device_details);
         Log.d(TAG, deviceDetailsFragment.toString());
         deviceDetailsFragment.setDetailsText(mBTDeviceName, mBTDevicePhysicalAddress);
 
@@ -74,8 +95,10 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
 
     @Override
     public void cprVictim(String strCprVictim) {
+        //TODO This probably wont transfer the victim over to subsequent activities. Keep this in mind
         setDetails();
         Log.d(TAG, "cprVictim: " + strCprVictim);
+        Victim victim;
 
         if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
             victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
@@ -94,6 +117,8 @@ public class DeviceDetailsActivity extends AppCompatActivity implements TrainBut
         Intent intent = new Intent(DeviceDetailsActivity.this,
               CompressionFeedbackActivity.class);
 
+
+        //TODO may have to bundle victim to next activity
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
 

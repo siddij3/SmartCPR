@@ -17,16 +17,25 @@ import com.smartcpr.junaid.smartcpr.R;
 
 
 /**
- * Created by junaid on 11/16/17.
+ * TrainButtonFragment Fragment
+ *
+ * Functions:
+ *
+ * onAttach: Implements the interface TrainButtonListener, which calls
+ *           cprVictim function in DeviceDetailsActivity Activity
+ * onCreateView: Adds button to UI and waits for button to be pressed.
+ *               Once pressed, a dialog list asks user to select the age range for training
+ *
+ *
  */
 
 public class TrainButtonFragment extends Fragment {
     private final static String TAG = "TrainButtonFragment";
 
-    private static Button mTrainButton;
+    private Button mTrainButton;
     private String strVictim;
 
-    TrainButtonListener trainButtonListener;
+    private TrainButtonListener trainButtonListener;
 
     public interface TrainButtonListener {
         void cprVictim(String strCprVictim);
