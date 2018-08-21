@@ -147,7 +147,6 @@ public class BluetoothStream {
             //StringBuilder sb = new StringBuilder();
 
 
-            Log.d(TAG, "run: ConnectedThread Run thread");
             // Keep listening to the InputStream until an exception occurs.
             while (true) try {
                 //TODO The start of using data streams for Spectral analysis
