@@ -53,15 +53,13 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
     private int infantMinRate;
     private int infantMaxRate;
 
-    Victim victim;
-
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_details);
 
-        //Unpacks bundled info from ScanDevicesAcivity
+        //Unpacks bundled info from ScanDevicesActivity
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
@@ -97,9 +95,10 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
 
     @Override
     public void cprVictim(String strCprVictim) {
-        //TODO This probably wont transfer the victim oveer to subsequent activities. Keep this in mind
+        //TODO This probably wont transfer the victim over to subsequent activities. Keep this in mind
         setDetails();
         Log.d(TAG, "cprVictim: " + strCprVictim);
+        Victim victim;
 
         if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
             victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
@@ -119,7 +118,7 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
               CompressionFeedbackActivity.class);
 
 
-        //TODO may have to bundle victim to next acivity
+        //TODO may have to bundle victim to next activity
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
 

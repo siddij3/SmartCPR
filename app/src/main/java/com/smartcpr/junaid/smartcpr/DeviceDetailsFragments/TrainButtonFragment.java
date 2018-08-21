@@ -35,7 +35,7 @@ public class TrainButtonFragment extends Fragment {
     private Button mTrainButton;
     private String strVictim;
 
-    TrainButtonListener trainButtonListener;
+    private TrainButtonListener trainButtonListener;
 
     public interface TrainButtonListener {
         void cprVictim(String strCprVictim);

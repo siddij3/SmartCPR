@@ -9,7 +9,6 @@ import com.smartcpr.junaid.smartcpr.BluetoothData.BluetoothStream;
 public class CompressionFeedbackActivity extends AppCompatActivity {
 
     private final static String TAG = "CompressionFeed";
-    private BluetoothStream bluetoothStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +16,7 @@ public class CompressionFeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_spectral_analysis);
         Log.d(TAG, "onCreate: " + TAG);
 
-        bluetoothStream = new BluetoothStream();
+        BluetoothStream bluetoothStream = new BluetoothStream();
 
     }
 }

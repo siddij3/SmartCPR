@@ -54,7 +54,7 @@ public class ListDevicesFragment extends Fragment {
 
     private ArrayAdapter<String> mBTDevicesAdapter;
 
-    ListDevicesListener listDevicesListener;
+    private ListDevicesListener listDevicesListener;
 
     public interface ListDevicesListener {
         void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded, BluetoothDevice bluetoothDevice);

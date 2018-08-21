@@ -53,7 +53,7 @@ public class ScanButtonFragment extends Fragment {
     //private ListView lvNewDevices;
     private ArrayList<BluetoothDevice> mBTDevices;
 
-    ScanButtonListener scanButtonListener;
+    private ScanButtonListener scanButtonListener;
 
     public interface ScanButtonListener {
         void addDevice(BluetoothDevice BTDevice);
@@ -142,7 +142,7 @@ public class ScanButtonFragment extends Fragment {
     }
 
     //Asynchronous method turns on Bluetooth Receiver if it's off
-    public final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             Log.d(TAG, "onReceive: ACTION CHANGED.");
@@ -169,7 +169,7 @@ public class ScanButtonFragment extends Fragment {
         }
     };
 
-    public final BroadcastReceiver mDiscovery = new BroadcastReceiver() {
+    private final BroadcastReceiver mDiscovery = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
