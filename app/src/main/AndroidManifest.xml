@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DeviceDetailsActivity" />
-        <activity android:name=".CompressionFeedbackActivity"/>
+        <activity android:name=".CalibrateIMUActivity"/>
     </application>
 
 </manifest>

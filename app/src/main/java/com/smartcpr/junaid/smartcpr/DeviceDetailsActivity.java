@@ -115,7 +115,7 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
         }
 
         Intent intent = new Intent(DeviceDetailsActivity.this,
-              CompressionFeedbackActivity.class);
+              CalibrateIMUActivity.class);
 
 
         //TODO may have to bundle victim to next activity
