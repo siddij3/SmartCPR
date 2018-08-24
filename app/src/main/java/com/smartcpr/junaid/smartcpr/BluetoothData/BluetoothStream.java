@@ -3,16 +3,22 @@ package com.smartcpr.junaid.smartcpr.BluetoothData;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.UUID;
 
 import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
+import static java.nio.charset.StandardCharsets.*;
 
 /**
  * BlueToothStream Class
@@ -51,8 +57,11 @@ public class BluetoothStream {
 
     private BluetoothDevice device;
 
-    public BluetoothStream() {
+    public final Context cContext;
+
+    public BluetoothStream(Context context) {
         BluetoothAdapter mBluetoothAdapter = getDefaultAdapter();
+        cContext = context;
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
@@ -75,6 +84,7 @@ public class BluetoothStream {
         }
 
     }
+
 
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
@@ -146,16 +156,42 @@ public class BluetoothStream {
             Log.d(TAG, "run: BufferedReader went well");
             //StringBuilder sb = new StringBuilder();
 
-
             // Keep listening to the InputStream until an exception occurs.
             while (true) try {
                 //TODO The start of using data streams for Spectral analysis
-                Log.d(TAG, "run: " + reader.readLine());
+                String tmpReadLine = reader.readLine();
+                //Log.d(TAG, "run:  " + tmpReadLine);
+                IMUWriteRawData(tmpReadLine, BluetoothStream.this.cContext);
 
             } catch (IOException e) {
                 Log.d(TAG, "Input stream was disconnected", e);
                 cancel();
                 break;
+            }
+        }
+
+        private void IMUWriteRawData(String data, Context context) {
+
+            try {
+                File path = context.getFilesDir();
+
+                File file = new File(path, "data.txt");
+
+                FileOutputStream stream = new FileOutputStream(file);
+                //String str = new String(data.getBytes());
+                //Log.d(TAG, "IMUWriteRawData: Write String - " + path);
+
+
+                try {
+                    stream.write(data.getBytes());
+                    //Log.d(TAG, "IMUWriteRawData: " + data.getBytes());
+                } finally {
+                    stream.close();
+                }
+
+            }
+            catch (IOException e) {
+                Log.e(TAG, "File write failed: " + e.toString());
             }
         }
 
