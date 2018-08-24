@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
+
+
+        <TextView
+            android:textSize="40sp"
+            android:text="@string/calibrating_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="20dp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_gravity="fill_vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="20sp"
+            android:text="@string/do_not_move_prompt"
+            android:textSize="40sp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/calibration_result_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="619dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/calibration_message"
+        android:textSize="30sp" />
+
+</LinearLayout>

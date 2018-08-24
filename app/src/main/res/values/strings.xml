@@ -13,6 +13,9 @@
     <string name="victim_child">child</string>
     <string name="victim_youth">youth</string>
     <string name="victim_adult">adult</string>
+    <string name="calibrating_prompt">Calibrating Device</string>
+    <string name="do_not_move_prompt">Do Not Move!</string>
+    <string name="calibration_message">Calibrating…</string>
     <string name="text_spectral_compression_greater_than_140"><![CDATA[> 140]]></string>
     <string name="text_spectral_compression_135">135</string>
     <string name="text_spectral_compression_130">130</string>
