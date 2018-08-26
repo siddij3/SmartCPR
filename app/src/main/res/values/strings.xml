@@ -16,6 +16,8 @@
     <string name="calibrating_prompt">Calibrating Device</string>
     <string name="do_not_move_prompt">Do Not Move!</string>
     <string name="calibration_message">Calibrating…</string>
+    <string name="calibration_complete_message">Device has been calibrated. You may begin compressions</string>
+    <string name="calibration_failed_message">Device has been moved during calibration. \n\tRecalibrating…</string>
     <string name="data_file_name">data.txt</string>
     <string name="text_spectral_compression_greater_than_140"><![CDATA[> 140]]></string>
     <string name="text_spectral_compression_135">135</string>
