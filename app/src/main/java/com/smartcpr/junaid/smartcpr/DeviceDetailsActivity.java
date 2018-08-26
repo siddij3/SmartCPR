@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment;
 import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment;
 import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.TrainButtonFragment;
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Victim;
