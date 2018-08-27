@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.smartcpr.junaid.smartcpr.BluetoothData.BluetoothDeviceManager;
 import com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment;
 import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment;
 import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.TrainButtonFragment;
@@ -115,13 +116,26 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
 
         }
 
+        connectToDevice();
+
+
         Intent intent = new Intent(DeviceDetailsActivity.this,
               CalibrateIMUActivity.class);
-
 
         //TODO may have to bundle victim to next activity
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
+
+    }
+
+    private void connectToDevice() {
+        BluetoothDeviceManager bluetoothStream = new BluetoothDeviceManager();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }

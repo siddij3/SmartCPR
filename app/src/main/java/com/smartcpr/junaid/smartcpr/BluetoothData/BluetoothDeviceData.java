@@ -9,10 +9,10 @@ import java.util.List;
 public  class BluetoothDeviceData {
 
     private static String TAG = "BluetoothDeviceData";
-    public static List<String> listDeviceData = Collections.synchronizedList(new ArrayList<String>());
+    private static List<String> listDeviceData = Collections.synchronizedList(new ArrayList<String>());
 
     public static synchronized void appendToList(String string) {
-       // Log.d(TAG, "appendToList: ");
+        //Log.d(TAG, "appendToList: ");
         listDeviceData.add(string);
     }
 

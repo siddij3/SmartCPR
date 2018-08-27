@@ -112,8 +112,6 @@ public class ListDevicesFragment extends Fragment {
             for (BluetoothDevice device : pairedDevices) {
                 String tmp = device.getName();
                 Log.d(TAG, "pairedDevice: " + tmp);
-                Log.d(TAG, "pairedDevice: device is " + device);
-                Log.d(TAG, "pairedDevice: deviceToBePaired is " + deviceToBePaired);
 
                 Log.d(TAG, device.toString());
                 Log.d(TAG, deviceToBePaired.toString());

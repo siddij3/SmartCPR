@@ -14,5 +14,5 @@
 
     <integer name="compression_reset_time">2</integer>
     <integer name="array_index_txyz">3</integer>
-    <integer name="device_calibration_array_size">39</integer>
+    <integer name="device_calibration_array_size">50</integer>
 </resources>

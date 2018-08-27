@@ -3,7 +3,6 @@ package com.smartcpr.junaid.smartcpr.BluetoothData;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -44,7 +43,7 @@ import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 */
 
 
-public class BluetoothDeviceManager extends Thread {
+public class BluetoothDeviceManager {
 
     private static final String TAG = "BluetoothConnectionSer.";
 
@@ -52,16 +51,6 @@ public class BluetoothDeviceManager extends Thread {
 
     private BluetoothDevice mBluetoothDevice;
 
-    private BluetoothSocket mmSocket;
-    private InputStream mmInStream;
-
-    public BluetoothDevice getBluetoothDevice() {
-        return mBluetoothDevice;
-    }
-
-    public BluetoothSocket getBluetoothSocket() {
-        return mmSocket;
-    }
 
 
     public BluetoothDeviceManager() {
@@ -82,88 +71,97 @@ public class BluetoothDeviceManager extends Thread {
 
             //Use Connected Thread Here
             Log.d(TAG, "BluetoothStream: " + mBluetoothDevice);
-        }
+            ConnectThread mConnectThread = new ConnectThread(mBluetoothDevice);
+            mConnectThread.start();
 
+        }
     }
 
+    private class ConnectThread extends Thread {
+        private final BluetoothSocket mmSocket;
 
-    public boolean connectSocket(BluetoothDevice device) {
-        // Use a temporary object that is later assigned to mmSocket
-        BluetoothSocket tmp;
+        ConnectThread(BluetoothDevice device) {
+            // Use a temporary object that is later assigned to mmSocket
+            BluetoothSocket tmp = null;
 
-        try {
-            // Get a BluetoothSocket to connect with the given BluetoothDevice.
-            // MY_UUID is the app's UUID string, also used in the server code.
-            tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
-
+            try {
+                // Get a BluetoothSocket to connect with the given BluetoothDevice.
+                // MY_UUID is the app's UUID string, also used in the server code.
+                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+            } catch (IOException e) {
+                Log.e(TAG, "Socket's create() method failed", e);
+            }
             mmSocket = tmp;
+        }
 
+        public void run() {
+            // Connect to the remote device through the socket. This call blocks
+            // until it succeeds or throws an exception.
             try {
                 mmSocket.connect();
+                Log.d(TAG, "run: This socket connected successfully");
+            } catch (IOException connectException) {
+                cancel();
+                return;
             }
-            catch (IOException connectionFailed) {
-                Log.e(TAG, "connectSocket: ", connectionFailed);
-                cancelConnectingStream();
-                return false;
-            }
 
-            return true;
+            // Connection attempt succeeded and begins reading data
+            Log.d(TAG, "manageMyConnectedSocket: Beginning handling bluetooth data streams");
+            ConnectedThread mConnectedThread = new ConnectedThread(mmSocket);
+            mConnectedThread.start();
 
-        } catch (IOException e) {
-            Log.e(TAG, "Socket's create() method failed", e);
-
-            return false;
         }
 
-    }
-
-    public void getInputStream(BluetoothSocket socket) {
-        InputStream tmpIn = null;
-
-        try {
-            tmpIn = socket.getInputStream();
-
-            Log.d(TAG, "ConnectedThread: Tmp IN : " + tmpIn);
-        } catch (IOException e) {
-            Log.e(TAG, "Error occurred when creating input stream", e);
-        }
-
-        mmInStream = tmpIn;
-
-    }
-
-    public void run() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(mmInStream));
-
-        // Keep listening to the InputStream until an exception occurs.
-        while (true) {
+        void cancel() {
             try {
-                String readLineBluetoothStream = reader.readLine();
-                BluetoothDeviceData.appendToList(readLineBluetoothStream);
-
-                //Log.d(TAG, "run: KeyCal " + readLineBluetoothStream);
-
+                mmSocket.close();
             } catch (IOException e) {
-                Log.d(TAG, "Input stream was disconnected", e);
-                closeConnectedStrean();
+                Log.e(TAG, "Could not close the client socket", e);
             }
         }
     }
 
+    private class ConnectedThread extends Thread {
+        private final BluetoothSocket mmSocket;
+        private final InputStream mmInStream;
 
-    void cancelConnectingStream() {
-        try {
-            mmSocket.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Could not close the client socket", e);
+        ConnectedThread(BluetoothSocket socket) {
+            mmSocket = socket;
+            InputStream tmpIn = null;
+
+            // Get the input and output streams; using temp objects because
+            // member streams are final.
+            try {
+                tmpIn = socket.getInputStream();
+
+                Log.d(TAG, "ConnectedThread: Tmp IN : " + tmpIn);
+            } catch (IOException e) {
+                Log.e(TAG, "Error occurred when creating input stream", e);
+            }
+
+            mmInStream = tmpIn;
         }
-    }
 
-    void closeConnectedStrean() {
-        try {
-            mmSocket.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Could not close the connect socket", e);
+        public void run() {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(mmInStream));
+
+            while (true) try {
+                    String readLineBluetoothStream = reader.readLine();
+                    BluetoothDeviceData.appendToList(readLineBluetoothStream);
+                } catch (IOException e) {
+                    Log.d(TAG, "Input stream was disconnected", e);
+                    closeConnectedStream();
+                    break;
+            }
+
+        }
+
+        void closeConnectedStream() {
+            try {
+                mmSocket.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Could not close the connect socket", e);
+            }
         }
     }
 

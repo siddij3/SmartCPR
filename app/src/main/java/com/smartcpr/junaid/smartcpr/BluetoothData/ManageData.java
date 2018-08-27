@@ -1,32 +1,33 @@
 package com.smartcpr.junaid.smartcpr.BluetoothData;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ManageData {
 
     private static final String TAG = "ManageDataClass";
 
-    public ManageData() {
+    public ManageData() {}
 
-    }
+    public ArrayList<float[]> getData(int desiredListSize) {
+        List<String> listRawDeviceData =  BluetoothDeviceData.getList();
 
-    public ArrayList<float[]> getData(int desiredListSize, List<String> listRawDeviceData) {
-
-        while (listRawDeviceData.size() <= desiredListSize) {
-            //Log.d(TAG, "getData: list is not long enough");
+        if (listRawDeviceData.size() <= desiredListSize) {
+            do {
+            } while (listRawDeviceData.size() <= desiredListSize);
         }
 
-        ArrayList<float[]> formattedData =  new ArrayList<float[]>() ;
+        ArrayList<float[]> formattedData = new ArrayList<>() ;
 
-        for (int i = 1; i < desiredListSize; i++) {
+        for (int i = 1; i < desiredListSize; i++)
             formattedData.add(formatData(listRawDeviceData.get(i)));
-        }
+
+        BluetoothDeviceData.returnEmptyList();
 
         return formattedData;
     }
@@ -37,18 +38,14 @@ public class ManageData {
         float[] inputtedLine = new float[strArrayData.length];
         Log.d(TAG, "formatData: " + string);
 
-        try {
-            for (int i = 0; i < strArrayData.length; i++) {
-                strArrayData[i] = strArrayData[i].trim();
-                inputtedLine[i] = Float.parseFloat(strArrayData[i]);
-            }
-            Log.d(TAG, "formatData: FormattedData");
-            return inputtedLine;
+        for (int i = 0; i < strArrayData.length; i++) {
+            strArrayData[i] = strArrayData[i].trim();
+            inputtedLine[i] = Float.parseFloat(strArrayData[i]);
         }
-        catch (NumberFormatException e) {
-            Log.e(TAG, "formatData: ",  e);
-            return null;
-        }
+
+        Log.d(TAG, "formatData: " + Arrays.toString(inputtedLine));
+
+        return inputtedLine;
     }
 
     public float[] getAccelerationFromRawData(float[][] array2D, int txyz) {
@@ -56,13 +53,8 @@ public class ManageData {
 
         int i = 0;
         for (float[] floater : array2D) {
-            Log.d(TAG, "getAccelerationFromRawData: " + floater[0] );
-            Log.d(TAG, "getAccelerationFromRawData: " + floater[1] );
-            Log.d(TAG, "getAccelerationFromRawData: " + floater[2] );
-            Log.d(TAG, "getAccelerationFromRawData: " + floater[3] );
             rawAcceleration[i] = floater[txyz];
             i++;
-
         }
 
         return rawAcceleration;
@@ -95,7 +87,7 @@ public class ManageData {
         int i = 0;
 
         for (float floater : rawAcceleration) {
-            acceleration[i] = (rawAcceleration[i] - offsetVal) * GRAVITY;
+            acceleration[i] = (floater - offsetVal) * GRAVITY;
             i++;
         }
 

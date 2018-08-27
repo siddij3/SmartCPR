@@ -16,9 +16,10 @@ public class CalibratedIMUFragment extends Fragment {
     private TextView mCalibratingMessage;
 
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calibrating_imu, container, false);
-
+        Log.d(TAG, "onCreateView: ");
         mCalibratingMessage =  view.findViewById(R.id.calibration_result_feedback);
 
         return view;
