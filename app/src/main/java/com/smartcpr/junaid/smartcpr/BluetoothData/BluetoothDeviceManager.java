@@ -43,15 +43,17 @@ import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 */
 
 
-public class BluetoothStream {
+public class BluetoothDeviceManager {
 
     private static final String TAG = "BluetoothConnectionSer.";
 
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    private BluetoothDevice device;
+    private BluetoothDevice mBluetoothDevice;
 
-    public BluetoothStream() {
+
+
+    public BluetoothDeviceManager() {
         BluetoothAdapter mBluetoothAdapter = getDefaultAdapter();
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
@@ -64,16 +66,15 @@ public class BluetoothStream {
                 Log.d(TAG, "\ndeviceName " + deviceName + " "
                         + "\ndeviceAddress " + deviceHardwareAddress);
 
-                device = tmp;
+                mBluetoothDevice = tmp;
             }
 
             //Use Connected Thread Here
-            Log.d(TAG, "BluetoothStream: " + device);
-            ConnectThread mConnectThread = new ConnectThread(device);
+            Log.d(TAG, "BluetoothStream: " + mBluetoothDevice);
+            ConnectThread mConnectThread = new ConnectThread(mBluetoothDevice);
             mConnectThread.start();
 
         }
-
     }
 
     private class ConnectThread extends Thread {
@@ -143,23 +144,19 @@ public class BluetoothStream {
 
         public void run() {
             BufferedReader reader = new BufferedReader(new InputStreamReader(mmInStream));
-            Log.d(TAG, "run: BufferedReader went well");
-            //StringBuilder sb = new StringBuilder();
 
-
-            // Keep listening to the InputStream until an exception occurs.
             while (true) try {
-                //TODO The start of using data streams for Spectral analysis
-                Log.d(TAG, "run: " + reader.readLine());
-
-            } catch (IOException e) {
-                Log.d(TAG, "Input stream was disconnected", e);
-                cancel();
-                break;
+                    String readLineBluetoothStream = reader.readLine();
+                    BluetoothDeviceData.appendToList(readLineBluetoothStream);
+                } catch (IOException e) {
+                    Log.d(TAG, "Input stream was disconnected", e);
+                    closeConnectedStream();
+                    break;
             }
+
         }
 
-        void cancel() {
+        void closeConnectedStream() {
             try {
                 mmSocket.close();
             } catch (IOException e) {

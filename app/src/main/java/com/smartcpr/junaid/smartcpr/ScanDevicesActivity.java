@@ -31,7 +31,7 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_devices);
 
-        Log.d(TAG,"onActivityResultCalled" );
+        Log.d(TAG,"ScanDevicesActivity" );
     }
 
     @Override
