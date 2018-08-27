@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gravitational_acceleration">9.80665f</string>
-    <string name="acceleration_offset_limit">0.2f</string>
-    <string name="acceleration_offset_failed_value">100f</string>
-
-</resources>
