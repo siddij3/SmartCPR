@@ -58,7 +58,8 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);        setContentView(R.layout.activity_calibrating_imu_prompt);
+
         setContentView(R.layout.activity_device_details);
 
         //Unpacks bundled info from ScanDevicesActivity
