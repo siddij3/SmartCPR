@@ -15,6 +15,7 @@ public class CalibrateIMUActivity extends AppCompatActivity {
 
     private ManageData manageData;
     private int txyz;
+
     private int desiredListSizeSizeForCalibration;
 
     float accelerationOffsetValue;
@@ -32,7 +33,6 @@ public class CalibrateIMUActivity extends AppCompatActivity {
         calibratedIMUFragment = (CalibratedIMUFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_calibrating_imu);
 
         manageData = new ManageData();
-        Log.d(TAG, "onCreate: manageData");
 
         calibrateDevice();
 
@@ -68,8 +68,9 @@ public class CalibrateIMUActivity extends AppCompatActivity {
         Log.d(TAG, "calibrateDevice: " + calibrationResultMessage);
         sendCalibrationMessage(calibrationResultMessage);
 
-
     }
+
+
 
     private void sendCalibrationMessage(String message) {
         calibratedIMUFragment.setCalibratingMessageFeedback(message);

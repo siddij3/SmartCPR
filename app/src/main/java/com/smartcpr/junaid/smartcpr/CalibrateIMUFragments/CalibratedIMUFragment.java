@@ -30,7 +30,6 @@ public class CalibratedIMUFragment extends Fragment {
 
 
         Log.d(TAG, "setDetailsText: isDeviceCalibrated Message set");
-
     }
 
 }
