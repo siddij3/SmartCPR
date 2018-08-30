@@ -1,8 +1,6 @@
 package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
 
-import static java.lang.Math.floor;
-
 
 public class FastFourierTransform {
     public static Complex[] simpleFFT(Complex[] x) {
@@ -39,7 +37,7 @@ public class FastFourierTransform {
         return y;
     }
 
-    public static int setArraySizeExponentOfTwo(int arraySize, int count) {
+    public static int setArraySizeExponentOfTwo(int arraySize) {
         float getExponentBase = (float) (Math.log(arraySize)/Math.log(2.0));
 
         if(Math.floor(getExponentBase) == getExponentBase) {
@@ -52,7 +50,7 @@ public class FastFourierTransform {
 
     }
 
-    public static Complex[] baseComplexArrayWithWindow(int N, double hanningAppliedValues[] ) {
+    public static Complex[] baseComplexArrayWithWindow(double hanningAppliedValues[], int N) {
         Complex[] baseComplexArray = new Complex[N];
 
         for (int i = 0; i < N; i++)
@@ -61,21 +59,25 @@ public class FastFourierTransform {
         return baseComplexArray;
     }
 
-    public static Complex[] fftDoubleToSingle(int N, Complex[] complexArrayFFTValues, int scale) {
+    public static Complex[] fftDoubleToSingle(Complex[] complexArrayFFTValues, int N, int scalingValue) {
         Complex[] fftPolarSingle = new Complex[N/2];
+
         for (int i = 0 ; i < (N/2) ; i++) {
-            fftPolarSingle[i] = complexArrayFFTValues[i+1].divides(new Complex(N, 0));
+            fftPolarSingle[i] = complexArrayFFTValues[i+1].divides(new Complex(N, 0)).scale(scalingValue);
         }
 
         return fftPolarSingle;
 
     }
 
-    public static double[] smoothFFTValues(int N, Complex[] fftPolarSingle) {
+    public static double[] smoothFFTValues(Complex[] fftPolarSingle,int N) {
         double[] fftSmooth = new double[N / 2];
 
-        for (int i = 0; i < (N / 2); i++)
+        for (int i = 0; i < (N / 2); i++) {
             fftSmooth[i] = fftPolarSingle[i].abs();
+            fftSmooth[i] *= 2;
+
+        }
 
         return fftSmooth;
 

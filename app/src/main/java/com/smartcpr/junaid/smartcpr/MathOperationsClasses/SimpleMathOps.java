@@ -30,13 +30,32 @@ public class SimpleMathOps {
         return sum / array.length;
     }
 
-    public short[] HanningWindow(short[] signal_in, int pos, int size)
-    {
-        for (int i = pos; i < pos + size; i++)
-        {
-            int j = i - pos; // j = index into Hann window function
-            signal_in[i] = (short) (signal_in[i] * 0.5 * (1.0 - Math.cos(2.0 * Math.PI * j / size)));
+    static float getSumofArray(double[] emptyWindow) {
+        float sum = 0;
+        for (double val : emptyWindow) {
+            //System.out.println(val);
+            sum += val;
         }
-        return signal_in;
+
+        return sum;
+    }
+
+    public static double[] applyHanningWindow(float[] acceleration, int windowSize) {
+        double[] window = new double[windowSize];
+        double[] hanningApplied = new double[windowSize];
+
+        for (int i = 0; i < windowSize; i++) {
+            double tmp = (0.5 - 0.5 * Math.cos(2.0 * Math.PI * i / (windowSize - 1)));
+
+            window[i] = tmp;
+        }
+
+        double coherentGain = getSumofArray(window) / windowSize;
+
+        for (int i = 0; i < windowSize; i++) {
+            hanningApplied[i] = acceleration[i] * window[i] / coherentGain;
+        }
+
+        return hanningApplied;
     }
 }

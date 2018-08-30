@@ -1,5 +1,6 @@
 package com.smartcpr.junaid.smartcpr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,8 +33,6 @@ public class CalibrateIMUActivity extends AppCompatActivity {
 
         calibratedIMUFragment = (CalibratedIMUFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_calibrating_imu);
 
-        manageData = new ManageData();
-
         calibrateDevice();
 
     }
@@ -43,16 +42,16 @@ public class CalibrateIMUActivity extends AppCompatActivity {
         float offsetFailedVal = 100f;
 
 
-        ArrayList<float[]> formattedDataFromDevice =  manageData.getData(desiredListSizeSizeForCalibration);
+        ArrayList<float[]> formattedDataFromDevice =  ManageData.getData(desiredListSizeSizeForCalibration);
 
         float[][] accelerometerOffsetData = formattedDataFromDevice.toArray(new float[][]
                 {new float[formattedDataFromDevice.size()]});
 
 
-        float[] getAccelerationFromOneDimension = manageData.getAccelerationFromRawData(accelerometerOffsetData, txyz);
+        float[] getAccelerationFromOneDimension = ManageData.getAccelerationFromRawData(accelerometerOffsetData, txyz);
 
         //offsetValue should be passed to next activity
-        accelerationOffsetValue = manageData.offsetAcceleration(getAccelerationFromOneDimension, offsetBenchmark, offsetFailedVal);
+        accelerationOffsetValue = ManageData.offsetAcceleration(getAccelerationFromOneDimension, offsetBenchmark, offsetFailedVal);
 
         String calibrationResultMessage;
 
@@ -70,7 +69,17 @@ public class CalibrateIMUActivity extends AppCompatActivity {
 
     }
 
+    private void startNext() {
+        Intent intent = new Intent(CalibrateIMUActivity.this,
+                SpectralAnalysisActivity.class);
 
+        Bundle bundle = new Bundle();
+        bundle.putString(SpectralAnalysisActivity.EXTRA_OFFSET_ACCELERATION_VALUE,
+                String.valueOf(accelerationOffsetValue));
+
+
+        intent.putExtras(bundle);
+    }
 
     private void sendCalibrationMessage(String message) {
         calibratedIMUFragment.setCalibratingMessageFeedback(message);
