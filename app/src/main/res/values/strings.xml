@@ -3,22 +3,26 @@
     <string name="scan_title">Scan Devices</string>
     <string name="main_scan_button">Scan</string>
     <string name="title_device_info">Device Info</string>
-    <string name="details_train_button">Train</string>
+    <string name="details_calibrate_button">Calibrate</string>
     <string name="text_device_name_label">Device Name:</string>
     <string name="text_device_name">Tmp Name</string>
     <string name="text_device_physical_address_label">Physical Address:</string>
     <string name="text_device_physical_address">Tmp Address</string>
-    <string name="pick_victim">Select the Victim\'s Age</string>
-    <string name="victim_infant">infant</string>
-    <string name="victim_child">child</string>
-    <string name="victim_youth">youth</string>
-    <string name="victim_adult">adult</string>
+
+    <string name="details_begin_compressions_button">Begin Compressions!</string>
+
     <string name="calibrating_prompt">Calibrating Device</string>
     <string name="do_not_move_prompt">Do Not Move!</string>
     <string name="calibration_message">Calibrating…</string>
     <string name="calibration_complete_message">Device has been calibrated. You may begin compressions</string>
     <string name="calibration_failed_message">Device has been moved during calibration. \n\tRecalibrating…</string>
-    <string name="data_file_name">data.txt</string>
+
+    <string name="pick_victim">Select the Victim\'s Age</string>
+    <string name="victim_infant">infant</string>
+    <string name="victim_child">child</string>
+    <string name="victim_youth">youth</string>
+    <string name="victim_adult">adult</string>
+
     <string name="text_spectral_rate_greater_than_140"><![CDATA[> 140]]></string>
     <string name="text_spectral_rate_135">135</string>
     <string name="text_spectral_rate_130">130</string>

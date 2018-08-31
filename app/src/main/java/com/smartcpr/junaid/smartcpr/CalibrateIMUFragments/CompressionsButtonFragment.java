@@ -1,8 +1,6 @@
-package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
+package com.smartcpr.junaid.smartcpr.CalibrateIMUFragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,66 +10,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
 import com.smartcpr.junaid.smartcpr.R;
 
+public class CompressionsButtonFragment extends Fragment {
 
-/**
- * TrainButtonFragment Fragment
- *
- * Functions:
- *
- * onAttach: Implements the interface TrainButtonListener, which calls
- *           cprVictim function in DeviceDetailsActivity Activity
- * onCreateView: Adds button to UI and waits for button to be pressed.
- *               Once pressed, a dialog list asks user to select the age range for training
- *
- *
- */
+    private static final String TAG = "CalibratedIMUFragment";
 
-public class TrainButtonFragment extends Fragment {
-    private final static String TAG = "TrainButtonFragment";
-
-    private Button mTrainButton;
+    private Button mCompressionsButton;
     private String strVictim;
 
-    private TrainButtonListener trainButtonListener;
 
-    public interface TrainButtonListener {
+    private CompressionsButtonListener compressionsButtonListener;
+
+    public interface CompressionsButtonListener {
         void cprVictim(String strCprVictim);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity;
-        if (context instanceof Activity){
-            activity = (Activity) context;
-            try {
-                trainButtonListener = (TrainButtonListener)activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString());
-            }
-        } else  {
-            try {
-                trainButtonListener = (TrainButtonListener)context;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString());
-            }
-        }
-    }
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_button_train, container, false);
+        View view = inflater.inflate(R.layout.fragment_button_compressions, container, false);
+        Log.d(TAG, "onCreateView: ");
 
-        mTrainButton = view.findViewById(R.id.train_button);
-        mTrainButton.setOnClickListener(
+        mCompressionsButton = view.findViewById(R.id.compressions_button);
+        mCompressionsButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         Log.d(TAG, "onClick: Pressed TRAIN Button");
                         openDialogBox();
 
-                        mTrainButton.setClickable(false);
+                        mCompressionsButton.setClickable(false);
                     }
 
                     private void openDialogBox() {
@@ -88,12 +57,13 @@ public class TrainButtonFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int index) {
                                         strVictim = getResources().getStringArray(R.array.victim)[index];
                                         Log.d(TAG, "onClick: Clicked on the Item  " + strVictim);
-                                        trainButtonListener.cprVictim(strVictim);
+                                        compressionsButtonListener.cprVictim(strVictim);
                                     }
                                 }).show();
                     }
                 }
         );
+
 
         return view;
     }

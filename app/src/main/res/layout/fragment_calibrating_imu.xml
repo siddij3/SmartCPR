@@ -10,10 +10,16 @@
     <TextView
         android:id="@+id/calibration_result_feedback"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="583dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/calibration_message"
         android:textSize="30sp" />
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="244dp" />
 
 </LinearLayout>
