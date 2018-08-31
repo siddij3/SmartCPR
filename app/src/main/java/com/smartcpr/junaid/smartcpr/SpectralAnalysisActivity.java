@@ -88,6 +88,15 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         Complex[] fftPolarSingle = FastFourierTransform.fftDoubleToSingle(complexArrayFFTValues, N, 2);
         double[] fftSmooth = FastFourierTransform.smoothFFTValues(fftPolarSingle, N);
 
+
+        //        double[] amplitudes = MathOps.peaksFromTransform(fftSmooth, peaks);
+        //
+        //        double[] thetaAngles = MathOps.phaseAngles(peaks, fftPolarSingle);
+        //        double fundamentalFrequency = MathOps.getfundamentalFrequency(peaks, freqBins);
+        //
+        //        double depth = MathOps.compressionDepth(amplitudes, peaks.length, scaledTime, fundamentalFrequency, thetaAngles);
+        //        double rate = MathOps.compressionRate(fundamentalFrequency);
+
     }
 
 

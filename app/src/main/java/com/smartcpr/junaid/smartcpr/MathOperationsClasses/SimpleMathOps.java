@@ -1,5 +1,7 @@
 package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 
+import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
+
 public class SimpleMathOps {
     public static float getMaxValue(float[] array) {
         float maxValue = array[0];
@@ -9,6 +11,28 @@ public class SimpleMathOps {
             }
         }
         return maxValue;
+    }
+
+
+    static double getMaxValue(double[] array) {
+        double maxValue = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > maxValue) {
+                maxValue = array[i];
+            }
+        }
+        return maxValue;
+    }
+
+
+    static double getMinValue(double[] array) {
+        double minValue = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < minValue) {
+                minValue = array[i];
+            }
+        }
+        return minValue;
     }
 
     // getting the miniumum value
@@ -58,4 +82,10 @@ public class SimpleMathOps {
 
         return hanningApplied;
     }
+
+    public static double[] peakIndexes() {
+        return new double[0];
+    }
+
+
 }
