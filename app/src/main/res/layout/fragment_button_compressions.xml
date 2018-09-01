@@ -7,6 +7,7 @@
         android:id="@+id/compressions_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="40sp"
         android:textColor="#0A4219"
         android:text="@string/details_begin_compressions_button"
         />

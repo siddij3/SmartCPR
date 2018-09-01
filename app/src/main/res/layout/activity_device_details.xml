@@ -32,7 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_calibrate_button"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_button_calibrate_on_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
 
 
     <fragment
-        android:id="@+id/fragment_calibrate_button"
+        android:id="@+id/fragment_button_calibrate_on_activity"
         android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment"
         android:layout_width="0dp"
         android:layout_height="87dp"

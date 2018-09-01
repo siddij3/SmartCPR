@@ -82,7 +82,7 @@ public class ScanButtonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Shows Fragment with Button and ListView
-        View view = inflater.inflate(R.layout.fragment_scan_devices, container, false);
+        View view = inflater.inflate(R.layout.fragment_button_scan_devices, container, false);
 
         //Initializes Bluetooth
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

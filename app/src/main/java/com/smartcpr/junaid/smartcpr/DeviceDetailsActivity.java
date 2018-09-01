@@ -69,16 +69,14 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
 
 
 
-
     @Override
     public void connectDevice() {
-        BluetoothDeviceManager bluetoothStream = new BluetoothDeviceManager();
 
         Intent intent = new Intent(DeviceDetailsActivity.this,
                 CalibrateIMUActivity.class);
 
         //TODO may have to bundle victim to next activity
-        Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
+        Log.d(TAG, "connectDevice: Starting CalibrateIMUActivity Activity");
         startActivity(intent);
 
 

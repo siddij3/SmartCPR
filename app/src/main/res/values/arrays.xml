@@ -6,8 +6,4 @@
         <item>Child</item>
         <item>Infant</item>
     </string-array>
-    <string-array name="tmp">
-        <item>Continue</item>
-
-    </string-array>
 </resources>

@@ -16,96 +16,58 @@ import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionRateFra
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SpectralAnalysisActivity extends AppCompatActivity
-        implements CompressionsButtonFragment.CompressionsButtonListener {
+public class SpectralAnalysisActivity extends AppCompatActivity {
 
     private final static String TAG = "SpectralAnalysisActive";
 
-    private int adultMinRate;
-    private int adultMaxRate;
-
-    private int youthMinRate;
-    private int youthMaxRate;
-
-    private int childMinRate;
-    private int childMaxRate;
-
-    private int infantMinRate;
-    private int infantMaxRate;
-
-
     public static final String EXTRA_OFFSET_ACCELERATION_VALUE
             = "com.smartcpr.junaid.smartcpr.offsetaccelerationvalue";
+
+    public static final String EXTRA_VICTIM_MIN_DEPTH
+            = "com.smartcpr.junaid.smartcpr.minvictimdepth";
+
+    public static final String EXTRA_VICTIM_MAX_DEPTH
+            = "com.smartcpr.junaid.smartcpr.maxvictimdepth";
 
     private static float offsetAcceleration;
 
     private int txyz;
     private int desiredListSizeForCompression;
 
+    private float minVictimDepth;
+    private float maxVictimDepth;
+
     private float[] time;
     private float[] acceleration;
 
     CompressionRateFragment compressionRateFragment;
 
+    Intent intent;
+    Bundle bundle;
+
+    private String getOffsetValue() { return Objects.requireNonNull(bundle).getString(EXTRA_OFFSET_ACCELERATION_VALUE); }
+    private String getMinDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MIN_DEPTH);  }
+    private String getMaxDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MAX_DEPTH); }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spectral_analysis);
-        Log.d(TAG, "onCreate: ");
 
-        offsetAcceleration = Float.valueOf(unPackBundle());
+        intent = getIntent();
+        bundle = intent.getExtras();
+
+        offsetAcceleration = Float.parseFloat(getOffsetValue());
+
+        Log.d(TAG, "onCreate: "  + getMinDepth());
+        Log.d(TAG, "onCreate: " + getMaxDepth());
+
+        minVictimDepth = Float.parseFloat(getMinDepth());
+        maxVictimDepth = Float.parseFloat(getMaxDepth());
 
         txyz = getResources().getInteger(R.integer.array_index_txyz);
         desiredListSizeForCompression = getResources().getInteger(R.integer.compression_list_size);
 
-
-    }
-
-    @Override
-    public void cprVictim(String strCprVictim) {
-        //TODO This probably wont transfer the victim over to subsequent activities. Keep this in mind
-        Log.d(TAG, "cprVictim: " + strCprVictim);
-        Victim victim;
-
-        if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
-            victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
-
-        } else if (Objects.equals(strCprVictim, getString(R.string.victim_youth))) {
-            victim = new Victim(getString(R.string.victim_adult), youthMaxRate, youthMinRate, 1);
-
-        } else if (Objects.equals(strCprVictim, getString(R.string.victim_child))) {
-            victim = new Victim(getString(R.string.victim_adult), childMaxRate, childMinRate, 0.5);
-
-        } else if (Objects.equals(strCprVictim, getString(R.string.victim_infant))) {
-            victim = new Victim(getString(R.string.victim_adult), infantMaxRate, infantMinRate, 0.5);
-
-        }
-
-    }
-
-    private String unPackBundle() {
-        //Unpacks bundled info from ScanDevicesActivity
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        return Objects.requireNonNull(bundle).getString(EXTRA_OFFSET_ACCELERATION_VALUE);
-
-    }
-
-    private void setDetails () {
-        adultMinRate = getResources().getInteger(R.integer.adult_min);
-        adultMaxRate = getResources().getInteger(R.integer.adult_max);
-
-        youthMinRate = getResources().getInteger(R.integer.youth_min);
-        youthMaxRate = getResources().getInteger(R.integer.youth_max);
-
-        childMinRate = getResources().getInteger(R.integer.child_min);
-        childMaxRate = getResources().getInteger(R.integer.child_max);
-
-        infantMinRate = getResources().getInteger(R.integer.infant_min);
-        infantMaxRate = getResources().getInteger(R.integer.infant_max);
-
-        Log.d(TAG, "setDetails: Details Set");
     }
 
 

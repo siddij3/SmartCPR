@@ -77,22 +77,6 @@ public class ManageData {
         return SimpleMathOps.getMeanValue(rawAcceleration);
     }
 
-
-    public static float[] setAcceleration(float[] rawAcceleration, float offsetVal, float GRAVITY) {
-
-        float[] acceleration = new float[rawAcceleration.length];
-
-        int i = 0;
-
-        for (float floater : rawAcceleration) {
-            acceleration[i] = (floater - offsetVal) * GRAVITY;
-            i++;
-        }
-
-        return acceleration;
-    }
-
-
    public static float[] getScaledTimeArray(float[][] array2D) {
 
        float[] timeArray = new float[array2D.length];

@@ -1,6 +1,8 @@
 package com.smartcpr.junaid.smartcpr.CalibrateIMUFragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
 import com.smartcpr.junaid.smartcpr.R;
 
 public class CompressionsButtonFragment extends Fragment {
@@ -25,6 +28,26 @@ public class CompressionsButtonFragment extends Fragment {
 
     public interface CompressionsButtonListener {
         void cprVictim(String strCprVictim);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity;
+        if (context instanceof Activity){
+            activity = (Activity) context;
+            try {
+                compressionsButtonListener = (CompressionsButtonListener)activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString());
+            }
+        } else  {
+            try {
+                compressionsButtonListener = (CompressionsButtonListener)context;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString());
+            }
+        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -11,7 +11,7 @@ public class CompressionRateFragment extends Fragment{
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_text_device_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_compression_rate, container, false);
 
 
         return view;

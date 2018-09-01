@@ -25,28 +25,16 @@ public class Victim {
         minRate = 100;
     }
 
-    public double getDepthTolerance() {
+    public double depthTolerance() {
         return depthTolerance;
     }
 
-    public void setDepthTolerance(double depthTolerance) {
-        this.depthTolerance = depthTolerance;
-    }
-
-    public int getMaxDepth() {
+    public int maxDepth() {
         return maxDepth;
     }
 
-    public void setMaxDepth(int maxDepth) {
-        this.maxDepth = maxDepth;
-    }
-
-    public int getMinDepth() {
+    public int minDepth() {
         return minDepth;
-    }
-
-    public void setMinDepth(int minDepth) {
-        this.minDepth = minDepth;
     }
 
     public int getMaxRate() { return maxRate; }

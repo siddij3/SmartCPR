@@ -1,10 +1,7 @@
 package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.smartcpr.junaid.smartcpr.BluetoothData.BluetoothDeviceManager;
 import com.smartcpr.junaid.smartcpr.R;
 
 
@@ -67,28 +65,16 @@ public class CalibrateButtonFragment extends Fragment {
         mCalibrateButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        Log.d(TAG, "onClick: Pressed TRAIN Button");
-                        openDialogBox();
+                        Log.d(TAG, "onClick: Pressed Calibrate Button");
+                        BluetoothDeviceManager bluetoothStream = new BluetoothDeviceManager();
+                        Log.d(TAG, "onClick: " + bluetoothStream.activeCount());
+                        calibrateButtonListener.connectDevice();
+
 
                         mCalibrateButton.setClickable(false);
                     }
 
-                    private void openDialogBox() {
 
-                        AlertDialog.Builder builder;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-                        } else {
-                            builder = new AlertDialog.Builder(getContext());
-                        }
-
-                        builder.setTitle("Tmp")
-                                .setItems(R.array.tmp, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int index) {
-                                        calibrateButtonListener.connectDevice();
-                                    }
-                                }).show();
-                    }
                 }
         );
 
