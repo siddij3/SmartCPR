@@ -2,10 +2,10 @@ package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
 
-public class SpectralAnalysis {
+class SpectralAnalysis {
 
     static double[] scaleFrequencyBins(int N, double frequency) {
-        double[] freqBin = new double[(int)N/2];
+        double[] freqBin = new double[N /2];
 
         for (int i = 0; i < N/2; i ++)
             freqBin[i] = i*frequency/N;
@@ -74,8 +74,6 @@ public class SpectralAnalysis {
 
         }
 
-        tmp = new double[lenHarmonics];
-
         for (int i =0; i < lenHarmonics; i++)  {
             for (int j =0; j < lenTime; j++) {
                 if (i == 0)
@@ -87,9 +85,7 @@ public class SpectralAnalysis {
         }
 
 
-        double depth = SimpleMathOps.getMaxValue(sofT) - SimpleMathOps.getMinValue(sofT);
-
-        return depth;
+        return SimpleMathOps.getMaxValue(sofT) - SimpleMathOps.getMinValue(sofT);
     }
 
 

@@ -42,8 +42,8 @@ public class SpectralAnalysisActivity extends AppCompatActivity
     private int txyz;
     private int desiredListSizeForCompression;
 
-    float[] time;
-    float[] acceleration;
+    private float[] time;
+    private float[] acceleration;
 
     CompressionRateFragment compressionRateFragment;
 

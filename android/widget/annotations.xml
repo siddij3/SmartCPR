@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <root>
     <item name='android.widget.ConstraintLayout'>
         <annotation name='java.lang.Deprecated' />

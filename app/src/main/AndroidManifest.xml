@@ -32,7 +32,7 @@
         </activity>
         <activity android:name=".DeviceDetailsActivity" />
         <activity android:name=".CalibrateIMUActivity" />
-        <activity android:name=".SpectralAnalysisActivity"></activity>
+        <activity android:name=".SpectralAnalysisActivity" />
     </application>
 
 </manifest>

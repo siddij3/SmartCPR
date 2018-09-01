@@ -30,6 +30,7 @@ import java.util.Objects;
  *
  */
 
+@SuppressWarnings("ALL")
 public class DeviceDetailsActivity extends AppCompatActivity implements
         CalibrateButtonFragment.CalibrateButtonListener {
 
@@ -80,12 +81,6 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
         Log.d(TAG, "cprVictim: Starting Spectral Analysis Activity");
         startActivity(intent);
 
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
     }
 

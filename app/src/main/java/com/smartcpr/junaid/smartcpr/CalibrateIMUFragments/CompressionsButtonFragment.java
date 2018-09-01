@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
 import com.smartcpr.junaid.smartcpr.R;
 
 public class CompressionsButtonFragment extends Fragment {

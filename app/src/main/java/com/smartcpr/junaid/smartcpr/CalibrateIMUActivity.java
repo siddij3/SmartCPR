@@ -14,14 +14,13 @@ public class CalibrateIMUActivity extends AppCompatActivity {
 
     private final static String TAG = "CalibrateIMUActivity";
 
-    private ManageData manageData;
     private int txyz;
 
     private int desiredListSizeSizeForCalibration;
 
-    float accelerationOffsetValue;
+    private float accelerationOffsetValue;
 
-    CalibratedIMUFragment calibratedIMUFragment;
+    private CalibratedIMUFragment calibratedIMUFragment;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class CalibrateIMUActivity extends AppCompatActivity {
 
     }
 
-    public void calibrateDevice() {
+    private void calibrateDevice() {
         float offsetBenchmark = 0.2f;
         float offsetFailedVal = 100f;
 

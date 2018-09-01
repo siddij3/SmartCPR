@@ -88,8 +88,8 @@ public class FastFourierTransform {
     public static void show(Complex[] x, String title) {
         System.out.println(title);
         System.out.println("-------------------");
-        for (int i = 0; i < x.length; i++)
-            System.out.println(x[i]);
+        for (Complex aX : x)
+            System.out.println(aX);
 
         System.out.println();
     }
@@ -97,8 +97,8 @@ public class FastFourierTransform {
     public static void show(double[] x, String title) {
         System.out.println(title);
         System.out.println("-------------------");
-        for (int i = 0; i < x.length; i++)
-            System.out.println(x[i]);
+        for (double aX : x)
+            System.out.println(aX);
 
         System.out.println();
     }

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public  class BluetoothDeviceData {
+class BluetoothDeviceData {
 
-    private static String TAG = "BluetoothDeviceData";
-    private static List<String> listDeviceData = Collections.synchronizedList(new ArrayList<String>());
+    private static final String TAG = "BluetoothDeviceData";
+    private static final List<String> listDeviceData = Collections.synchronizedList(new ArrayList<String>());
 
     public static synchronized void appendToList(String string) {
         //Log.d(TAG, "appendToList: ");

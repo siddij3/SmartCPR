@@ -51,7 +51,7 @@ public class Complex {
     }
 
     // return a new Complex object whose value is the reciprocal of this
-    public Complex reciprocal() {
+    private Complex reciprocal() {
         double scale = re*re + im*im;
         return new Complex(re / scale, -im / scale);
     }

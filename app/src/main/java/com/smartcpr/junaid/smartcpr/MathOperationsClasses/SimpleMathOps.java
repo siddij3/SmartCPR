@@ -1,7 +1,5 @@
 package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
-
 public class SimpleMathOps {
     public static float getMaxValue(float[] array) {
         float maxValue = array[0];
@@ -54,7 +52,7 @@ public class SimpleMathOps {
         return sum / array.length;
     }
 
-    static float getSumofArray(double[] emptyWindow) {
+    private static float getSumofArray(double[] emptyWindow) {
         float sum = 0;
         for (double val : emptyWindow) {
             //System.out.println(val);
