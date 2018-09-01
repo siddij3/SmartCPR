@@ -6,12 +6,12 @@
     android:orientation="vertical" >
 
     <TextView
+        android:text="@string/text_spectral_rate_greater_than_140"
         android:id="@+id/compression_rate_140"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_spectral_rate_greater_than_140"
         android:textColor="@color/colorRed"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
@@ -19,7 +19,7 @@
         android:id="@+id/compression_rate_135"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:id="@+id/compression_rate_130"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorYellow"
         android:textStyle="bold"/>
 
@@ -37,7 +37,7 @@
         android:id="@+id/compression_rate_125"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorYellow"
         android:textStyle="bold"/>
     <TextView
@@ -45,7 +45,7 @@
         android:id="@+id/compression_rate_120"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
 
@@ -54,7 +54,7 @@
         android:id="@+id/compression_rate_115"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
 
@@ -63,7 +63,7 @@
         android:id="@+id/compression_rate_110"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
 
@@ -72,7 +72,7 @@
         android:id="@+id/compression_rate_105"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
 
@@ -81,7 +81,7 @@
         android:id="@+id/compression_rate_100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorGreen"
         android:textStyle="bold"/>
 
@@ -90,7 +90,7 @@
         android:id="@+id/compression_rate_95"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorYellow"
         android:textStyle="bold"/>
 
@@ -99,7 +99,7 @@
         android:id="@+id/compression_rate_90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorYellow"
         android:textStyle="bold"/>
 
@@ -108,7 +108,7 @@
         android:id="@+id/compression_rate_85"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 
@@ -117,7 +117,7 @@
         android:id="@+id/compression_rate_80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="44sp"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 

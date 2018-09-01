@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.BluetoothData.ManageData;
-import com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment;
 import com.smartcpr.junaid.smartcpr.MathOperationsClasses.FastFourierTransform;
 import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Victim;
 import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionRateFragment;
+import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.SpectralAnalysis;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class SpectralAnalysisActivity extends AppCompatActivity {
@@ -34,13 +31,13 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     private int txyz;
     private int desiredListSizeForCompression;
 
+    private static float GRAVITY;
+    private static float OFFSET_BENCHMARK;
+    private static float OFFSET_FAILED_VALUE;
+
+
     private float minVictimDepth;
     private float maxVictimDepth;
-
-    private float[] time;
-    private float[] acceleration;
-
-    CompressionRateFragment compressionRateFragment;
 
     Intent intent;
     Bundle bundle;
@@ -68,23 +65,15 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         txyz = getResources().getInteger(R.integer.array_index_txyz);
         desiredListSizeForCompression = getResources().getInteger(R.integer.compression_list_size);
 
+        OFFSET_BENCHMARK = Float.parseFloat(getResources().getString(R.string.offset_benchmark_value));
+        OFFSET_FAILED_VALUE = Float.parseFloat(getResources().getString(R.string.offset_failed_value));
+        GRAVITY = Float.parseFloat(getResources().getString(R.string.gravity_value));
+
     }
 
 
-    private void getIMUData() {
-        ArrayList<float[]> formattedDataFromDevice =  ManageData.getData(desiredListSizeForCompression);
-
-        float[][] accelerometerRawData = formattedDataFromDevice.toArray(new float[][]
-                {new float[formattedDataFromDevice.size()]});
-
-
-        acceleration = ManageData.getAccelerationFromRawData(accelerometerRawData, txyz);
-        time = ManageData.getScaledTimeArray(accelerometerRawData);
-
-
-        if (offsetAcceleration == 1){
-
-        }
+    private void startSpectralAnalysis() {
+        SpectralAnalysis spectralAnalysisThread = new SpectralAnalysis(txyz, offsetAcceleration, OFFSET_BENCHMARK, OFFSET_FAILED_VALUE, GRAVITY);
     }
 
     private void performSpectralAnalysis(float[] time, float[] acceleration) {
@@ -104,14 +93,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         Complex[] fftPolarSingle = FastFourierTransform.fftDoubleToSingle(complexArrayFFTValues, N, 2);
         double[] fftSmooth = FastFourierTransform.smoothFFTValues(fftPolarSingle, N);
 
-
-        //        double[] amplitudes = MathOps.peaksFromTransform(fftSmooth, peaks);
-        //
-        //        double[] thetaAngles = MathOps.phaseAngles(peaks, fftPolarSingle);
-        //        double fundamentalFrequency = MathOps.getfundamentalFrequency(peaks, freqBins);
-        //
-        //        double depth = MathOps.compressionDepth(amplitudes, peaks.length, scaledTime, fundamentalFrequency, thetaAngles);
-        //        double rate = MathOps.compressionRate(fundamentalFrequency);
 
     }
 

@@ -23,6 +23,12 @@
     <string name="victim_youth">Youth</string>
     <string name="victim_adult">Adult</string>
 
+
+    <string name="gravity_value">9.80665f</string>
+    <string name="offset_benchmark_value">0.2f</string>
+    <string name="offset_failed_value">100f</string>
+
+
     <string name="text_spectral_rate_greater_than_140"><![CDATA[> 140]]></string>
     <string name="text_spectral_rate_135">135</string>
     <string name="text_spectral_rate_130">130</string>

@@ -12,6 +12,11 @@ public class ManageData {
 
     private static final String TAG = "ManageDataClass";
 
+    public static void clearList() {
+        BluetoothDeviceData.returnEmptyList();
+    }
+
+
     public static ArrayList<float[]> getData(int desiredListSize) {
         List<String> listRawDeviceData =  BluetoothDeviceData.getList();
 
@@ -58,6 +63,19 @@ public class ManageData {
         return rawAcceleration;
     }
 
+
+    public static float[] setAcceleration(float[][] array2D, float offsetVal, int txyz,  float GRAVITY) {
+        float[] acceleration = new float[array2D.length];
+
+        int i = 0;
+        for (float[] floater : array2D) {
+            acceleration[i] = (floater[txyz] - offsetVal)*GRAVITY;
+            i++;
+        }
+
+        return acceleration;
+    }
+
     public static float offsetAcceleration(float[] rawAcceleration, float offsetBenchmark, float offsetFailedVal) {
 
         float maxValue = SimpleMathOps.getMaxValue(rawAcceleration);
@@ -93,4 +111,5 @@ public class ManageData {
 
         return timeArray;
     }
+
 }

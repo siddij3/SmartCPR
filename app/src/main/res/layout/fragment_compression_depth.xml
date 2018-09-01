@@ -8,7 +8,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_high_limit"
-        android:id="@+id/compression_rate_135"
+        android:id="@+id/compression_depth_high_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -17,7 +17,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_high_2"
-        android:id="@+id/compression_rate_130"
+        android:id="@+id/compression_depth_high_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -26,7 +26,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_high_1"
-        android:id="@+id/compression_rate_125"
+        android:id="@+id/compression_depth_high_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -34,7 +34,7 @@
         android:textStyle="bold"/>
     <TextView
         android:text="@string/text_spectral_depth_good_high"
-        android:id="@+id/compression_rate_120"
+        android:id="@+id/compression_depth_good_high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -44,7 +44,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_good_mid"
-        android:id="@+id/compression_rate_105"
+        android:id="@+id/compression_depth_good_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -53,7 +53,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_good_low"
-        android:id="@+id/compression_rate_100"
+        android:id="@+id/compression_depth_good_low"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -62,7 +62,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_low_1"
-        android:id="@+id/compression_rate_95"
+        android:id="@+id/compression_depth_low_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -71,7 +71,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_low_2"
-        android:id="@+id/compression_rate_90"
+        android:id="@+id/compression_depth_low_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"
@@ -80,7 +80,7 @@
 
     <TextView
         android:text="@string/text_spectral_depth_low_limit"
-        android:id="@+id/compression_rate_85"
+        android:id="@+id/compression_depth_low_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="44sp"

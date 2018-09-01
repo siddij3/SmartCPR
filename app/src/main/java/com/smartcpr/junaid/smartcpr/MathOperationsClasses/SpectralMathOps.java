@@ -2,9 +2,9 @@ package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
 
-class SpectralAnalysis {
+public class SpectralMathOps {
 
-    static double[] scaleFrequencyBins(int N, double frequency) {
+    public static double[] scaleFrequencyBins(int N, double frequency) {
         double[] freqBin = new double[N /2];
 
         for (int i = 0; i < N/2; i ++)
@@ -14,11 +14,11 @@ class SpectralAnalysis {
 
     }
 
-    static double getfundamentalFrequency(int[] indexes, double[] freqBins) {
+    public static double fundamentalFrequency(int[] indexes, double[] freqBins) {
         return freqBins[indexes[0]];
     }
 
-    static double[] phaseAngles(int[] indexes, Complex[] fftPolarSingle) {
+    public static double[] phaseAngles(int[] indexes, Complex[] fftPolarSingle) {
         int len = indexes.length;
 
         Complex[] z = new Complex[len];
@@ -35,12 +35,13 @@ class SpectralAnalysis {
 
     }
 
+
     public static double phaseAngles(int indexes, Complex[] fftPolarSingle) {
         Complex z = fftPolarSingle[indexes];
         return Math.atan2(z.im(), z.re());
     }
 
-    static double[] peaksFromTransform(double[] fftSmooth, int[] peakIndex) {
+    public static double[] peaksAmplitudesFromTransform(double[] fftSmooth, int[] peakIndex) {
         double[] amplitude = new double[peakIndex.length];
 
         for (int i = 0; i < peakIndex.length; i++)
@@ -89,5 +90,5 @@ class SpectralAnalysis {
     }
 
 
-    static double compressionRate(double fcc) {return fcc*60; }
+   public static double compressionRate(double fcc) {return fcc*60; }
 }
