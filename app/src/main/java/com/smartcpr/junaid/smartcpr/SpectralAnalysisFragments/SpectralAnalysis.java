@@ -1,5 +1,7 @@
 package com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.smartcpr.junaid.smartcpr.BluetoothData.ManageData;
@@ -7,19 +9,16 @@ import com.smartcpr.junaid.smartcpr.MathOperationsClasses.FastFourierTransform;
 import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
 import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SpectralMathOps;
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
-import com.smartcpr.junaid.smartcpr.R;
-import com.smartcpr.junaid.smartcpr.SpectralAnalysisActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
-public class SpectralAnalysis extends Thread {
+public class SpectralAnalysis implements Runnable {
     private final static String TAG = "SpectralAnalysisThread";
 
-    ArrayList<float[]> formattedDataFromDevice;
+    private ArrayList<float[]> formattedDataFromDevice;
 
-    float[][] accelerometerRawData;
+    private float[][] accelerometerRawData;
 
     private int desiredListSizeForCompression;
     private float accelerationOffset;
@@ -28,39 +27,21 @@ public class SpectralAnalysis extends Thread {
     private float[] acceleration;
 
     private static float GRAVITY;
-    private static float OFFSET_BENCHMARK;
-    private static float OFFSET_FAILED_VALUE;
-
 
     private int txyz;
 
-    public SpectralAnalysis(int txyz,
-                            float accelerationOffset,
-                            float offsetBenchmark,
-                            float offsetFailed,
-                            float gravity) {
+    private Handler mHandler;
 
 
+    public SpectralAnalysis(int txyz, float gravity, int desiredListSizeForCompression, float accelerationOffset, Handler handler) {
 
         this.txyz = txyz;
+        this.mHandler= handler;
+        this.desiredListSizeForCompression = desiredListSizeForCompression;
         this.accelerationOffset = accelerationOffset;
-
         GRAVITY = gravity;
-        OFFSET_BENCHMARK = offsetBenchmark;
-        OFFSET_FAILED_VALUE = offsetFailed;
-
-
-        ExecuteAnalysis executeAnalysis = new ExecuteAnalysis();
-        executeAnalysis.start();
 
     }
-
-    class ExecuteAnalysis extends Thread {
-
-        ExecuteAnalysis() {
-            ManageData.clearList();
-
-        }
 
     public void run() {
         double[] hanningAppliedValues;
@@ -83,53 +64,89 @@ public class SpectralAnalysis extends Thread {
         double depth;
         double rate;
 
-        //while (true) {}
-        formattedDataFromDevice = ManageData.getData(desiredListSizeForCompression);
-        ManageData.clearList();
+        while (true) {
+            formattedDataFromDevice = ManageData.getData(desiredListSizeForCompression);
 
-        accelerometerRawData = formattedDataFromDevice.toArray(new float[][]
-                {new float[formattedDataFromDevice.size()]});
-
-
-        acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz, GRAVITY);
-        time = ManageData.getScaledTimeArray(accelerometerRawData);
-
-        N = time.length;
-        Fs = 1/time[1];
+            accelerometerRawData = formattedDataFromDevice.toArray(new float[][]
+                    {new float[formattedDataFromDevice.size()]});
 
 
-
-        freqBins = SpectralMathOps.scaleFrequencyBins(N, Fs);
-
-
-        hanningAppliedValues = SimpleMathOps.applyHanningWindow(acceleration, N);
+            acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz, GRAVITY);
+            time = ManageData.getScaledTimeArray(accelerometerRawData);
 
 
-        baseComplexArray = FastFourierTransform.baseComplexArrayWithWindow(hanningAppliedValues, N);
-        complexArrayFFTValues = FastFourierTransform.simpleFFT(baseComplexArray);
+            //if (isDeviceIdle(acceleration))
+              //  continue;
 
-        fftPolarSingle = FastFourierTransform.fftDoubleToSingle(complexArrayFFTValues, N, 2);
-        fftSmooth = FastFourierTransform.smoothFFTValues(fftPolarSingle, N);
 
-        peakIndexes = new int[] {102, 205};  //SpecctralMathOps.getPeaksIndexes(fftSmooth, 2);
+            N = time.length;
+            Fs = 1/time[1];
 
-        amplitudes = SpectralMathOps.peaksAmplitudesFromTransform(fftSmooth, peakIndexes);
+            freqBins = SpectralMathOps.scaleFrequencyBins(N, Fs);
 
-        thetaAngles = SpectralMathOps.phaseAngles(peakIndexes, fftPolarSingle);
-        fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
 
-        depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
-        rate = SpectralMathOps.compressionRate(fundamentalFrequency);
+            hanningAppliedValues = SimpleMathOps.applyHanningWindow(acceleration, N);
 
-        Log.d(TAG, "run: " + depth);
-        Log.d(TAG, "run: " + rate);
+            baseComplexArray = FastFourierTransform.baseComplexArrayWithWindow(hanningAppliedValues, N);
+            complexArrayFFTValues = FastFourierTransform.simpleFFT(baseComplexArray);
 
+            fftPolarSingle = FastFourierTransform.fftDoubleToSingle(complexArrayFFTValues, N, 2);
+
+            fftSmooth = FastFourierTransform.smoothFFTValues(fftPolarSingle, N);
+
+            peakIndexes = new int[] {3, 27, 43};  //SpecctralMathOps.getPeaksIndexes(fftSmooth, 2);
+
+            if (peakIndexes.length > 1) {
+                thetaAngles = SpectralMathOps.phaseAngles(peakIndexes, fftPolarSingle);
+
+                amplitudes = SpectralMathOps.peaksAmplitudesFromTransform(fftSmooth, peakIndexes);
+
+                fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
+
+                Log.d(TAG, "run: fcc " + fundamentalFrequency);
+
+                depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
+                rate = SpectralMathOps.compressionRate(fundamentalFrequency);
+
+            } else if (peakIndexes.length == 1) {
+                thetaAngles = new double[peakIndexes.length];
+                thetaAngles[0] = SpectralMathOps.phaseAngles(peakIndexes[0], fftPolarSingle);
+
+                amplitudes = new double[peakIndexes.length];
+                amplitudes[0] = SpectralMathOps.peaksAmplitudesFromTransform(fftSmooth, peakIndexes[0]);
+
+                fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes[0], freqBins);
+
+
+                depth = SpectralMathOps.compressionDepth(amplitudes[0], time, fundamentalFrequency, thetaAngles[0]);
+                rate = SpectralMathOps.compressionRate(fundamentalFrequency);
+
+
+
+            } else {
+                depth = 0;
+                rate = 0;
+            }
+
+
+            Message messageDepth =  mHandler.obtainMessage(0, depth);
+            Message messageRate =  mHandler.obtainMessage(1, rate);
+
+            messageDepth.sendToTarget();
+            messageRate.sendToTarget();
+        }
     }
 
 
 
+    boolean isDeviceIdle(float[] acceleration) {
+        double tmp = SimpleMathOps.getMaxValue(acceleration) - SimpleMathOps.getMinValue(acceleration);
+
+
+        return Math.abs(tmp) <= 0.9;
 
     }
+
 
 
 }
