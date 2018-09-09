@@ -20,6 +20,9 @@ public class ManageData {
     public static ArrayList<float[]> getData(int desiredListSize) {
         List<String> listRawDeviceData =  BluetoothDeviceData.getList();
 
+        //Eliminating item at first index due to incomplete line reduces array size for fftB
+        desiredListSize++;
+
         if (listRawDeviceData.size() <= desiredListSize) {
             do {
             } while (listRawDeviceData.size() <= desiredListSize);
@@ -39,14 +42,14 @@ public class ManageData {
     private static float[] formatData(String string) {
         String[] strArrayData = string.split(",");
         float[] inputtedLine = new float[strArrayData.length];
-        Log.d(TAG, "formatData: " + string);
+        //Log.d(TAG, "formatData: " + string);
 
         for (int i = 0; i < strArrayData.length; i++) {
             strArrayData[i] = strArrayData[i].trim();
             inputtedLine[i] = Float.parseFloat(strArrayData[i]);
         }
 
-        Log.d(TAG, "formatData: " + Arrays.toString(inputtedLine));
+        //Log.d(TAG, "formatData: " + Arrays.toString(inputtedLine));
 
         return inputtedLine;
     }
