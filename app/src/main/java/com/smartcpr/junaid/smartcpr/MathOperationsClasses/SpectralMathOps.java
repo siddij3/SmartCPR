@@ -18,6 +18,10 @@ public class SpectralMathOps {
         return freqBins[indexes[0]];
     }
 
+    public static double fundamentalFrequency(int indexes, double[] freqBins) {
+        return freqBins[indexes];
+    }
+
     public static double[] phaseAngles(int[] indexes, Complex[] fftPolarSingle) {
         int len = indexes.length;
 
@@ -38,6 +42,7 @@ public class SpectralMathOps {
 
     public static double phaseAngles(int indexes, Complex[] fftPolarSingle) {
         Complex z = fftPolarSingle[indexes];
+
         return Math.atan2(z.im(), z.re());
     }
 
@@ -48,6 +53,11 @@ public class SpectralMathOps {
             amplitude[i] = fftSmooth[peakIndex[i]];
 
         return amplitude;
+    }
+
+    public static double peaksAmplitudesFromTransform(double[] fftSmooth, int peakIndex) {
+
+        return fftSmooth[peakIndex];
     }
 
     public static double compressionDepth(double[] amplitude, int lenHarmonics, float[] time, double fundamentalFrequency, double[] thetaAngles) {
@@ -84,6 +94,35 @@ public class SpectralMathOps {
             }
 
         }
+
+
+        return SimpleMathOps.getMaxValue(sofT) - SimpleMathOps.getMinValue(sofT);
+    }
+
+    public static double compressionDepth(double amplitude, float[] time, double fundamentalFrequency, double thetaAngles) {
+        int lenTime = time.length;
+        final double PI = Math.PI;
+
+        double A_k;
+
+        double tmp;
+        double S_k;
+
+        double phiAngle;
+
+        double[] sofT = new double[lenTime];
+
+        A_k = amplitude;
+
+        tmp = ( 2.0 * PI * fundamentalFrequency) ;
+        tmp *= tmp;
+
+        S_k = 100*(A_k/tmp);
+
+        phiAngle = PI + thetaAngles;
+
+        for (int j =0; j < lenTime; j++)
+            sofT[j] = S_k * Math.cos(2 * PI  *fundamentalFrequency * time[j] + phiAngle);
 
 
         return SimpleMathOps.getMaxValue(sofT) - SimpleMathOps.getMinValue(sofT);
