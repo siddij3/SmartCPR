@@ -29,6 +29,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
     private int infantMinRate;
     private int infantMaxRate;
 
+    float accelerationOffsetValue;
 
     private final static String TAG = "CalibrateIMUActivity";
 
@@ -36,7 +37,6 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     private int txyz;
     private int desiredListSizeSizeForCalibration;
-    private float accelerationOffsetValue;
 
     private CalibratedIMUFragment calibratedIMUFragment;
 
@@ -87,29 +87,8 @@ public class CalibrateIMUActivity extends AppCompatActivity
         sendCalibrationMessage(calibrationResultMessage);
     }
 
-    private void startNextActivity() {
-        Intent intent = new Intent(CalibrateIMUActivity.this,
-                SpectralAnalysisActivity.class);
-
-        Bundle bundle = new Bundle();
-        bundle.putString(SpectralAnalysisActivity.EXTRA_OFFSET_ACCELERATION_VALUE,
-                String.valueOf(accelerationOffsetValue));
-
-        bundle.putString(SpectralAnalysisActivity.EXTRA_VICTIM_MIN_DEPTH,
-                String.valueOf(victim.minDepth()));
-
-        bundle.putString(SpectralAnalysisActivity.EXTRA_VICTIM_MAX_DEPTH,
-                String.valueOf(victim.maxDepth()));
-
-
-        intent.putExtras(bundle);
-
-        startActivity(intent);
-    }
-
     @Override
     public void cprVictim(String strCprVictim) {
-        //TODO This probably wont transfer the victim over to subsequent activities. Keep this in mind
         Log.d(TAG, "cprVictim: " + strCprVictim);
 
         setDetails();
@@ -130,6 +109,27 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
         startNextActivity();
 
+    }
+
+    private void startNextActivity() {
+        Intent intent = new Intent(CalibrateIMUActivity.this,
+                SpectralAnalysisActivity.class);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString(SpectralAnalysisActivity.EXTRA_VICTIM_MIN_DEPTH,
+                String.valueOf(victim.minDepth()));
+
+        bundle.putString(SpectralAnalysisActivity.EXTRA_VICTIM_MAX_DEPTH,
+                String.valueOf(victim.maxDepth()));
+
+        bundle.putString(SpectralAnalysisActivity.EXTRA_OFFSET_ACCELERATION_VALUE,
+                String.valueOf(accelerationOffsetValue));
+
+
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 
     private void setDetails() {
