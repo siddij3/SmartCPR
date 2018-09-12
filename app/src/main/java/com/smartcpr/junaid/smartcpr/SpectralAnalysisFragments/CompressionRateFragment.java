@@ -1,8 +1,6 @@
 package com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.smartcpr.junaid.smartcpr.R;
-
-import org.w3c.dom.Text;
 
 public class CompressionRateFragment extends Fragment{
 
@@ -75,48 +71,47 @@ public class CompressionRateFragment extends Fragment{
     private TextView findTextView(int roundedRate) {
         TextView textView;
 
-
-        if (roundedRate >= 140) {
-            textView = view.findViewById(R.id.compression_rate_140);
-
-        } else if (roundedRate == 135) {
-            textView = view.findViewById(R.id.compression_rate_135);
-
-        } else if (roundedRate == 130) {
-            textView = view.findViewById(R.id.compression_rate_130);
-
-        } else if (roundedRate == 125) {
-            textView = view.findViewById(R.id.compression_rate_125);
-
-        } else if (roundedRate == 120) {
-            textView = view.findViewById(R.id.compression_rate_120);
-
-        } else if (roundedRate == 115) {
-            textView = view.findViewById(R.id.compression_rate_115);
-
-        } else if (roundedRate == 110) {
-            textView = view.findViewById(R.id.compression_rate_110);
-
-        } else if (roundedRate == 105) {
-            textView = view.findViewById(R.id.compression_rate_105);
-
-        } else if (roundedRate == 100) {
-            textView = view.findViewById(R.id.compression_rate_100);
-
-        } else if (roundedRate == 95) {
-            textView = view.findViewById(R.id.compression_rate_95);
-
-        } else if (roundedRate == 90) {
-            textView = view.findViewById(R.id.compression_rate_90);
-
-        } else if (roundedRate == 85) {
-            textView = view.findViewById(R.id.compression_rate_85);
-
-        } else if (roundedRate <= 80) {
-            textView = view.findViewById(R.id.compression_rate_80);
-
-        } else  {
-            textView = view.findViewById(R.id.compression_rate_80);
+        switch (roundedRate) {
+            case 135:
+                textView = view.findViewById(R.id.compression_rate_135);
+                break;
+            case 130:
+                textView = view.findViewById(R.id.compression_rate_130);
+                break;
+            case 125:
+                textView = view.findViewById(R.id.compression_rate_125);
+                break;
+            case 120:
+                textView = view.findViewById(R.id.compression_rate_120);
+                break;
+            case 115:
+                textView = view.findViewById(R.id.compression_rate_115);
+                break;
+            case 110:
+                textView = view.findViewById(R.id.compression_rate_110);
+                break;
+            case 105:
+                textView = view.findViewById(R.id.compression_rate_105);
+                break;
+            case 100:
+                textView = view.findViewById(R.id.compression_rate_100);
+                break;
+            case 95:
+                textView = view.findViewById(R.id.compression_rate_95);
+                break;
+            case 90:
+                textView = view.findViewById(R.id.compression_rate_90);
+                break;
+            case 85:
+                textView = view.findViewById(R.id.compression_rate_85);
+                break;
+            default:
+                if (roundedRate >= 140) {
+                    textView = view.findViewById(R.id.compression_rate_140);
+                }
+                else {
+                    textView = view.findViewById(R.id.compression_rate_80);
+                }
         }
 
         Log.d(TAG, "findTextView: " + textView.getText());
