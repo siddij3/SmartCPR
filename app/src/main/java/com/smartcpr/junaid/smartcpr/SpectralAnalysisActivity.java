@@ -38,9 +38,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
 
     private static float GRAVITY;
 
-    private float minVictimDepth;
-    private float maxVictimDepth;
-
     Intent intent;
     Bundle bundle;
     private Handler mHandler;
@@ -63,8 +60,8 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         intent = getIntent();
         bundle = intent.getExtras();
 
-        minVictimDepth = Float.parseFloat(getMinDepth());
-        maxVictimDepth = Float.parseFloat(getMaxDepth());
+        int minVictimDepth = Integer.parseInt(getMinDepth());
+        int maxVictimDepth = Integer.parseInt(getMaxDepth());
         offsetAcceleration = Float.parseFloat(getOffsetAcceleration());
 
         txyz = getResources().getInteger(R.integer.array_index_txyz);
@@ -74,6 +71,8 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         compressionDepthFragment = (CompressionDepthFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_depth);
         compressionRateFragment = (CompressionRateFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_rate);
 
+
+        compressionDepthFragment.compressionDepthsForAgeGroups(minVictimDepth, maxVictimDepth);
 
         handleMessage();
         startSpectralAnalysis();
@@ -88,8 +87,18 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
                 if (depthRate == 0 ) {
                     Log.d(TAG, "handleMessage: depth: " + value);
 
+                    value = Math.random() *10;
+
+                    compressionDepthFragment.resetColours(lastDepthValue);
+                    compressionDepthFragment.changeTextView(value);
+
+
+                    lastDepthValue = value;
+
                 } else if (depthRate == 1) {
                     Log.d(TAG, "handleMessage: rate: " + value);
+
+                    value = Math.random() *150;
 
                     compressionRateFragment.resetColours(lastRateValue);
                     compressionRateFragment.changeTextView(value);
