@@ -55,10 +55,13 @@ public class CompressionsButtonFragment extends Fragment {
         Log.d(TAG, "onCreateView: ");
 
         mCompressionsButton = view.findViewById(R.id.compressions_button);
+
+        mCompressionsButton.setClickable(false);
+
         mCompressionsButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        Log.d(TAG, "onClick: Pressed TRAIN Button");
+                        Log.d(TAG, "onClick: Pressed Compressions Button");
                         openDialogBox();
 
                         mCompressionsButton.setClickable(false);
@@ -87,6 +90,10 @@ public class CompressionsButtonFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void makeButtonClickable(boolean setClickable) {
+        mCompressionsButton.setClickable(setClickable);
     }
 
 }
