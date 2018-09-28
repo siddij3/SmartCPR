@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.ObjectClasses;
+package com.smartcpr.trainer.smartcpr.ObjectClasses;
 
 public class Complex {
     private final double re;   // the real part

@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.ScanDevicesFragments;
+package com.smartcpr.trainer.smartcpr.ScanDevicesFragments;
 
 import android.Manifest;
 import android.app.Activity;

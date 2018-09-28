@@ -1,11 +1,10 @@
-package com.smartcpr.junaid.smartcpr.BluetoothData;
+package com.smartcpr.trainer.smartcpr.BluetoothData;
 
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ManageData {

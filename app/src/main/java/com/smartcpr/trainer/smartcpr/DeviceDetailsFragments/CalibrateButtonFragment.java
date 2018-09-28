@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
+package com.smartcpr.trainer.smartcpr.DeviceDetailsFragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.smartcpr.junaid.smartcpr.BluetoothData.BluetoothDeviceManager;
+import com.smartcpr.trainer.smartcpr.BluetoothData.BluetoothDeviceManager;
 import com.smartcpr.junaid.smartcpr.R;
 
 

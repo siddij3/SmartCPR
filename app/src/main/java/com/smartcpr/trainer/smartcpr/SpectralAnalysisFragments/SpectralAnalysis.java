@@ -1,14 +1,14 @@
-package com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments;
+package com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.BluetoothData.ManageData;
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.FastFourierTransform;
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SpectralMathOps;
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
+import com.smartcpr.trainer.smartcpr.BluetoothData.ManageData;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.FastFourierTransform;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SpectralMathOps;
+import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 import java.util.ArrayList;
 import java.util.Arrays;

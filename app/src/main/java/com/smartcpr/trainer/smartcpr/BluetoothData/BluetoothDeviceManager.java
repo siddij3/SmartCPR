@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.BluetoothData;
+package com.smartcpr.trainer.smartcpr.BluetoothData;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.ConnectException;
 import java.util.Set;
 import java.util.UUID;
 

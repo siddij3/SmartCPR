@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.trainer.smartcpr;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,10 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.FastFourierTransform;
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
-import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment;
-import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionRateFragment;
-import com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.SpectralAnalysis;
+import com.smartcpr.junaid.smartcpr.R;
+import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment;
+import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionRateFragment;
+import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.SpectralAnalysis;
 
 import java.util.Objects;
 

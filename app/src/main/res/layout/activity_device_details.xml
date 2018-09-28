@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context="com.smartcpr.junaid.smartcpr.DeviceDetailsActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.com.smartcpr.trainer.smartcpr.DeviceDetailsActivity">
 
     <TextView
         android:id="@+id/device_info_title"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fragment_device_details"
-        android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment"
+        android:name="com.smartcpr.trainer.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/fragment_button_calibrate_on_activity"
-        android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment"
+        android:name="com.smartcpr.trainer.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment"
         android:layout_width="0dp"
         android:layout_height="87dp"
         android:layout_marginBottom="8dp"

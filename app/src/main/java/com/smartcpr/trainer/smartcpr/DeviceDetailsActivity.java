@@ -1,13 +1,13 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.trainer.smartcpr;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.BluetoothData.BluetoothDeviceManager;
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment;
+import com.smartcpr.junaid.smartcpr.R;
+import com.smartcpr.trainer.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
+import com.smartcpr.trainer.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment;
 
 import java.util.Objects;
 

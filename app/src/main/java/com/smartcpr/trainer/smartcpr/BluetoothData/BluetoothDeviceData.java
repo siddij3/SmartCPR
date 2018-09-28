@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.BluetoothData;
+package com.smartcpr.trainer.smartcpr.BluetoothData;
 
 import java.util.ArrayList;
 import java.util.Collections;

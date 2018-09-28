@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".ScanDevicesActivity"
+            android:name="com.smartcpr.trainer.smartcpr.ScanDevicesActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceDetailsActivity" />
-        <activity android:name=".CalibrateIMUActivity" />
-        <activity android:name=".SpectralAnalysisActivity" />
+        <activity android:name="com.smartcpr.trainer.smartcpr.DeviceDetailsActivity" />
+        <activity android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUActivity" />
+        <activity android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisActivity" />
     </application>
 
 </manifest>

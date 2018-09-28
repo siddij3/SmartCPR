@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.CalibrateIMUFragments;
+package com.smartcpr.trainer.smartcpr.CalibrateIMUFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

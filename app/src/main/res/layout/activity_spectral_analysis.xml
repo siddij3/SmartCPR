@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartcpr.junaid.smartcpr.CalibrateIMUActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.com.smartcpr.trainer.smartcpr.CalibrateIMUActivity">
 
     <fragment
         android:id="@+id/fragment_compression_rate"
-        android:name="com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionRateFragment"
+        android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionRateFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fragment_compression_depth"
-        android:name="com.smartcpr.junaid.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment"
+        android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

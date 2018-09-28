@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.CalibrateIMUFragments;
+package com.smartcpr.trainer.smartcpr.CalibrateIMUFragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
 import com.smartcpr.junaid.smartcpr.R;
 
 public class CompressionsButtonFragment extends Fragment {

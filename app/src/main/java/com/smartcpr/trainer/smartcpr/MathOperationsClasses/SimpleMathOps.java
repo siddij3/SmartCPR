@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
+package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 
 public class SimpleMathOps {
     public static float getMaxValue(float[] array) {

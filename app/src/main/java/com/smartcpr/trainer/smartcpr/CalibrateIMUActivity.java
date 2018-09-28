@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr;
+package com.smartcpr.trainer.smartcpr;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.BluetoothData.ManageData;
-import com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment;
-import com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment;
-import com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.CalibrateButtonFragment;
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Victim;
+import com.smartcpr.junaid.smartcpr.R;
+import com.smartcpr.trainer.smartcpr.BluetoothData.ManageData;
+import com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment;
+import com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment;
+import com.smartcpr.trainer.smartcpr.ObjectClasses.Victim;
 
 import java.util.ArrayList;
 import java.util.Objects;

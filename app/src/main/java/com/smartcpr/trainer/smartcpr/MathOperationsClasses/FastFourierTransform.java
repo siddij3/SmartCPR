@@ -1,5 +1,5 @@
-package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
+package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
+import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 
 public class FastFourierTransform {

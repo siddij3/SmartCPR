@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_calibrating_imu"
-        android:name="com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment"
+        android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment"
         android:layout_width="602dp"
         android:layout_height="557dp"
         android:layout_marginBottom="8dp"
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/fragment_button_begin_compressions"
-        android:name="com.smartcpr.junaid.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment"
+        android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment"
         android:layout_width="match_parent"
         android:layout_height="244dp"
         android:layout_marginBottom="16dp"

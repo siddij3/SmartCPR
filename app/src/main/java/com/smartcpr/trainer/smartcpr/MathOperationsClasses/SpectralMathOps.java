@@ -1,6 +1,6 @@
-package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
+package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 
-import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
+import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 import java.util.ArrayList;
 

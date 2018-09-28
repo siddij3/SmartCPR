@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context="com.smartcpr.junaid.smartcpr.ScanDevicesActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.com.smartcpr.trainer.smartcpr.ScanDevicesActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/fragment_list"
-        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ListDevicesFragment"
+        android:name="com.smartcpr.trainer.smartcpr.ScanDevicesFragments.ListDevicesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/fragment_button"
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/fragment_button"
-        android:name="com.smartcpr.junaid.smartcpr.ScanDevicesFragments.ScanButtonFragment"
+        android:name="com.smartcpr.trainer.smartcpr.ScanDevicesFragments.ScanButtonFragment"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
