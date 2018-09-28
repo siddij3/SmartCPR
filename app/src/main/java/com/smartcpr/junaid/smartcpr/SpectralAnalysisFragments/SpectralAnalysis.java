@@ -94,7 +94,7 @@ public class SpectralAnalysis implements Runnable {
 
             fftSmooth = FastFourierTransform.smoothFFTValues(fftPolarSingle, N);
 
-            peakIndexes = new int[] {3, 27, 43};  //SpecctralMathOps.getPeaksIndexes(fftSmooth, 2);
+            peakIndexes = SpectralMathOps.peaks(fftSmooth);
 
             if (peakIndexes.length > 1) {
                 thetaAngles = SpectralMathOps.phaseAngles(peakIndexes, fftPolarSingle);
@@ -104,6 +104,15 @@ public class SpectralAnalysis implements Runnable {
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
 
                 Log.d(TAG, "run: fcc " + fundamentalFrequency);
+
+                Log.d(TAG,  Arrays.toString(fftSmooth));
+                Log.d(TAG,  Arrays.toString(freqBins));
+
+                for (int i = 0; i < peakIndexes.length ; i++) {
+                    Log.d(TAG, "run: Amplitude " + fftSmooth[peakIndexes[i]]);
+
+                    Log.d(TAG, "run: Frequency "+ String.valueOf(freqBins[peakIndexes[i]]));
+                }
 
                 depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
                 rate = SpectralMathOps.compressionRate(fundamentalFrequency);
@@ -116,6 +125,9 @@ public class SpectralAnalysis implements Runnable {
                 amplitudes[0] = SpectralMathOps.peaksAmplitudesFromTransform(fftSmooth, peakIndexes[0]);
 
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes[0], freqBins);
+
+                Log.d(TAG, "run: Amplitude " + fftSmooth[peakIndexes[0]]);
+                Log.d(TAG, "run: Frequency "+ String.valueOf(freqBins[peakIndexes[0]]));
 
 
                 depth = SpectralMathOps.compressionDepth(amplitudes[0], time, fundamentalFrequency, thetaAngles[0]);

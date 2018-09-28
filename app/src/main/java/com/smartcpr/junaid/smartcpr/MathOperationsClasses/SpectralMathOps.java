@@ -2,6 +2,8 @@ package com.smartcpr.junaid.smartcpr.MathOperationsClasses;
 
 import com.smartcpr.junaid.smartcpr.ObjectClasses.Complex;
 
+import java.util.ArrayList;
+
 public class SpectralMathOps {
 
     public static double[] scaleFrequencyBins(int N, double frequency) {
@@ -20,6 +22,62 @@ public class SpectralMathOps {
 
     public static double fundamentalFrequency(int indexes, double[] freqBins) {
         return freqBins[indexes];
+    }
+
+    public static int[] peaks(double[] fftSmooth) {
+
+        int min_dist = 3;
+        int numPeaks = 0;
+
+        double maxVal = SimpleMathOps.getMaxValue(fftSmooth);
+
+
+        ArrayList<Integer> roots = new ArrayList<>();
+
+        int[] cyclical = new int[3];
+
+        int distBetweenPeaks = 2;
+
+        // Traverse all the values until 3 peaks which fulfill the criteria are
+        // found using a cyclical array.
+        for (int i = 0; i < fftSmooth.length && numPeaks < 3; i++) {
+            int temp = cyclical[1];
+            cyclical[1] = cyclical[2];
+            cyclical[0] = temp;
+            cyclical[2] = i;
+            if (cyclical[1] > cyclical[0] && cyclical[1] < cyclical[2]) {
+
+                if ((fftSmooth[cyclical[1]] > fftSmooth[cyclical[0]] + 0.2) &&
+                        (fftSmooth[cyclical[1]] > fftSmooth[cyclical[2]] + 0.2) &&
+                        (distBetweenPeaks > min_dist) &&
+                        fftSmooth[cyclical[1]] > maxVal/4 ) {
+
+                    roots.add(cyclical[1]);
+                    numPeaks++;
+                    distBetweenPeaks = 0;
+                } else {
+                    distBetweenPeaks++;
+                }
+            }
+        }
+
+        int[] peaks = convertIntegers(roots);
+
+        if (roots.size() == 0)
+            return new int[1];
+
+        return peaks;
+    }
+
+    // Credits to: https://stackoverflow.com/a/718558
+    public static int[] convertIntegers(ArrayList<Integer> integers)
+    {
+        int[] ret = new int[integers.size()];
+        for (int i=0; i < ret.length; i++)
+        {
+            ret[i] = integers.get(i);
+        }
+        return ret;
     }
 
     public static double[] phaseAngles(int[] indexes, Complex[] fftPolarSingle) {

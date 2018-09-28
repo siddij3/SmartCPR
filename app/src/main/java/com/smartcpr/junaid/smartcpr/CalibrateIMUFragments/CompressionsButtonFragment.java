@@ -92,8 +92,8 @@ public class CompressionsButtonFragment extends Fragment {
         return view;
     }
 
+
     public void makeButtonClickable(boolean setClickable) {
         mCompressionsButton.setClickable(setClickable);
     }
-
 }

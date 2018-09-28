@@ -87,8 +87,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
                 if (depthRate == 0 ) {
                     Log.d(TAG, "handleMessage: depth: " + value);
 
-                    value = Math.random() *10;
-
                     compressionDepthFragment.resetColours(lastDepthValue);
                     compressionDepthFragment.changeTextView(value);
 
@@ -97,8 +95,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
 
                 } else if (depthRate == 1) {
                     Log.d(TAG, "handleMessage: rate: " + value);
-
-                    value = Math.random() *150;
 
                     compressionRateFragment.resetColours(lastRateValue);
                     compressionRateFragment.changeTextView(value);

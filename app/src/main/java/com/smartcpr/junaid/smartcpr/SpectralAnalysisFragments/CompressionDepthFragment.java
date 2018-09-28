@@ -118,12 +118,11 @@ public class CompressionDepthFragment extends Fragment{
     private TextView findTextView(double roundedDepth) {
         TextView textView;
 
-        if (roundedDepth == depths[0])
+        if (roundedDepth <= depths[0])
             textView = view.findViewById(R.id.compression_depth_low_limit);
 
         else if (roundedDepth == depths[1])
             textView = view.findViewById(R.id.compression_depth_low_2);
-
 
         else if (roundedDepth == depths[2])
             textView = view.findViewById(R.id.compression_depth_low_1);
@@ -143,7 +142,7 @@ public class CompressionDepthFragment extends Fragment{
         else if (roundedDepth == depths[7])
             textView = view.findViewById(R.id.compression_depth_high_2);
 
-        else if (roundedDepth == depths[8])
+        else if (roundedDepth >= depths[8])
             textView = view.findViewById(R.id.compression_depth_high_limit);
 
         else

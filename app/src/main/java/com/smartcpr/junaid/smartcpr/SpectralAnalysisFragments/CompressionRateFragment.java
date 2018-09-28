@@ -32,8 +32,6 @@ public class CompressionRateFragment extends Fragment{
 
         int color = findColour(roundedRate);
 
-        Log.d(TAG, "changeTextView: " +  color);
-
         txtView.setBackgroundResource(color);
         txtView.setTextColor(Color.WHITE);
 
@@ -52,7 +50,6 @@ public class CompressionRateFragment extends Fragment{
 
     private int findColour(int roundedRate) {
         int color;
-        Log.d(TAG, "findColour: " + roundedRate);
 
         if (roundedRate <= 120 & roundedRate >= 100 ) {
             color = R.color.colorGreen;
@@ -113,8 +110,6 @@ public class CompressionRateFragment extends Fragment{
                     textView = view.findViewById(R.id.compression_rate_80);
                 }
         }
-
-        Log.d(TAG, "findTextView: " + textView.getText());
 
 
         return textView;

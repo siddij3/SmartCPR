@@ -15,5 +15,5 @@
     <integer name="array_index_txyz">3</integer>
     <integer name="device_calibration_array_size">50</integer>
 
-    <integer name="compression_list_size">128</integer>
+    <integer name="compression_list_size">256</integer>
 </resources>
