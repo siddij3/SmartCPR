@@ -96,6 +96,12 @@ public class SpectralAnalysis implements Runnable {
 
             peakIndexes = SpectralMathOps.peaks(fftSmooth);
 
+            Log.d(TAG, "fftSmooth: " + Arrays.toString(fftSmooth));
+            Log.d(TAG, "freqbins: " + Arrays.toString(freqBins));
+
+            Log.d(TAG, "peaksindex: " + Arrays.toString(peakIndexes));
+
+
             if (peakIndexes.length > 1) {
                 thetaAngles = SpectralMathOps.phaseAngles(peakIndexes, fftPolarSingle);
 
@@ -104,17 +110,11 @@ public class SpectralAnalysis implements Runnable {
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
 
                 Log.d(TAG, "run: fcc " + fundamentalFrequency);
+                
 
-                Log.d(TAG,  Arrays.toString(fftSmooth));
-                Log.d(TAG,  Arrays.toString(freqBins));
-
-                for (int i = 0; i < peakIndexes.length ; i++) {
-                    Log.d(TAG, "run: Amplitude " + fftSmooth[peakIndexes[i]]);
-
-                    Log.d(TAG, "run: Frequency "+ String.valueOf(freqBins[peakIndexes[i]]));
-                }
 
                 depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
+                Log.d(TAG, "depth: " + depth);
                 rate = SpectralMathOps.compressionRate(fundamentalFrequency);
 
             } else if (peakIndexes.length == 1) {
@@ -127,7 +127,6 @@ public class SpectralAnalysis implements Runnable {
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes[0], freqBins);
 
                 Log.d(TAG, "run: Amplitude " + fftSmooth[peakIndexes[0]]);
-                Log.d(TAG, "run: Frequency "+ String.valueOf(freqBins[peakIndexes[0]]));
 
 
                 depth = SpectralMathOps.compressionDepth(amplitudes[0], time, fundamentalFrequency, thetaAngles[0]);
@@ -139,7 +138,7 @@ public class SpectralAnalysis implements Runnable {
                 depth = 0;
                 rate = 0;
             }
-
+            Log.d(TAG, "run: \n");
 
             Message messageDepth =  mHandler.obtainMessage(0, depth);
             Message messageRate =  mHandler.obtainMessage(1, rate);
