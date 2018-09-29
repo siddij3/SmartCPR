@@ -12,7 +12,8 @@
     <integer name="adult_max">6</integer>
     <integer name="adult_min">5</integer>
 
-    <integer name="compression_reset_time">2</integer>
     <integer name="array_index_txyz">3</integer>
     <integer name="device_calibration_array_size">50</integer>
+
+    <integer name="compression_list_size">512</integer>
 </resources>
