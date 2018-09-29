@@ -33,7 +33,7 @@ public class SimpleMathOps {
         return minValue;
     }
 
-    // getting the miniumum value
+    // getting the min value
     public static float getMinValue(float[] array) {
         float minValue = array[0];
         for (int i = 1; i < array.length; i++) {

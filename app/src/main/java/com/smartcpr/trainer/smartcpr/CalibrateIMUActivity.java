@@ -32,7 +32,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
     private int infantMinRate;
     private int infantMaxRate;
 
-    float accelerationOffsetValue;
+    private float accelerationOffsetValue;
 
     private final static String TAG = "CalibrateIMUActivity";
     private String calibrationResultMessage;
@@ -169,7 +169,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     private class Calibrate implements Runnable {
 
-        Handler mmHandler;
+        final Handler mmHandler;
         Calibrate(Handler handler) {
             mmHandler = handler;
 
@@ -177,8 +177,8 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
         public void run() {
 
-            float offsetBenchmark = 0.2f;
-            float offsetFailedVal = 100f;
+            float offsetBenchmark = Float.valueOf(getResources().getString(R.string.offset_benchmark_value));
+            float offsetFailedVal = Float.valueOf(getResources().getString(R.string.offset_failed_value));
 
 
             ArrayList<float[]> formattedDataFromDevice =  ManageData.getData(desiredListSizeSizeForCalibration);

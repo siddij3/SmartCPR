@@ -12,7 +12,7 @@ import com.smartcpr.junaid.smartcpr.R;
 public class CompressionDepthFragment extends Fragment{
 
     private final static String TAG = "CompressionDepthFrag";
-    View view;
+    private View view;
 
     private float[] depths;
 

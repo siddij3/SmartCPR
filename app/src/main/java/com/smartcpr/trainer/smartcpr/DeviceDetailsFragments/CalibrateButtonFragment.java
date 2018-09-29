@@ -22,7 +22,7 @@ import com.smartcpr.junaid.smartcpr.R;
  * onAttach: Implements the interface CalibrateButtonListener, which calls
  *           cprVictim function in DeviceDetailsActivity Activity
  * onCreateView: Adds button to UI and waits for button to be pressed.
- *               Once pressed, a dialog list asks user to select the age range for calibrateing
+ *               Once pressed, a dialog list asks user to select the age range for calibrating
  *
  *
  */

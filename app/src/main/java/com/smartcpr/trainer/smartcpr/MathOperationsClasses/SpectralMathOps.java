@@ -1,11 +1,8 @@
 package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 
-import android.util.Log;
-
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class SpectralMathOps {

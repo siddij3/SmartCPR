@@ -39,7 +39,7 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     Bundle bundle;
     private Handler mHandler;
 
-    double lastRateValue;
+    private double lastRateValue;
     double lastDepthValue;
 
     CompressionDepthFragment compressionDepthFragment;

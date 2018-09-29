@@ -8,7 +8,7 @@ public class Victim {
     private final String victim;
 
     private int maxDepth;
-    private int minDepth;
+    private final int minDepth;
 
     private final int maxRate;
     private final int minRate;
@@ -25,10 +25,6 @@ public class Victim {
         minRate = 100;
     }
 
-    public double depthTolerance() {
-        return depthTolerance;
-    }
-
     public int maxDepth() {
         return maxDepth;
     }
@@ -37,9 +33,4 @@ public class Victim {
         return minDepth;
     }
 
-    public int getMaxRate() { return maxRate; }
-
-    public int getMinRate() { return minRate; }
-
-    public String getVictim() { return victim; }
 }

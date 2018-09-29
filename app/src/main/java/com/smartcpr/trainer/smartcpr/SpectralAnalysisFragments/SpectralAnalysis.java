@@ -16,11 +16,9 @@ import java.util.Arrays;
 public class SpectralAnalysis implements Runnable {
     private final static String TAG = "SpectralAnalysisThread";
 
-    private ArrayList<float[]> formattedDataFromDevice;
-
     private float[][] accelerometerRawData;
 
-    private int desiredListSizeForCompression;
+    private final int desiredListSizeForCompression;
     private float accelerationOffset;
 
     private float[] time;
@@ -65,7 +63,7 @@ public class SpectralAnalysis implements Runnable {
         double rate;
 
         while (true) {
-            formattedDataFromDevice = ManageData.getData(desiredListSizeForCompression);
+            ArrayList<float[]> formattedDataFromDevice = ManageData.getData(desiredListSizeForCompression);
 
             accelerometerRawData = formattedDataFromDevice.toArray(new float[][]
                     {new float[formattedDataFromDevice.size()]});

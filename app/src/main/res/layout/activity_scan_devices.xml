@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context="com.smartcpr.junaid.smartcpr.com.smartcpr.trainer.smartcpr.ScanDevicesActivity">
+    tools:context="com.smartcpr.trainer.smartcpr.ScanDevicesActivity">
 
     <TextView
         android:layout_width="wrap_content"

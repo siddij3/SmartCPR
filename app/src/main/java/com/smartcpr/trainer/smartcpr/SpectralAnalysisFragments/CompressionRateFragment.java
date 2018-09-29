@@ -12,7 +12,7 @@ import com.smartcpr.junaid.smartcpr.R;
 public class CompressionRateFragment extends Fragment{
 
     private final static String TAG = "CompressionRateFragment";
-    View view;
+    private View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compression_rate, container, false);
