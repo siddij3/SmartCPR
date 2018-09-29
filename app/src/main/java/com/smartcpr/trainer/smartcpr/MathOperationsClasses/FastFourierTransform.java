@@ -75,7 +75,7 @@ public class FastFourierTransform {
 
         for (int i = 0; i < (N / 2); i++) {
             fftSmooth[i] = fftPolarSingle[i].abs();
-            fftSmooth[i] *= 2;
+            //fftSmooth[i] *= 2;
 
         }
 

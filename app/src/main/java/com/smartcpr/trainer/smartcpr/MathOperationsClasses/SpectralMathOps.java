@@ -1,5 +1,7 @@
 package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 
+import android.util.Log;
+
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 import java.util.ArrayList;
@@ -73,8 +75,7 @@ public class SpectralMathOps {
     }
 
     // Credits to: https://stackoverflow.com/a/718558
-    private static int[] convertIntegers(ArrayList<Integer> integers)
-    {
+    private static int[] convertIntegers(ArrayList<Integer> integers) {
         int[] ret = new int[integers.size()];
         for (int i=0; i < ret.length; i++)
         {
@@ -137,9 +138,16 @@ public class SpectralMathOps {
         for (int i = 0; i < lenHarmonics; i ++){
             A_k [i] = amplitude[i];
 
-            tmp[i] = ((i+1)) * 2.0 * PI * fundamentalFrequency ;
+            Log.d("SpectralAnalysisThread", "compressionDepth: A_k " + A_k[i]);
 
-            S_k[i] = 100*(A_k[i]/(tmp[i]*tmp[i]));
+            tmp[i] = ((i+1)) * 2.0 * PI * fundamentalFrequency ;
+            tmp[i] = Math.pow(tmp[i], 2);
+
+            Log.d("SpectralAnalysisThread", "compressionDepth: tmp " + tmp[i]);
+
+            S_k[i] = 100*A_k[i]/tmp[i];
+
+            Log.d("SpectralAnalysisThread", "compressionDepth:  S-K " + S_k[i]);
 
             phiAngle[i] = PI + thetaAngles[i];
 
@@ -174,9 +182,12 @@ public class SpectralMathOps {
 
         A_k = amplitude;
 
-        tmp = ( 2.0 * PI * fundamentalFrequency) ;
 
-        S_k = 100*(A_k/(tmp*tmp));
+
+        tmp = ( 2.0 * PI * fundamentalFrequency) ;
+        tmp = Math.pow(tmp, 2);
+
+        S_k = 100*(A_k/(tmp));
 
         phiAngle = PI + thetaAngles;
 
