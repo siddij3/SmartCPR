@@ -3,33 +3,54 @@
     <string name="scan_title">Scan Devices</string>
     <string name="main_scan_button">Scan</string>
     <string name="title_device_info">Device Info</string>
-    <string name="details_train_button">Train</string>
+    <string name="details_calibrate_button">Calibrate</string>
     <string name="text_device_name_label">Device Name:</string>
     <string name="text_device_name">Tmp Name</string>
     <string name="text_device_physical_address_label">Physical Address:</string>
     <string name="text_device_physical_address">Tmp Address</string>
-    <string name="pick_victim">Select the Victim\'s Age</string>
-    <string name="victim_infant">infant</string>
-    <string name="victim_child">child</string>
-    <string name="victim_youth">youth</string>
-    <string name="victim_adult">adult</string>
+
+    <string name="details_begin_compressions_button">Begin Compressions!</string>
+
     <string name="calibrating_prompt">Calibrating Device</string>
     <string name="do_not_move_prompt">Do Not Move!</string>
     <string name="calibration_message">Calibrating…</string>
     <string name="calibration_complete_message">Device has been calibrated. You may begin compressions</string>
     <string name="calibration_failed_message">Device has been moved during calibration. \n\tRecalibrating…</string>
-    <string name="data_file_name">data.txt</string>
-    <string name="text_spectral_compression_greater_than_140"><![CDATA[> 140]]></string>
-    <string name="text_spectral_compression_135">135</string>
-    <string name="text_spectral_compression_130">130</string>
-    <string name="text_spectral_compression_125">125</string>
-    <string name="text_spectral_compression_less_than_80"><![CDATA[< 80]]></string>
-    <string name="text_spectral_compression_120">120</string>
-    <string name="text_spectral_compression_115">115</string>
-    <string name="text_spectral_compression_110">110</string>
-    <string name="text_spectral_compression_105">105</string>
-    <string name="text_spectral_compression_100">100</string>
-    <string name="text_spectral_compression_95">95</string>
-    <string name="text_spectral_compression_90">90</string>
-    <string name="text_spectral_compression_85">85</string>
+
+    <string name="pick_victim">Select the Victim\'s Age</string>
+    <string name="victim_infant">Infant</string>
+    <string name="victim_child">Child</string>
+    <string name="victim_youth">Youth</string>
+    <string name="victim_adult">Adult</string>
+
+
+    <string name="gravity_value">9.80665f</string>
+    <string name="offset_benchmark_value">0.2f</string>
+    <string name="offset_failed_value">100f</string>
+
+
+    <string name="text_spectral_rate_greater_than_140"><![CDATA[> 140]]></string>
+    <string name="text_spectral_rate_135">135</string>
+    <string name="text_spectral_rate_130">130</string>
+    <string name="text_spectral_rate_125">125</string>
+    <string name="text_spectral_rate_less_than_80"><![CDATA[< 80]]></string>
+    <string name="text_spectral_rate_120">120</string>
+    <string name="text_spectral_rate_115">115</string>
+    <string name="text_spectral_rate_110">110</string>
+    <string name="text_spectral_rate_105">105</string>
+    <string name="text_spectral_rate_100">100</string>
+    <string name="text_spectral_rate_95">95</string>
+    <string name="text_spectral_rate_90">90</string>
+    <string name="text_spectral_rate_85">85</string>
+    
+    <string name="text_spectral_depth_high_limit"><![CDATA[> 7.5 cm]]></string>
+    <string name="text_spectral_depth_high_2">7.0 cm</string>
+    <string name="text_spectral_depth_high_1">6.5 cm</string>
+    <string name="text_spectral_depth_good_high">6.0 cm</string>
+    <string name="text_spectral_depth_good_mid">5.5 cm</string>
+    <string name="text_spectral_depth_good_low">5.0 cm</string>
+    <string name="text_spectral_depth_low_1">4.5 cm</string>
+    <string name="text_spectral_depth_low_2">4.0 cm</string>
+    <string name="text_spectral_depth_low_limit"><![CDATA[< 3.5 cm]]></string>
+
 </resources>

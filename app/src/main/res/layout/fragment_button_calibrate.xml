@@ -9,7 +9,7 @@
             android:gravity="center"
             android:textSize="25sp"
             android:textColor="#0A4219"
-            android:id="@+id/train_button"
-            android:text="@string/details_train_button"/>
+            android:id="@+id/calibrate_button"
+            android:text="@string/details_calibrate_button"/>
 
 </LinearLayout>

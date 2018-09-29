@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.DeviceDetailsFragments;
+package com.smartcpr.trainer.smartcpr.DeviceDetailsFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

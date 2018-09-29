@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:text="@string/text_spectral_depth_high_limit"
+        android:id="@+id/compression_depth_high_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_high_2"
+        android:id="@+id/compression_depth_high_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_high_1"
+        android:id="@+id/compression_depth_high_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+    <TextView
+        android:text="@string/text_spectral_depth_good_high"
+        android:id="@+id/compression_depth_good_high"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:text="@string/text_spectral_depth_good_mid"
+        android:id="@+id/compression_depth_good_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_good_low"
+        android:id="@+id/compression_depth_good_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_low_1"
+        android:id="@+id/compression_depth_low_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_low_2"
+        android:id="@+id/compression_depth_low_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_depth_low_limit"
+        android:id="@+id/compression_depth_low_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="44sp"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"/>
+
+</LinearLayout>

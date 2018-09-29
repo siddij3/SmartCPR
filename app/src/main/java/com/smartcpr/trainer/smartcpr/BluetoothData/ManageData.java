@@ -1,21 +1,26 @@
-package com.smartcpr.junaid.smartcpr.BluetoothData;
+package com.smartcpr.trainer.smartcpr.BluetoothData;
 
 import android.util.Log;
 
-import com.smartcpr.junaid.smartcpr.MathOperationsClasses.SimpleMathOps;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ManageData {
 
     private static final String TAG = "ManageDataClass";
 
-    public ManageData() {}
+    public static void clearList() {
+        BluetoothDeviceData.returnEmptyList();
+    }
 
-    public ArrayList<float[]> getData(int desiredListSize) {
+
+    public static ArrayList<float[]> getData(int desiredListSize) {
         List<String> listRawDeviceData =  BluetoothDeviceData.getList();
+
+        //Eliminating item at first index due to incomplete line reduces array size for fftB
+        desiredListSize++;
 
         if (listRawDeviceData.size() <= desiredListSize) {
             do {
@@ -33,22 +38,22 @@ public class ManageData {
     }
 
 
-    private float[] formatData(String string) {
+    private static float[] formatData(String string) {
         String[] strArrayData = string.split(",");
         float[] inputtedLine = new float[strArrayData.length];
-        Log.d(TAG, "formatData: " + string);
+        //Log.d(TAG, "formatData: " + string);
 
         for (int i = 0; i < strArrayData.length; i++) {
             strArrayData[i] = strArrayData[i].trim();
             inputtedLine[i] = Float.parseFloat(strArrayData[i]);
         }
 
-        Log.d(TAG, "formatData: " + Arrays.toString(inputtedLine));
+        //Log.d(TAG, "formatData: " + Arrays.toString(inputtedLine));
 
         return inputtedLine;
     }
 
-    public float[] getAccelerationFromRawData(float[][] array2D, int txyz) {
+    public static float[] getAccelerationFromRawData(float[][] array2D, int txyz) {
         float[] rawAcceleration = new float[array2D.length];
 
         int i = 0;
@@ -60,7 +65,20 @@ public class ManageData {
         return rawAcceleration;
     }
 
-    public float offsetAcceleration(float[] rawAcceleration, float offsetBenchmark, float offsetFailedVal) {
+
+    public static float[] setAcceleration(float[][] array2D, float offsetVal, int txyz,  float GRAVITY) {
+        float[] acceleration = new float[array2D.length];
+
+        int i = 0;
+        for (float[] floater : array2D) {
+            acceleration[i] = (floater[txyz] - offsetVal)*GRAVITY;
+            i++;
+        }
+
+        return acceleration;
+    }
+
+    public static float offsetAcceleration(float[] rawAcceleration, float offsetBenchmark, float offsetFailedVal) {
 
         float maxValue = SimpleMathOps.getMaxValue(rawAcceleration);
         float minValue = SimpleMathOps.getMinValue(rawAcceleration);
@@ -79,53 +97,21 @@ public class ManageData {
         return SimpleMathOps.getMeanValue(rawAcceleration);
     }
 
+   public static float[] getScaledTimeArray(float[][] array2D) {
 
-    float[] setAcceleration(float[] rawAcceleration, float offsetVal, float GRAVITY) {
+       float[] timeArray = new float[array2D.length];
 
-        float[] acceleration = new float[rawAcceleration.length];
-
-        int i = 0;
-
-        for (float floater : rawAcceleration) {
-            acceleration[i] = (floater - offsetVal) * GRAVITY;
-            i++;
-        }
-
-        return acceleration;
-    }
+       float zeroTime = array2D[0][0];
 
 
-    int[] getTimeArray(float[][] array2D) {
-
-        int[] timeArray = new int[array2D.length];
-
-        //System.out.println(timeArray.length);
-        int i = 0;
+       int i = 0;
         for (float[] floater : array2D) {
-            timeArray[i] = (int) floater[0];
+            timeArray[i] = (floater[0] - zeroTime) / 1000;
+
             i++;
         }
-        //System.out.println(Arrays.toString(timeArray));
 
         return timeArray;
     }
-
-
-    float[] scaleTime(float[][] array2D) {
-        float[] time = new float[array2D.length];
-
-        float zeroTime = array2D[0][0];
-
-        int i = 0;
-        for (float[] floater : array2D) {
-            time[i] = (floater[0] - zeroTime) / 1000;
-            i++;
-        }
-
-        return time;
-
-
-    }
-
 
 }
