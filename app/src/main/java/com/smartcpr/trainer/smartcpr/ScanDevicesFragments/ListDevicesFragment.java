@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.ScanDevicesFragments;
+package com.smartcpr.trainer.smartcpr.ScanDevicesFragments;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

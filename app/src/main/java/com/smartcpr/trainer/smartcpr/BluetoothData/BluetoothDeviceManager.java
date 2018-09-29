@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.BluetoothData;
+package com.smartcpr.trainer.smartcpr.BluetoothData;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -52,7 +52,6 @@ public class BluetoothDeviceManager {
     private BluetoothDevice mBluetoothDevice;
 
 
-
     public BluetoothDeviceManager() {
         BluetoothAdapter mBluetoothAdapter = getDefaultAdapter();
 
@@ -76,6 +75,11 @@ public class BluetoothDeviceManager {
 
         }
     }
+
+   public int activeCount() {
+        return ConnectThread.activeCount();
+    }
+
 
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;

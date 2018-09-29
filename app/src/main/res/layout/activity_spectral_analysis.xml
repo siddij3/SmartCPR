@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartcpr.junaid.smartcpr.CalibrateIMUActivity">
+    tools:context="com.smartcpr.junaid.smartcpr.com.smartcpr.trainer.smartcpr.CalibrateIMUActivity">
 
     <fragment
-        android:id="@+id/fragment_compression_depth"
-        android:name="com.smartcpr.junaid.smartcpr.DeviceDetailsFragments.DeviceDetailsFragment"
+        android:id="@+id/fragment_compression_rate"
+        android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionRateFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -17,10 +17,28 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_spectral_rate" />
+        app:layout_constraintVertical_bias="0.517"
+        tools:layout="@layout/fragment_compression_rate" />
+
+    <fragment
+        android:id="@+id/fragment_compression_depth"
+        android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501"
+        tools:layout="@layout/fragment_compression_depth" />
 
 
 </android.support.constraint.ConstraintLayout>

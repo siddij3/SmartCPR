@@ -1,4 +1,4 @@
-package com.smartcpr.junaid.smartcpr.CalibrateIMUFragments;
+package com.smartcpr.trainer.smartcpr.CalibrateIMUFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +18,7 @@ public class CalibratedIMUFragment extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calibrating_imu, container, false);
+        View view = inflater.inflate(R.layout.fragment_label_calibrating_imu_, container, false);
         Log.d(TAG, "onCreateView: ");
         mCalibratingMessage =  view.findViewById(R.id.calibration_result_feedback);
 
@@ -30,7 +30,6 @@ public class CalibratedIMUFragment extends Fragment {
 
 
         Log.d(TAG, "setDetailsText: isDeviceCalibrated Message set");
-
     }
 
 }

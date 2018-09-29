@@ -6,105 +6,118 @@
     android:orientation="vertical" >
 
     <TextView
-        android:text="@string/text_spectral_compression_greater_than_140"
+        android:text="@string/text_spectral_rate_greater_than_140"
+        android:id="@+id/compression_rate_140"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textColor="@color/colorRed"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="@string/text_spectral_rate_135"
+        android:id="@+id/compression_rate_135"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 
     <TextView
-        android:text="@string/text_spectral_compression_135"
+        android:text="@string/text_spectral_rate_130"
+        android:id="@+id/compression_rate_130"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="40sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_125"
+        android:id="@+id/compression_rate_125"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+    <TextView
+        android:text="@string/text_spectral_rate_120"
+        android:id="@+id/compression_rate_120"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_115"
+        android:id="@+id/compression_rate_115"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_110"
+        android:id="@+id/compression_rate_110"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_105"
+        android:id="@+id/compression_rate_105"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_100"
+        android:id="@+id/compression_rate_100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorGreen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_95"
+        android:id="@+id/compression_rate_95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_90"
+        android:id="@+id/compression_rate_90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorYellow"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="@string/text_spectral_rate_85"
+        android:id="@+id/compression_rate_85"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 
     <TextView
-        android:text="@string/text_spectral_compression_130"
+        android:text="@string/text_spectral_rate_less_than_80"
+        android:id="@+id/compression_rate_80"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorYellow"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_125"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorYellow"
-        android:textStyle="bold"/>
-    <TextView
-        android:text="@string/text_spectral_compression_120"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorGreen"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_115"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorGreen"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_110"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorGreen"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_105"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorGreen"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_100"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorGreen"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_95"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorYellow"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_90"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorYellow"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_85"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/colorRed"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:text="@string/text_spectral_compression_less_than_80"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="40sp"
         android:textColor="@color/colorRed"
         android:textStyle="bold"/>
 
