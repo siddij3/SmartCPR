@@ -66,12 +66,12 @@ public class ManageData {
     }
 
 
-    public static float[] setAcceleration(float[][] array2D, float offsetVal, int txyz,  float GRAVITY) {
+    public static float[] setAcceleration(float[][] array2D, float offsetVal, int txyz) {
         float[] acceleration = new float[array2D.length];
 
         int i = 0;
         for (float[] floater : array2D) {
-            acceleration[i] = (floater[txyz] - offsetVal)*GRAVITY;
+            acceleration[i] = (floater[txyz] - offsetVal);
             i++;
         }
 

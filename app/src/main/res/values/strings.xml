@@ -13,8 +13,9 @@
 
     <string name="calibrating_prompt">Calibrating Device</string>
     <string name="calibration_message">Calibrating…</string>
-    <string name="calibration_complete_message">Device has been calibrated. You may begin compressions</string>
+    <string name="calibration_complete_message">Device has been calibrated. Please enter your name below </string>
     <string name="calibration_failed_message">Device has been moved during calibration. \n\tRecalibrating…</string>
+    <string name="calibration_begin_when_ready">You may begin when you are ready</string>
 
     <string name="pick_victim">Select the Victim\'s Age</string>
     <string name="victim_infant">Infant</string>
@@ -51,5 +52,17 @@
     <string name="text_spectral_depth_low_1">4.5 cm</string>
     <string name="text_spectral_depth_low_2">4.0 cm</string>
     <string name="text_spectral_depth_low_limit"><![CDATA[< 3.5 cm]]></string>
+
+    <string name="input_name_prompt">Please Input Your Name</string>
+
+    <string name="better_depth">Better Depth Than Your Previous Attempt</string>
+    <string name="worse_depth">Worse Depth Than Your Previous Attempt</string>
+    <string name="same_depth">About the Same as Your Previous Attempt</string>
+
+    <string name="better_rate">Better Depth Than Your Previous Attempt</string>
+    <string name="worse_rate">Worse Depth Than Your Previous Attempt</string>
+    <string name="same_rate">About the Same as Your Previous Attempt</string>
+    <string name="empty_string" />
+
 
 </resources>

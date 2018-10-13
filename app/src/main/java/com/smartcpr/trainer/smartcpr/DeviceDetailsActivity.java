@@ -43,9 +43,6 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
             = "com.smartcpr.junaid.smartcpr.bluetoothdevicephysicaladdress";
 
 
-
-    @SuppressWarnings("deprecation")
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_details);
@@ -66,8 +63,7 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
         deviceDetailsFragment.setDetailsText(mBTDeviceName, mBTDevicePhysicalAddress);
 
     }
-
-
+    
 
     @Override
     public void connectDevice() {

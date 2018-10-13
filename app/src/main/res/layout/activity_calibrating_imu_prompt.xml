@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/fragment_calibrating_imu"
         android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment"
-        android:layout_width="602dp"
-        android:layout_height="557dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="293dp"
+
+
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_button_begin_compressions"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_edit_text_user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/fragment_label_calibrating_imu_" />
+
+    <fragment
+        android:id="@+id/fragment_edit_text_user_name"
+        android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_button_begin_compressions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_edittext_username" />
 
 
     <fragment
         android:id="@+id/fragment_button_begin_compressions"
         android:name="com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment"
         android:layout_width="match_parent"
-        android:layout_height="244dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="144dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

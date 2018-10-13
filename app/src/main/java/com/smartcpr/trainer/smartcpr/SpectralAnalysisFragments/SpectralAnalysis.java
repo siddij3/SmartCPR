@@ -24,20 +24,17 @@ public class SpectralAnalysis implements Runnable {
     private float[] time;
     private float[] acceleration;
 
-    private static float GRAVITY;
-
     private int txyz;
 
     private Handler mHandler;
 
 
-    public SpectralAnalysis(int txyz, float gravity, int desiredListSizeForCompression, float accelerationOffset, Handler handler) {
+    public SpectralAnalysis(int txyz, int desiredListSizeForCompression, float accelerationOffset, Handler handler) {
 
         this.txyz = txyz;
         this.mHandler= handler;
         this.desiredListSizeForCompression = desiredListSizeForCompression;
         this.accelerationOffset = accelerationOffset;
-        GRAVITY = gravity;
 
     }
 
@@ -69,7 +66,7 @@ public class SpectralAnalysis implements Runnable {
                     {new float[formattedDataFromDevice.size()]});
 
 
-            acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz, GRAVITY);
+            acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz);
             time = ManageData.getScaledTimeArray(accelerometerRawData);
 
 
@@ -138,14 +135,53 @@ public class SpectralAnalysis implements Runnable {
             }
             Log.d(TAG, "run: \n");
 
+
+
+
             Message messageDepth =  mHandler.obtainMessage(0, depth);
             Message messageRate =  mHandler.obtainMessage(1, rate);
 
             messageDepth.sendToTarget();
             messageRate.sendToTarget();
         }
+
     }
 
+
+
+    /*
+        if repeatUser:
+        iteration += 1
+        if iteration > minIterations:
+            currentScore = feedback.getNewScore(filePath,
+            numpy.mean([maxRate, minRate]),
+            numpy.mean([maxDepth, minDepth]),
+            iteration,
+            numpy,
+            sysVersion)
+
+            msgDepth, msgRate = feedback.compareScore(currentScore, previousScore)
+
+
+
+
+
+
+
+def getNewScore(filePath, absRate, absDepth, iteration, numpy, sysVersion):
+    currentScore = getExistingScore(filePath, absRate, absDepth, numpy, sysVersion)
+
+    return currentScore
+
+
+def writeToRecord(filePath, depth, rate, sysVersion):
+
+        with open(filePath, 'a+b') as csvfile:
+            f = csv.writer(csvfile, quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            f.writerow([int(rate), depth])
+
+
+     */
 
 
     boolean isDeviceIdle(float[] acceleration) {
