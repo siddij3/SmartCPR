@@ -52,6 +52,14 @@ public class SimpleMathOps {
         return sum / array.length;
     }
 
+    public static float getMeanValue(int[] array) {
+        float sum = 0;
+        for (int i = 1; i < array.length; i++) {
+            sum += (float)array[i];
+        }
+        return sum / array.length;
+    }
+
     private static float getSumofArray(double[] emptyWindow) {
         float sum = 0;
         for (double val : emptyWindow) {
