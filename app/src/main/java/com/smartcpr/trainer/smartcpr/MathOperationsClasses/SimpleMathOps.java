@@ -70,6 +70,42 @@ public class SimpleMathOps {
         return sum;
     }
 
+    public static double standardDeviation(double numArray[])
+    {
+        double sum = 0.0, standardDeviation = 0.0;
+        int length = numArray.length;
+
+        for(double num : numArray) {
+            sum += num;
+        }
+
+        double mean = sum/length;
+
+        for(double num: numArray) {
+            standardDeviation += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(standardDeviation/length);
+    }
+
+    public static double standardDeviation(float numArray[])
+    {
+        float sum = 0.0f, standardDeviation = 0.0f;
+        int length = numArray.length;
+
+        for(float num : numArray) {
+            sum += num;
+        }
+
+        float mean = sum/length;
+
+        for(float num: numArray) {
+            standardDeviation += Math.pow(num - mean, 2);
+        }
+
+        return Math.sqrt(standardDeviation/length);
+    }
+
     public static double[] applyHanningWindow(float[] acceleration, int windowSize) {
         double[] window = new double[windowSize];
         double[] hanningApplied = new double[windowSize];
