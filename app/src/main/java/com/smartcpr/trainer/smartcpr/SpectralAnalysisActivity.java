@@ -1,5 +1,6 @@
 package com.smartcpr.trainer.smartcpr;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,10 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.smartcpr.junaid.smartcpr.R;
+import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
 import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment;
 import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionRateFragment;
 import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.SpectralAnalysis;
+import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.UserFeedback;
+import com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.UserScoreFragment;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class SpectralAnalysisActivity extends AppCompatActivity {
@@ -31,25 +37,44 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     public static final String EXTRA_USER_NAME
             = "com.smartcpr.junaid.smartcpr.username";
 
+    private Context context;
 
     private int txyz;
     private int desiredListSizeForCompression;
     private float offsetAcceleration;
 
 
-    //private static float GRAVITY;
+    private static float GRAVITY;
 
     Intent intent;
     Bundle bundle;
+
     private Handler mHandler;
+    private Handler nHandler;
+
 
     private double lastRateValue;
     double lastDepthValue;
 
     private String userName;
+    private boolean repeatUser;
+    float[] userScores;
+
+    int minIterations;
+    int iteration;
+
+    File file;
 
     CompressionDepthFragment compressionDepthFragment;
     CompressionRateFragment compressionRateFragment;
+
+    UserScoreFragment userScoreFragment;
+
+    int minVictimDepth;
+    int maxVictimDepth;
+
+
+    UserFeedback userFeedback;
 
     private String getMinDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MIN_DEPTH);  }
     private String getMaxDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MAX_DEPTH); }
@@ -64,22 +89,37 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         intent = getIntent();
         bundle = intent.getExtras();
 
-        int minVictimDepth = Integer.parseInt(getMinDepth());
-        int maxVictimDepth = Integer.parseInt(getMaxDepth());
+        context = getApplicationContext();
+
+        repeatUser = false;
+
+        minVictimDepth = Integer.parseInt(getMinDepth());
+        maxVictimDepth = Integer.parseInt(getMaxDepth());
         offsetAcceleration = Float.parseFloat(getOffsetAcceleration());
         userName = getUserName().toLowerCase();
 
         txyz = getResources().getInteger(R.integer.array_index_txyz);
         desiredListSizeForCompression = getResources().getInteger(R.integer.compression_list_size);
-        //GRAVITY = Float.parseFloat(getResources().getString(R.string.gravity_value));
+        GRAVITY = 9.8f;
+
+        minIterations = 5;
+        iteration = 0;
+
 
         compressionDepthFragment = (CompressionDepthFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_depth);
         compressionRateFragment = (CompressionRateFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_rate);
 
+        userScoreFragment = (UserScoreFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_user_score_feedback);
+
 
         compressionDepthFragment.compressionDepthsForAgeGroups(minVictimDepth, maxVictimDepth);
 
+
+
         handleMessage();
+        handleFeedback();
+
+        makeFilePathAndGetPastScore(userName, minVictimDepth, maxVictimDepth);
         startSpectralAnalysis();
     }
 
@@ -87,27 +127,57 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     void handleMessage() {
         mHandler = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message message) {
-                int depthRate = message.what;
-                double  value = (double) message.obj;
+                String[] value =  message.obj.toString().split(",");
 
-                if (depthRate == 0 ) {
-                    Log.d(TAG, "handleMessage: depth: " + value);
+                compressionRateFragment.resetColours(lastRateValue);
+                compressionDepthFragment.resetColours(lastDepthValue);
 
-                    compressionDepthFragment.resetColours(lastDepthValue);
-                    compressionDepthFragment.changeTextView(value);
+                double depth = Double.valueOf(value[0]);
+                double rate = Double.valueOf(value[1]);
 
+                compressionDepthFragment.changeTextView(depth);
+                compressionRateFragment.changeTextView(rate);
 
-                    lastDepthValue = value;
-
-                } else if (depthRate == 1) {
-                    Log.d(TAG, "handleMessage: rate: " + value);
-
-                    compressionRateFragment.resetColours(lastRateValue);
-                    compressionRateFragment.changeTextView(value);
-
-                    lastRateValue = value;
-
+                lastDepthValue = depth;
+                lastRateValue = rate;
+        
+                try {
+                    Log.d(TAG, "ASDF: " + userFeedback.toString());
+                    userFeedback.writeToRecord(depth,  rate);
+                } catch (Exception e) {
+                    Log.e(TAG, "ASDF: ",e );
                 }
+
+                if (repeatUser){
+                    iteration +=1;
+                    if (iteration > minIterations){
+                        userFeedback.getNewScores();
+                    }
+                }
+
+                
+                
+            }
+        };
+
+    }    
+    
+    void handleFeedback() {
+        nHandler = new Handler(Looper.getMainLooper()) {
+            //Change Fragment Text here
+            public void handleMessage(Message message) {
+                int depthRate = message.what;
+
+                String[] strScores =  message.obj.toString().split(",");
+
+                double depthScore = Double.valueOf(strScores[0]);
+                double rateScore = Double.valueOf(strScores[1]);
+
+                Log.d(TAG, "makeFilePathAndGetPastScore: ASDF" + depthScore + "\t" + rateScore);
+
+
+                userScoreFragment.compareScores(userScores, new double[]{depthRate, rateScore});
+
 
             }
         };
@@ -115,75 +185,50 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     }
 
 
-    private void makeFilePath() {
-        //This and the next three should be done first.
+    private void makeFilePathAndGetPastScore(String userName, int min, int max) {
+
+        String filepath =  userName + "_"  + min + "_" + max +  ".csv";
+
+        file = new File(String.valueOf(context.getFilesDir()), filepath);
+
+
+        float absRate = 120;
+        float absDepth = SimpleMathOps.getMeanValue(new int[] {minVictimDepth, maxVictimDepth});
+
+        File directory = new File(String.valueOf(context.getFilesDir()));
+
+        userFeedback = new UserFeedback(file, absDepth, absRate, nHandler, context);
+
+        Log.d(TAG, "makeFilePathAndGetPastScore: ASDF " + Arrays.toString(directory.listFiles()));
+        File[] files = directory.listFiles();
+
+        for (File file : files) {
+            if (file.getName().contains(filepath)) {
+
+                repeatUser = true;
+                userScoreFragment.setFeedbackMessage(getResources().getString(R.string.returning_user_message));
+
+                userScores = userFeedback.getPreviousScores();
+
+                Log.d(TAG, "makeFilePathAndGetPastScore: ASDF " + Arrays.toString(userScores));
+                file.delete();
+                break;
+            }
+
+        }
+
 
     }
 
-    private void checkFilePath() {
-        //Checks for repeat User
-
-    }
-
-    private void getPreviousUserScore() {
-//#Some arbitrary algorithm
-//def getExistingScore(filePath, absRate, absDepth, numpy, sysVersion):
-//    rates = []
-//    depths = []
-//    if int(sysVersion) < 3:
-//        with open(filePath, 'rb') as csvfile:
-//            return getScores(csvfile, rates, depths, absRate, absDepth, numpy)
-//
-//    else:
-//        with open(filePath, 'r') as csvfile:
-//            return getScores(csvfile, rates, depths, absRate, absDepth, numpy)
-        //Then remove that file to overwrite it
-    }
-
-    //     msgDepth, msgRate = feedback.compareScore(currentScore, previousScore)
-    // if iteration > minIterations:
-    //        [depth, rate] = feedback.depth_rate(sofT,
-    //                        maxDepth,
-    //                        minDepth,
-    //                        depthTolerance,
-    //                        rate,
-    //                        maxRate,
-    //                        minRate,
-    //                        rateTolerance,
-    //                        msgDepth,
-    //                        msgRate)
-
-    private void getScores() {
-
-        //def getScores(csvfile, rates, depths, absRate, absDepth, numpy):
-        //    f = csv.reader(csvfile, quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        //    for row in f:
-        //        if row:
-        //            rates.append(int(row[0]))
-        //            depths.append(float(row[1]))
-        //
-        //            #Include standard deviation in this?
-        //    avgRate = numpy.mean(rates)
-        //    avgDepth = numpy.mean(depths)
-        //
-        //    rateScore = abs(avgRate - absRate)/absRate + numpy.std(rates)
-        //    depthScore = abs(avgDepth - absDepth)/absDepth + numpy.std(depths)
-        //
-        //    return rateScore, depthScore
-    }
     private void startSpectralAnalysis() {
 
-        SpectralAnalysis spectralAnalysisThread = new SpectralAnalysis(txyz, desiredListSizeForCompression, offsetAcceleration, mHandler);
+        SpectralAnalysis spectralAnalysisThread = new SpectralAnalysis(txyz,
+                desiredListSizeForCompression, offsetAcceleration,  mHandler, GRAVITY);
         new Thread(spectralAnalysisThread).start();
 
 
     }
 
-    private void writeToRecord() {
-       // feedback.writeToRecord(filePath, depth, rate, sysVersion)
-        // filePath = directory + "/" + fileName + "_" + age + ".csv"
-
-    }
 
 }
 
