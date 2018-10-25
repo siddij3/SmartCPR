@@ -155,8 +155,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
                     }
                 }
 
-                
-                
             }
         };
 

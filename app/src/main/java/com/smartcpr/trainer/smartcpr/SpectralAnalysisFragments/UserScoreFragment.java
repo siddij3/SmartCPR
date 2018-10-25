@@ -64,7 +64,7 @@ public class UserScoreFragment extends Fragment {
 
         }
 
-        String msg = msgDepth + ", " + msgRate;
+        String msg = msgRate + ", " + msgDepth;
 
         setFeedbackMessage(msg);
 
