@@ -12,7 +12,7 @@ public class Victim {
 
     private final int maxRate;
     private final int minRate;
-    private double depthTolerance;
+    private final double depthTolerance;
 
 
     public Victim(String victim, int maxDepth, int minDepth, double depthTolerance) {
