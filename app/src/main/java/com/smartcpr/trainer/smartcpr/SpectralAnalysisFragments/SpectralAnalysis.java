@@ -1,5 +1,6 @@
 package com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
 import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SpectralMathOps;
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,22 +21,23 @@ public class SpectralAnalysis implements Runnable {
     private float[][] accelerometerRawData;
 
     private final int desiredListSizeForCompression;
-    private float accelerationOffset;
+    private final float accelerationOffset;
 
-    private float[] time;
-    private float[] acceleration;
+    private final float GRAVITY;
 
-    private int txyz;
+    private final int txyz;
 
-    private Handler mHandler;
+    private final Handler mHandler;
 
 
-    public SpectralAnalysis(int txyz, int desiredListSizeForCompression, float accelerationOffset, Handler handler) {
+    public SpectralAnalysis(int txyz, int desiredListSizeForCompression, float accelerationOffset,
+                            Handler handler, float GRAVITY) {
 
         this.txyz = txyz;
         this.mHandler= handler;
         this.desiredListSizeForCompression = desiredListSizeForCompression;
         this.accelerationOffset = accelerationOffset;
+        this.GRAVITY = GRAVITY;
 
     }
 
@@ -66,16 +69,12 @@ public class SpectralAnalysis implements Runnable {
                     {new float[formattedDataFromDevice.size()]});
 
 
-            acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz);
-            time = ManageData.getScaledTimeArray(accelerometerRawData);
-
-
-            //if (isDeviceIdle(acceleration))
-              //  continue;
+            float[] acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz, GRAVITY);
+            float[] time = ManageData.getScaledTimeArray(accelerometerRawData);
 
 
             N = time.length;
-            Fs = 1/time[1];
+            Fs = 1/ time[1];
 
             freqBins = SpectralMathOps.scaleFrequencyBins(N, Fs);
 
@@ -91,10 +90,10 @@ public class SpectralAnalysis implements Runnable {
 
             peakIndexes = SpectralMathOps.peaks(fftSmooth);
 
-            Log.d(TAG, "fftSmooth: " + Arrays.toString(fftSmooth));
-            Log.d(TAG, "freqbins: " + Arrays.toString(freqBins));
+          //  Log.d(TAG, "fftSmooth: " + Arrays.toString(fftSmooth));
+          //  Log.d(TAG, "f_bins: " + Arrays.toString(freqBins));
 
-            Log.d(TAG, "peaksindex: " + Arrays.toString(peakIndexes));
+          //  Log.d(TAG, "peaksIndex: " + Arrays.toString(peakIndexes));
 
 
             if (peakIndexes.length > 1) {
@@ -104,12 +103,12 @@ public class SpectralAnalysis implements Runnable {
 
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
 
-                Log.d(TAG, "run: fcc " + fundamentalFrequency);
+                Log.d(TAG, "run: fcc ASDF " + fundamentalFrequency);
                 
 
 
                 depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
-                Log.d(TAG, "depth: " + depth);
+                Log.d(TAG, "depth: ASDF " + depth);
                 rate = SpectralMathOps.compressionRate(fundamentalFrequency);
 
             } else if (peakIndexes.length == 1) {
@@ -128,62 +127,28 @@ public class SpectralAnalysis implements Runnable {
                 rate = SpectralMathOps.compressionRate(fundamentalFrequency);
 
 
-
             } else {
                 depth = 0;
                 rate = 0;
             }
-            Log.d(TAG, "run: \n");
 
+            //Write to record here
 
+            if (Double.isNaN(depth)) {
+                depth = 0.0;
+            }
 
+            String msg = depth + "," + rate;
 
-            Message messageDepth =  mHandler.obtainMessage(0, depth);
-            Message messageRate =  mHandler.obtainMessage(1, rate);
+            Message message =  mHandler.obtainMessage(0, msg);
 
-            messageDepth.sendToTarget();
-            messageRate.sendToTarget();
+            message.sendToTarget();
         }
 
     }
 
 
-
-    /*
-        if repeatUser:
-        iteration += 1
-        if iteration > minIterations:
-            currentScore = feedback.getNewScore(filePath,
-            numpy.mean([maxRate, minRate]),
-            numpy.mean([maxDepth, minDepth]),
-            iteration,
-            numpy,
-            sysVersion)
-
-            msgDepth, msgRate = feedback.compareScore(currentScore, previousScore)
-
-
-
-
-
-
-
-def getNewScore(filePath, absRate, absDepth, iteration, numpy, sysVersion):
-    currentScore = getExistingScore(filePath, absRate, absDepth, numpy, sysVersion)
-
-    return currentScore
-
-
-def writeToRecord(filePath, depth, rate, sysVersion):
-
-        with open(filePath, 'a+b') as csvfile:
-            f = csv.writer(csvfile, quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            f.writerow([int(rate), depth])
-
-
-     */
-
-
+    //TODO do something with this?
     boolean isDeviceIdle(float[] acceleration) {
         double tmp = SimpleMathOps.getMaxValue(acceleration) - SimpleMathOps.getMinValue(acceleration);
 
