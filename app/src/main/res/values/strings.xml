@@ -24,10 +24,12 @@
     <string name="victim_adult">Adult</string>
 
 
-    <string name="gravity_value">9.80665f</string>
     <string name="offset_benchmark_value">0.2f</string>
     <string name="offset_failed_value">100f</string>
 
+
+    <string name="returning_user_message">Welcome Back!</string>
+    <string name="file_directory">records</string>
 
     <string name="text_spectral_rate_greater_than_140"><![CDATA[> 140]]></string>
     <string name="text_spectral_rate_135">135</string>
@@ -63,6 +65,7 @@
     <string name="worse_rate">Worse Depth Than Your Previous Attempt</string>
     <string name="same_rate">About the Same as Your Previous Attempt</string>
     <string name="empty_string" />
+    <string name="empty_feedback">Keep Going!</string>
 
 
 </resources>

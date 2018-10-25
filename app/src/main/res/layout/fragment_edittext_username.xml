@@ -7,6 +7,8 @@
 
 
     <EditText
+        android:autofillHints="@string/app_name"
+        android:labelFor="@id/edit_text_user_name"
         android:id="@+id/edit_text_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

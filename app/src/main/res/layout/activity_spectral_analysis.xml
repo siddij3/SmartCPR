@@ -9,18 +9,15 @@
     <fragment
         android:id="@+id/fragment_compression_rate"
         android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionRateFragment"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_compression_depth"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_score_feedback"
         tools:layout="@layout/fragment_compression_rate" />
 
     <fragment
@@ -28,17 +25,24 @@
         android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.CompressionDepthFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_score_feedback"
+        tools:layout="@layout/fragment_compression_depth" />
+
+    <fragment
+        android:id="@+id/fragment_user_score_feedback"
+        android:name="com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments.UserScoreFragment"
+        android:layout_width="584dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.501"
-        tools:layout="@layout/fragment_compression_depth" />
+        tools:layout="@layout/fragment_user_feedback" />
 
 
 </android.support.constraint.ConstraintLayout>

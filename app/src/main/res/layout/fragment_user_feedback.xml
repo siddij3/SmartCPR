@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="top"
-        android:text="@string/empty_string"
+        android:gravity="center_horizontal"
+        android:text="@string/empty_feedback"
         android:textSize="30sp" />
 
 
