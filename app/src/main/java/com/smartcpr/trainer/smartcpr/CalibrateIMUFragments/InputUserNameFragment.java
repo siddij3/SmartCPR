@@ -78,10 +78,10 @@ public class InputUserNameFragment extends Fragment {
 
 
     public void disableEditText() {
-        tInputUserName.setFocusable(false);
-        tInputUserName.setEnabled(false);
-        tInputUserName.setCursorVisible(false);
-        tInputUserName.setKeyListener(null);
+       // tInputUserName.setFocusable(false);
+       tInputUserName.setEnabled(false);
+       tInputUserName.setCursorVisible(false);
+       // tInputUserName.setKeyListener(null);
         tInputUserName.setBackgroundColor(Color.TRANSPARENT);
     }
 
@@ -89,8 +89,11 @@ public class InputUserNameFragment extends Fragment {
         tInputUserName.setFocusable(true);
         tInputUserName.setEnabled(true);
         tInputUserName.setCursorVisible(true);
+        tInputUserName.setText("");
         tInputUserName.setKeyListener(listener);
         tInputUserName.setBackgroundColor(Color.WHITE);
+        //tInputUserName.requestFocus();
+
     }
 
 
