@@ -39,7 +39,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
     private final static String TAG = "CalibrateIMUActivity";
     private String calibrationResultMessage;
 
-    Victim victim;
+    private Victim victim;
 
     private int txyz;
     private int desiredListSizeSizeForCalibration;
@@ -93,8 +93,9 @@ public class CalibrateIMUActivity extends AppCompatActivity
                     sendCalibrationMessage(calibrationResultMessage);
 
                     inputUserNameFragment.enableEditText();
+                    Log.d(TAG, "handleMessage: ");
 
-                    //compressionsButtonFragment.makeButtonClickable(true);
+                    compressionsButtonFragment.makeButtonClickable(true);
 
                 } else if (result == 0) {
                     calibrationResultMessage = getResources().getString(R.string.calibration_failed_message);
@@ -219,12 +220,10 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
             if (accelerationOffsetValue == offsetFailedVal) {
 
-                Log.d(TAG, "run: " + 0);
                 Message failedMessage = mmHandler.obtainMessage(0);
                 failedMessage.sendToTarget();
 
             } else {
-                Log.d(TAG, "run: " + 1);
 
                 Message successMessage = mmHandler.obtainMessage(1, accelerationOffsetValue);
                 successMessage.sendToTarget();
