@@ -43,6 +43,18 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
             = "com.smartcpr.junaid.smartcpr.bluetoothdevicephysicaladdress";
 
 
+    /**
+     * onCreate
+     *
+     *
+     * Method:
+     *  on creating of activity, the details of the bluetooth device are unpacked via Intents
+     *  and sent to the fragment which displays the details to the user
+     *
+     * Params:
+     *   No specified parameters
+     */
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -67,7 +79,13 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
 
     }
 
-
+    /**
+     * connectDevice
+     *
+     * Method:
+     *  starts new activity for calibrating the accelerometer
+     *
+     */
 
     @Override
     public void connectDevice() {
