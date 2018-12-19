@@ -17,37 +17,86 @@ import com.smartcpr.trainer.smartcpr.ObjectClasses.Victim;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * CalibrateIMUActivity
+ *
+ * Third activity after user opens app
+ * Prompts User for Name to store for future evaluations
+ * Calibrates IMU for compressions in a separate thread to mitigate blocking from while loops
+ *
+ *
+ * Primary Functions
+ *
+ * onCreate: Initializes and instantiates variables, methods and class objects for IMU calibration
+ * handleMessage: handles messages from calibration thread
+ * cprVictim: sets the details for victim ages, creates instance of victim class (child, youth,
+ *              adult) and begins preparations for spectral analysis activity
+ *
+ *
+ *
+ * Secondary Functions
+ *
+ * calibrateDevice:
+ *
+ *
+ *
+ * Tertiary Functions
+ *
+ */
+
 public class CalibrateIMUActivity extends AppCompatActivity
         implements CompressionsButtonFragment.CompressionsButtonListener  {
 
-    private int adultMinRate;
-    private int adultMaxRate;
-
-    private int youthMinRate;
-    private int youthMaxRate;
-
-    private int childMinRate;
-    private int childMaxRate;
-
-    private int infantMinRate;
-    private int infantMaxRate;
-
-    private float accelerationOffsetValue;
-
     private final static String TAG = "CalibrateIMUActivity";
-    private String calibrationResultMessage;
 
+    // Constants for age-dependent CPR depths
+    private int adultMinDepth;
+    private int adultMaxDepth;
+
+    private int youthMinDepth;
+    private int youthMaxDepth;
+
+    private int childMinDepth;
+    private int childMaxDepth;
+
+    private int infantMinDepth;
+    private int infantMaxDepth;
+
+    // Victim class for victim age
+    // Contains depth, depth tolerance and rates
     Victim victim;
 
+    // Offset value for calibrating accelerometer,
+    private float accelerationOffsetValue;
+
+    private String calibrationResultMessage;
+
+    // Details for formatting data from IMU - time, x, y, z values and list size
     private int txyz;
     private int desiredListSizeSizeForCalibration;
 
+    // Fragment Objects
     private CalibratedIMUFragment calibratedIMUFragment;
     private CompressionsButtonFragment compressionsButtonFragment;
 
+    Calibrate calibrate;
+
     private Handler mHandler;
 
-    Calibrate calibrate;
+
+    /**
+     * onCreate
+     *
+     *
+     * Method:
+     *  Initializes index size of IMU input data, list size for calibration
+     *  Initializes Fragment objects for buttons and calibration messages
+     *
+     *  Instantiates class for handling message from thread, and creates instance of calibration
+     *  class
+     *
+     *
+     */
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +119,21 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     }
 
+
+    // Starts thread for IMU calibration
     private void calibrateDevice() {
         new Thread(calibrate).start();
     }
+
+
+    /**
+     * handleMessage
+     *
+     *
+     * Method:
+     *  Handles message from calibration thread and creates a message depending on the result
+     *  A failed calibration loops the calibration
+     */
 
     void handleMessage() {
         mHandler = new Handler(Looper.getMainLooper()) {
@@ -100,6 +161,17 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     }
 
+    /**
+     * cprVictim
+     *
+     * Method:
+     *  sets details for victims, creates instance of victim class and class function for
+     *  starting next activity
+     *
+     *  Params:
+     *      strCprVictim: child, youth or adult.
+     */
+
     @Override
     public void cprVictim(String strCprVictim) {
         Log.d(TAG, "cprVictim: " + strCprVictim);
@@ -107,16 +179,16 @@ public class CalibrateIMUActivity extends AppCompatActivity
         setDetails();
 
         if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
-            victim = new Victim(getString(R.string.victim_adult), adultMaxRate, adultMinRate, 1);
+            victim = new Victim(getString(R.string.victim_adult), adultMaxDepth, adultMinDepth, 1);
 
         } else if (Objects.equals(strCprVictim, getString(R.string.victim_youth))) {
-            victim = new Victim(getString(R.string.victim_adult), youthMaxRate, youthMinRate, 1);
+            victim = new Victim(getString(R.string.victim_adult), youthMaxDepth, youthMinDepth, 1);
 
         } else if (Objects.equals(strCprVictim, getString(R.string.victim_child))) {
-            victim = new Victim(getString(R.string.victim_adult), childMaxRate, childMinRate, 0.5);
+            victim = new Victim(getString(R.string.victim_adult), childMaxDepth, childMinDepth, 0.5);
 
         } else if (Objects.equals(strCprVictim, getString(R.string.victim_infant))) {
-            victim = new Victim(getString(R.string.victim_adult), infantMaxRate, infantMinRate, 0.5);
+            victim = new Victim(getString(R.string.victim_adult), infantMaxDepth, infantMinDepth, 0.5);
 
         }
 
@@ -124,21 +196,39 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     }
 
+    /**
+     * setDetails
+     *
+     *
+     * Method:
+     *    depending on the training session of the victim, each age group has different
+     *    depths for compressions, and this method sets those details.
+     *
+     */
     private void setDetails() {
-        adultMinRate = getResources().getInteger(R.integer.adult_min);
-        adultMaxRate = getResources().getInteger(R.integer.adult_max);
+        adultMinDepth = getResources().getInteger(R.integer.adult_min);
+        adultMaxDepth = getResources().getInteger(R.integer.adult_max);
 
-        youthMinRate = getResources().getInteger(R.integer.youth_min);
-        youthMaxRate = getResources().getInteger(R.integer.youth_max);
+        youthMinDepth = getResources().getInteger(R.integer.youth_min);
+        youthMaxDepth = getResources().getInteger(R.integer.youth_max);
 
-        childMinRate = getResources().getInteger(R.integer.child_min);
-        childMaxRate = getResources().getInteger(R.integer.child_max);
+        childMinDepth = getResources().getInteger(R.integer.child_min);
+        childMaxDepth = getResources().getInteger(R.integer.child_max);
 
-        infantMinRate = getResources().getInteger(R.integer.infant_min);
-        infantMaxRate = getResources().getInteger(R.integer.infant_max);
+        infantMinDepth = getResources().getInteger(R.integer.infant_min);
+        infantMaxDepth = getResources().getInteger(R.integer.infant_max);
 
         Log.d(TAG, "setDetails: Details Set");
     }
+
+    /**
+     * startNextActivity
+     *
+     *
+     * Method:
+     *
+     *
+     */
 
     private void startNextActivity() {
         Intent intent = new Intent(CalibrateIMUActivity.this,
@@ -161,11 +251,27 @@ public class CalibrateIMUActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    /**
+     * sendCalibrationMessage
+     *
+     *
+     * Method:
+     *
+     *
+     */
 
     private void sendCalibrationMessage(String message) {
         calibratedIMUFragment.setCalibratingMessageFeedback(message);
 
     }
+
+    /**
+     * class: Calibrate (Thread)
+     *
+     *
+     * Primary Functions:
+     *  Calibrates IMU by formatting data from IMU, taking acceleration data and averaging to zero
+     */
 
     private class Calibrate implements Runnable {
 

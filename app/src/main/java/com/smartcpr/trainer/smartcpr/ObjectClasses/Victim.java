@@ -14,6 +14,7 @@ public class Victim {
     private final int minRate;
     private double depthTolerance;
 
+    // TODO: Fix hard coded values
 
     public Victim(String victim, int maxDepth, int minDepth, double depthTolerance) {
         this.victim = victim;

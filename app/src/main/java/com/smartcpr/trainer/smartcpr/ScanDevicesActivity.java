@@ -50,7 +50,6 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
      *
      */
 
-
     @Override
     public void addDevice(BluetoothDevice BTdevice) {
         ListDevicesFragment listDevicesFragment = (ListDevicesFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_list);
