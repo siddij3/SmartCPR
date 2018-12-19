@@ -35,14 +35,15 @@ import java.util.Objects;
  *              adult) and begins preparations for spectral analysis activity
  *
  *
+ * Class: calibrate - calibrates IMU, records offset data and sends message on succesful/failed
+ *                      calibration
+ *
  *
  * Secondary Functions
  *
- * calibrateDevice:
+ * calibrateDevice: starts new thread to avoid blocking main thread
+ * enableButton: UX function for enabling button after user inputs name
  *
- *
- *
- * Tertiary Functions
  *
  */
 
@@ -97,7 +98,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
      *
      * Method:
      *  Initializes index size of IMU input data, list size for calibration
-     *  Initializes Fragment objects for buttons and calibration messages
+     *  Initializes Fragment objects for buttons and calibration messages, and inputting user name
      *
      *  Instantiates class for handling message from thread, and creates instance of calibration
      *  class
@@ -110,20 +111,26 @@ public class CalibrateIMUActivity extends AppCompatActivity
         setContentView(R.layout.activity_calibrating_imu_prompt);
         Log.d(TAG, "onCreate: " + TAG);
 
-
+        // Initializes data formatting information
         txyz = getResources().getInteger(R.integer.array_index_txyz);
         desiredListSizeSizeForCalibration = getResources().getInteger(R.integer.device_calibration_array_size);
 
+
+        // Fragment initializing for calibration message, compressions button and user-name input
         calibratedIMUFragment = (CalibratedIMUFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_calibrating_imu);
         compressionsButtonFragment = (CompressionsButtonFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_button_begin_compressions);
         inputUserNameFragment = (InputUserNameFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_edit_text_user_name);
 
-
+        // UX function to streamline inputting user name
         compressionsButtonFragment.makeButtonClickable(false);
         inputUserNameFragment.disableEditText();
 
+
+        // Initializes handler for messages from thread
         handleMessage();
 
+
+        // Creates instance of class for new thread
         calibrate = new Calibrate(mHandler);
         calibrateDevice();
 
@@ -144,13 +151,14 @@ public class CalibrateIMUActivity extends AppCompatActivity
      *  Handles message from calibration thread and creates a message depending on the result
      *  A failed calibration loops the calibration
      */
-
     void handleMessage() {
         mHandler = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message message) {
                 int result = message.what;
 
                 if (result == 1) {
+                    // Successful message
+
                     calibrationResultMessage = getResources().getString(R.string.calibration_complete_message);
                     sendCalibrationMessage(calibrationResultMessage);
 
@@ -159,7 +167,10 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
                     compressionsButtonFragment.makeButtonClickable(true);
 
+
                 } else if (result == 0) {
+                    // Failure message. Loops calibration
+
                     calibrationResultMessage = getResources().getString(R.string.calibration_failed_message);
                     sendCalibrationMessage(calibrationResultMessage);
 
@@ -172,6 +183,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
     }
 
 
+    // Enables the button which allows the user to begin compressions
     @Override
     public void enableButton(EditText editText) {
         tInputUserName = editText;
@@ -193,7 +205,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
     public void cprVictim(String strCprVictim) {
         Log.d(TAG, "cprVictim: " + strCprVictim);
 
-
+        // Sets compression depth details for victim
         setDetails();
 
         if (Objects.equals(strCprVictim, getString(R.string.victim_adult))) {
@@ -214,10 +226,12 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
     }
 
-
+    // Takes the input from the textbox- the input being the user's name
     private void getInputFromEditText() {
         userName = tInputUserName.getText().toString();
     }
+
+
     /**
      * setDetails
      *
@@ -227,7 +241,6 @@ public class CalibrateIMUActivity extends AppCompatActivity
      *    depths for compressions, and this method sets those details.
      *
      */
-
     private void setDetails() {
         adultMinDepth = getResources().getInteger(R.integer.adult_min);
         adultMaxDepth = getResources().getInteger(R.integer.adult_max);
@@ -249,10 +262,12 @@ public class CalibrateIMUActivity extends AppCompatActivity
      *
      *
      * Method:
+     *  Bundles Max and Min Depths for compression, acceleration offset values for accurate
+     *  calculations and the user's name for comparison of future compressions
      *
+     *  The next activity is started with all the above information
      *
      */
-
     private void startNextActivity() {
         Intent intent = new Intent(CalibrateIMUActivity.this,
                 SpectralAnalysisActivity.class);
@@ -277,15 +292,8 @@ public class CalibrateIMUActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    /**
-     * sendCalibrationMessage
-     *
-     *
-     * Method:
-     *
-     *
-     */
 
+    // Feeds fragment calibration information to notify user of calibration result
     private void sendCalibrationMessage(String message) {
         calibratedIMUFragment.setCalibratingMessageFeedback(message);
 
@@ -297,9 +305,8 @@ public class CalibrateIMUActivity extends AppCompatActivity
      *
      * Primary Functions:
      *  Calibrates IMU by formatting data from IMU, taking acceleration data and averaging to zero
+     *  Completes function by sending a message to Handler
      */
-
-
     private class Calibrate implements Runnable {
 
         final Handler mmHandler;
