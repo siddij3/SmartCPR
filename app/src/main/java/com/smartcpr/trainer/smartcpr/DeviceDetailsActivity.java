@@ -54,8 +54,6 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
      * Params:
      *   No specified parameters
      */
-
-
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
