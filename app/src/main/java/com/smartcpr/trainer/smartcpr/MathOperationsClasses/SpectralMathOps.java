@@ -138,16 +138,16 @@ public class SpectralMathOps {
         for (int i = 0; i < lenHarmonics; i ++){
             A_k [i] = amplitude[i];
 
-            Log.d("SpectralAnalysisThread", "compressionDepth: A_k " + A_k[i]);
+            //Log.d("SpectralAnalysisThread", "compressionDepth: A_k " + A_k[i]);
 
             tmp[i] = ((i+1)) * 2.0 * PI * fundamentalFrequency ;
             tmp[i] = Math.pow(tmp[i], 2);
 
-            Log.d("SpectralAnalysisThread", "compressionDepth: tmp " + tmp[i]);
+          //  Log.d("SpectralAnalysisThread", "compressionDepth: tmp " + tmp[i]);
 
             S_k[i] = 100*A_k[i]/tmp[i];
 
-            Log.d("SpectralAnalysisThread", "compressionDepth:  S-K " + S_k[i]);
+          //  Log.d("SpectralAnalysisThread", "compressionDepth:  S-K " + S_k[i]);
 
             phiAngle[i] = PI + thetaAngles[i];
 
