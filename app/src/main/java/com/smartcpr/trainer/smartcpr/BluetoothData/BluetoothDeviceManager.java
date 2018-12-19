@@ -146,6 +146,7 @@ public class BluetoothDeviceManager {
             mmInStream = tmpIn;
         }
 
+        //Reads data from Bluetooth stream line by line
         public void run() {
             BufferedReader reader = new BufferedReader(new InputStreamReader(mmInStream));
 
