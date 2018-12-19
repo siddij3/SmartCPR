@@ -55,7 +55,6 @@ public class CompressionsButtonFragment extends Fragment {
 
         mCompressionsButton = view.findViewById(R.id.compressions_button);
 
-        mCompressionsButton.setClickable(false);
 
         mCompressionsButton.setOnClickListener(
                 new View.OnClickListener() {

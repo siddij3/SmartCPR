@@ -7,18 +7,20 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.smartcpr.junaid.smartcpr.R;
 import com.smartcpr.trainer.smartcpr.BluetoothData.ManageData;
 import com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CalibratedIMUFragment;
 import com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.CompressionsButtonFragment;
+import com.smartcpr.trainer.smartcpr.CalibrateIMUFragments.InputUserNameFragment;
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Victim;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class CalibrateIMUActivity extends AppCompatActivity
-        implements CompressionsButtonFragment.CompressionsButtonListener  {
+        implements CompressionsButtonFragment.CompressionsButtonListener, InputUserNameFragment.EditTextListener  {
 
     private int adultMinRate;
     private int adultMaxRate;
@@ -37,13 +39,17 @@ public class CalibrateIMUActivity extends AppCompatActivity
     private final static String TAG = "CalibrateIMUActivity";
     private String calibrationResultMessage;
 
-    Victim victim;
+    private Victim victim;
 
     private int txyz;
     private int desiredListSizeSizeForCalibration;
 
+    private String userName;
+    private EditText tInputUserName;
+
     private CalibratedIMUFragment calibratedIMUFragment;
     private CompressionsButtonFragment compressionsButtonFragment;
+    private InputUserNameFragment inputUserNameFragment;
 
     private Handler mHandler;
 
@@ -60,8 +66,11 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
         calibratedIMUFragment = (CalibratedIMUFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_calibrating_imu);
         compressionsButtonFragment = (CompressionsButtonFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_button_begin_compressions);
+        inputUserNameFragment = (InputUserNameFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_edit_text_user_name);
+
 
         compressionsButtonFragment.makeButtonClickable(false);
+        inputUserNameFragment.disableEditText();
 
         handleMessage();
 
@@ -79,11 +88,12 @@ public class CalibrateIMUActivity extends AppCompatActivity
             public void handleMessage(Message message) {
                 int result = message.what;
 
-
-
                 if (result == 1) {
                     calibrationResultMessage = getResources().getString(R.string.calibration_complete_message);
                     sendCalibrationMessage(calibrationResultMessage);
+
+                    inputUserNameFragment.enableEditText();
+                    Log.d(TAG, "handleMessage: ");
 
                     compressionsButtonFragment.makeButtonClickable(true);
 
@@ -97,12 +107,20 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
             }
         };
-
     }
+
+
+    @Override
+    public void enableButton(EditText editText) {
+        tInputUserName = editText;
+        compressionsButtonFragment.makeButtonClickable(true);
+    }
+
 
     @Override
     public void cprVictim(String strCprVictim) {
         Log.d(TAG, "cprVictim: " + strCprVictim);
+
 
         setDetails();
 
@@ -122,6 +140,10 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
         startNextActivity();
 
+    }
+
+    private void getInputFromEditText() {
+        userName = tInputUserName.getText().toString();
     }
 
     private void setDetails() {
@@ -155,6 +177,9 @@ public class CalibrateIMUActivity extends AppCompatActivity
         bundle.putString(SpectralAnalysisActivity.EXTRA_OFFSET_ACCELERATION_VALUE,
                 String.valueOf(accelerationOffsetValue));
 
+        getInputFromEditText();
+        bundle.putString(SpectralAnalysisActivity.EXTRA_USER_NAME,
+                String.valueOf(userName));
 
         intent.putExtras(bundle);
 
@@ -166,6 +191,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
         calibratedIMUFragment.setCalibratingMessageFeedback(message);
 
     }
+
 
     private class Calibrate implements Runnable {
 
@@ -194,12 +220,10 @@ public class CalibrateIMUActivity extends AppCompatActivity
 
             if (accelerationOffsetValue == offsetFailedVal) {
 
-                Log.d(TAG, "run: " + 0);
                 Message failedMessage = mmHandler.obtainMessage(0);
                 failedMessage.sendToTarget();
 
             } else {
-                Log.d(TAG, "run: " + 1);
 
                 Message successMessage = mmHandler.obtainMessage(1, accelerationOffsetValue);
                 successMessage.sendToTarget();
