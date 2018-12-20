@@ -15,6 +15,22 @@ import android.widget.Button;
 
 import com.smartcpr.junaid.smartcpr.R;
 
+/**
+ * CompressionsButtonFragment
+ *
+ * Interface - compressionsButtonListener: Attached to main activity.
+ *
+ * Functions:
+ * onAttach: IDK it does something
+ * onCreateView: creates a button listener when button is pressed. When pressed, it creates a
+ *                dialog box with 3 options: child, youth, adult; to select for compressions
+ * makeButtonClickable: Enables the buttons
+ *
+ * setCalibratingMessageFeedback: Displays message
+ *      Params:
+ *          deviceCalibrated - string that details the calibration status
+ */
+
 public class CompressionsButtonFragment extends Fragment {
 
     private static final String TAG = "CalibratedIMUFragment";
@@ -29,6 +45,7 @@ public class CompressionsButtonFragment extends Fragment {
         void cprVictim(String strCprVictim);
     }
 
+    // Attaches a method associated with a button to the main activity, I think
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -49,13 +66,15 @@ public class CompressionsButtonFragment extends Fragment {
         }
     }
 
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_button_compressions, container, false);
         Log.d(TAG, "onCreateView: ");
 
         mCompressionsButton = view.findViewById(R.id.compressions_button);
 
-
+        // Initiates listener for button
         mCompressionsButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
@@ -65,6 +84,8 @@ public class CompressionsButtonFragment extends Fragment {
                         mCompressionsButton.setClickable(false);
                     }
 
+
+                    // Dialog box with 3 options; child, youth, adult
                     private void openDialogBox() {
 
                         AlertDialog.Builder builder;
@@ -90,7 +111,7 @@ public class CompressionsButtonFragment extends Fragment {
         return view;
     }
 
-
+    // Called in CalibrateIMUActivity
     public void makeButtonClickable(boolean setClickable) {
         mCompressionsButton.setClickable(setClickable);
     }

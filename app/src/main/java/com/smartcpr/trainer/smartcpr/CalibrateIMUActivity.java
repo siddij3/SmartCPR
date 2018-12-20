@@ -121,7 +121,7 @@ public class CalibrateIMUActivity extends AppCompatActivity
         compressionsButtonFragment = (CompressionsButtonFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_button_begin_compressions);
         inputUserNameFragment = (InputUserNameFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_edit_text_user_name);
 
-        // UX function to streamline inputting user name
+        // UX function to streamline inputting user name and limit unwanted user-imposed functions
         compressionsButtonFragment.makeButtonClickable(false);
         inputUserNameFragment.disableEditText();
 
@@ -191,10 +191,12 @@ public class CalibrateIMUActivity extends AppCompatActivity
     }
 
     /**
-     * cprVictim
+     * cprVictim (Interface Function from fragment)
      *
      * Method:
-     *  sets details for victims, creates instance of victim class and class function for
+     *  Result from Pop-up menu that asks user for victim age. Once selected, it passes details
+     *  here.
+     *  The details are set for victims, creates instance of victim class and class function for
      *  starting next activity
      *
      *  Params:

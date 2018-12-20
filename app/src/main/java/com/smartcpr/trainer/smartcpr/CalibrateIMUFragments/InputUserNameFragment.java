@@ -15,6 +15,22 @@ import android.widget.EditText;
 
 import com.smartcpr.junaid.smartcpr.R;
 
+
+/**
+ * InputUserNameFragment
+ *
+ *
+ * Functions:
+ * onAttach: IDK it does something
+ * onCreateView: creates a button listener when button is pressed. When pressed, it creates a
+ *                dialog box with 3 options: child, youth, adult; to select for compressions
+ * makeButtonClickable: Enables the buttons
+ *
+ * setCalibratingMessageFeedback: Displays message
+ *      Params:
+ *          deviceCalibrated - string that details the calibration status
+ */
+
 public class InputUserNameFragment extends Fragment {
 
     private EditText tInputUserName;
@@ -27,6 +43,7 @@ public class InputUserNameFragment extends Fragment {
         void enableButton(EditText editText);
     }
 
+    // Attaches a method associated with a button to the main activity, I think
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -48,6 +65,7 @@ public class InputUserNameFragment extends Fragment {
     }
 
 
+    // Initializes listeners, and the textbox to streamline UX stuff
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edittext_username, container, false);
 
@@ -76,7 +94,7 @@ public class InputUserNameFragment extends Fragment {
         return view;
     }
 
-
+    // Makes it so the edittext is unusable
     public void disableEditText() {
        // tInputUserName.setFocusable(false);
        tInputUserName.setEnabled(false);
@@ -85,6 +103,7 @@ public class InputUserNameFragment extends Fragment {
         tInputUserName.setBackgroundColor(Color.TRANSPARENT);
     }
 
+    // Makes it so the edittext is usable to allow user to input name
     public void enableEditText() {
         tInputUserName.setFocusable(true);
         tInputUserName.setEnabled(true);
