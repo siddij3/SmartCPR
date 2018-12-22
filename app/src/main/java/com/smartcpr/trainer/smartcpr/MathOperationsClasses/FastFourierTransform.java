@@ -2,6 +2,51 @@ package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 
+/**
+ * FastFourierTransform
+ *
+ * Note: Complex is a custom class; each object is a 2-element array with [0] real and [1] imaginary
+ *
+ * simpleFFT: Performs main function of FFT (Princeton)
+ *            Params:
+ *                    x: An array of complex numbers (array of 2-element arrays)
+ *
+ * setArraySizeExponentOfTwo: I legit don't know why I have it. I don't use it
+ *                             cuz the sample-sizes are hard-coded powers of 2 *
+ *                            Params:
+ *                                  arraySize: the size of the array for FFT input.
+ *
+ *
+ *
+ *  baseComplexArrayWithWindow: Converts values from acceleration data into a complex array for FFT
+ *                             Params:
+ *                                   hanningAppliedValues: acceleration values with hanning window
+ *                                                          applied as per processing requirements
+ *                                   N: size of array (set to a power of 2)
+ *
+ *  fftDoubleToSingle: Scales FFT values using first half of the calculated values given the
+ *                     symmetry that FFT produces
+ *                     Params:
+ *                             complexArrayFFTValues: Values straight from simpleFFT
+ *                             N: size of array (set to a power of 2)
+ *                             scalingValue: Used to multiply the amplitudes of the FFT values by 2
+ *
+ *  smoothFFTValues: Takes the absolute values of each element of the first half the items in the
+ *                    transformed domain (FFT values)
+ *                    Params:
+ *                          fftPolarSingle: first half of symmetrical values in transformed domain
+ *                          N:  size of array of acceleration values (set to a power of 2)
+ *
+ *
+ * show: Shows items in the complex or transformed domain
+ *      Params:
+ *              x: x items in the array
+ *              title: identifier for debugging
+ *
+ *
+ * Source: https://introcs.cs.princeton.edu/java/97data/FFT.java.html  for simpleFFT and Complex #s
+ */
+
 public class FastFourierTransform {
     public static Complex[] simpleFFT(Complex[] x) {
         int N = x.length;
