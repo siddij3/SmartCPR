@@ -1,5 +1,28 @@
 package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
 
+
+/**
+ * SimpleMathOps
+ *
+ * getMaxValue: srsly?
+ * getMinVaLue: really?
+ * getMeanValue: Do I need to spell this out?
+ * getSumofArray If you don't know what this is, stop coding. pls.
+ * standardDeviation: Calculates standard deviation (statistics) for numerical items in an array
+ *
+ * applyHanningWindow: Applies Hanning window on a signal as is required for signal processing
+ *                     to mitigate discontinuities in the signal.
+ *                     Formula: IDK, see the function
+ *                     Params:
+ *                          acceleration: Values for the window to be applied onto
+ *                          windowSize: number of items in the array for window sizing.
+ *
+ *
+ *
+ *
+ * Source: https://introcs.cs.princeton.edu/java/97data/FFT.java.html  for simpleFFT and Complex #s
+ */
+
 public class SimpleMathOps {
     public static float getMaxValue(float[] array) {
         float maxValue = array[0];
@@ -93,15 +116,15 @@ public class SimpleMathOps {
         float sum = 0.0f, standardDeviation = 0.0f;
         int length = numArray.length;
 
-        for(float num : numArray) {
+        for(float num : numArray)
             sum += num;
-        }
+
 
         float mean = sum/length;
 
-        for(float num: numArray) {
+        for(float num: numArray)
             standardDeviation += Math.pow(num - mean, 2);
-        }
+
 
         return Math.sqrt(standardDeviation/length);
     }
@@ -124,10 +147,5 @@ public class SimpleMathOps {
 
         return hanningApplied;
     }
-
-    public static double[] peakIndexes() {
-        return new double[0];
-    }
-
 
 }
