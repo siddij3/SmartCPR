@@ -48,6 +48,7 @@ import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
  */
 
 public class FastFourierTransform {
+    // todo more comments for return statement
     public static Complex[] simpleFFT(Complex[] x) {
         int N = x.length;
 

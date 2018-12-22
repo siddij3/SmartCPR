@@ -22,7 +22,7 @@ package com.smartcpr.trainer.smartcpr.MathOperationsClasses;
  *
  * Source: https://introcs.cs.princeton.edu/java/97data/FFT.java.html  for simpleFFT and Complex #s
  */
-
+//todo return statement comments
 public class SimpleMathOps {
     public static float getMaxValue(float[] array) {
         float maxValue = array[0];

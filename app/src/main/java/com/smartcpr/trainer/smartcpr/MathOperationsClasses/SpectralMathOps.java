@@ -6,7 +6,7 @@ import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
 import java.util.ArrayList;
 
-
+//todo return statmetn comments
 public class SpectralMathOps {
 
     private final static  String   TAG = "SpectralMathOps";
