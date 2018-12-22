@@ -10,8 +10,6 @@ public class Victim {
     private int maxDepth;
     private final int minDepth;
 
-    private final int maxRate;
-    private final int minRate;
     private final double depthTolerance;
 
     // TODO: Fix hard coded values
@@ -21,9 +19,6 @@ public class Victim {
         this.maxDepth = maxDepth;
         this.minDepth = minDepth;
         this.depthTolerance = depthTolerance;
-
-        maxRate = 120;
-        minRate = 100;
     }
 
     public int maxDepth() {
