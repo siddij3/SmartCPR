@@ -9,6 +9,34 @@ import android.widget.TextView;
 
 import com.smartcpr.junaid.smartcpr.R;
 
+/**
+ * CompressionRateFragment Fragment
+ *
+ * Used to display compression ratess to user by highlighting a box of text with the calculated
+ * depth
+ *
+ *
+ * Functions:
+ *
+ * changeTextView: Changes the background colour of the textlabels
+ *                  Params:
+ *                         depth: Calculated depth for compressions
+ *
+ *
+ *
+ * findColour: find the colour needed for the depth using a
+ *             Params:
+ *                    roundedDepth: Rounds calculated depth to simplify finding the colour needed
+ *
+ * resetColours: Sets all the backgrounds back to white and the text back to their original colours
+ *               Params:
+ *                      lastDepthValue: The last calculated depth value
+ *
+ * findTextView:
+ *              Params: Finds the text label that corresponds to the depth calculated
+ *                     roundedDepth: Rounds calculated depth to simplify finding the colour needed
+ */
+
 public class CompressionRateFragment extends Fragment{
 
     private final static String TAG = "CompressionRateFragment";
