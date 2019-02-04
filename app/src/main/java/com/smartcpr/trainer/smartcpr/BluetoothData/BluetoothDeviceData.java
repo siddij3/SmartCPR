@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+/**
+ * BluetoothDeviceData
+ *
+ * Global activity to synchronize data obtained from IMU onto a single list
+ *
+ * Used in calibration and spectral analysis as a way to not block threads but have
+ * consistent information throughout the app
+ *
+ */
 class BluetoothDeviceData {
 
     private static final String TAG = "BluetoothDeviceData";

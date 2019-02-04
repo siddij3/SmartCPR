@@ -1,6 +1,5 @@
 package com.smartcpr.trainer.smartcpr.SpectralAnalysisFragments;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -11,21 +10,51 @@ import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SimpleMathOps;
 import com.smartcpr.trainer.smartcpr.MathOperationsClasses.SpectralMathOps;
 import com.smartcpr.trainer.smartcpr.ObjectClasses.Complex;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+
+/**
+ * SpectralAnalysis (Thread)
+ *
+ * Note: Complex is a custom class; each object is a 2-element array with [0] real and [1] imaginary
+ *
+ * SpectralAnalysis (Constructor): Initializer of variables needed to run an instance of the thread
+ *            Params:
+ *                    txyz: index for z-axis acceleration
+ *                    desiredListSizeForCompression: Desired list size for number of data points
+ *                                                  in each set
+ *                    accelerationOffset: Offset to set averaged stationary acceleration to 0
+ *                    handler: For sending messages between threads (this thread to main thread)
+ *                    GRAVITY: 9.8 m/s^2
+ *
+ *
+ * run: Performs spectral analysis algorithm as described in paper
+ *
+ * "A New Method for Feedback on the Quality of Chest Compressions during
+ * Cardiopulmonary Resuscitation" Digna M. González-Otero, Jesus Ruiz, Sofía Ruiz de Gauna,
+ * Unai Irusta, Unai Ayala, and Erik Alonso
+ *
+ * Implementation of algorithm completed by Junaid Siddiqui, November 2017 under the supervision
+ * of Dist. Prof. Jamal Deen from McMaster University,
+ * and the help of Chris Williams, BAsc UWaterloo
+ *
+ *
+ */
 public class SpectralAnalysis implements Runnable {
     private final static String TAG = "SpectralAnalysisThread";
 
+
+    // variables for spectral analysis. I think the names are intuitive
+
+    // Raw data from the IMU
     private float[][] accelerometerRawData;
 
+    // specifies the size of the data-set for compressions and calculations (not too long or short)
     private final int desiredListSizeForCompression;
     private final float accelerationOffset;
+    private final int txyz;
 
     private final float GRAVITY;
-
-    private final int txyz;
 
     private final Handler mHandler;
 
@@ -42,19 +71,24 @@ public class SpectralAnalysis implements Runnable {
     }
 
     public void run() {
+        // Organizes different steps of the spectral analysis process containing in-between data
         double[] hanningAppliedValues;
         Complex[] baseComplexArray;
         Complex[] complexArrayFFTValues;
         Complex[] fftPolarSingle;
 
+        // Final data holders (fftSmooth vs freqBins) (y vs x)
         double[] fftSmooth;
         double[] freqBins;
         int[] peakIndexes;
 
+        // frequency intervals
         double Fs;
 
+        // Number of datapoints in set
         int N;
 
+        // Used for finding final depth and rate values
         double[] amplitudes;
         double[] thetaAngles;
         double fundamentalFrequency;
@@ -62,22 +96,32 @@ public class SpectralAnalysis implements Runnable {
         double depth;
         double rate;
 
+        // Begin Spectral Analysis
         while (true) {
-            ArrayList<float[]> formattedDataFromDevice = ManageData.getData(desiredListSizeForCompression);
+            ArrayList<float[]> formattedDataFromDevice = ManageData.getData(
+                                                        desiredListSizeForCompression);
 
             accelerometerRawData = formattedDataFromDevice.toArray(new float[][]
-                    {new float[formattedDataFromDevice.size()]});
+                                    {new float[formattedDataFromDevice.size()]});
 
-
-            float[] acceleration = ManageData.setAcceleration(accelerometerRawData, accelerationOffset, txyz, GRAVITY);
+            // breaks IMU data into acceleration and time for easy using
+            float[] acceleration = ManageData.setAcceleration(accelerometerRawData,
+                                                                accelerationOffset,
+                                                                txyz,
+                                                                GRAVITY);
             float[] time = ManageData.getScaledTimeArray(accelerometerRawData);
 
-
+            // Time (s) and freqency (Hz) things
             N = time.length;
             Fs = 1/ time[1];
 
             freqBins = SpectralMathOps.scaleFrequencyBins(N, Fs);
 
+            // TODO make this more efficient by putting them into fewer functions
+
+            // Lotta things bud. Does Hanning Window, FFT, uses one half of the double
+            // polar symmetric FFT, then takes the absolute values and scales it (multiply by 2)
+            // then applies a peak detection algorithm to find first 3 notable peaks
 
             hanningAppliedValues = SimpleMathOps.applyHanningWindow(acceleration, N);
 
@@ -92,10 +136,10 @@ public class SpectralAnalysis implements Runnable {
 
           //  Log.d(TAG, "fftSmooth: " + Arrays.toString(fftSmooth));
           //  Log.d(TAG, "f_bins: " + Arrays.toString(freqBins));
-
           //  Log.d(TAG, "peaksIndex: " + Arrays.toString(peakIndexes));
 
-
+            // Uses peaks to find compression fundamental frequency and another algorithm
+            // to find the depths of the compressions
             if (peakIndexes.length > 1) {
                 thetaAngles = SpectralMathOps.phaseAngles(peakIndexes, fftPolarSingle);
 
@@ -104,8 +148,6 @@ public class SpectralAnalysis implements Runnable {
                 fundamentalFrequency = SpectralMathOps.fundamentalFrequency(peakIndexes, freqBins);
 
                 Log.d(TAG, "run: fcc ASDF " + fundamentalFrequency);
-                
-
 
                 depth = SpectralMathOps.compressionDepth(amplitudes, peakIndexes.length, time, fundamentalFrequency, thetaAngles);
                 Log.d(TAG, "depth: ASDF " + depth);
@@ -132,7 +174,7 @@ public class SpectralAnalysis implements Runnable {
                 rate = 0;
             }
 
-            //Write to record here
+            // Sends depth and rate to main thread
 
             if (Double.isNaN(depth)) {
                 depth = 0.0;

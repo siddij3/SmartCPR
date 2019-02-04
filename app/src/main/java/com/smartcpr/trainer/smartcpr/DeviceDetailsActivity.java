@@ -15,18 +15,14 @@ import java.util.Objects;
 /**
  * DeviceDetailsActivity Activity
  *
- * First activity after user opens app
- * Scan Button scans nearby Bluetooth Devices and lists them
- * Tapping the Device allows user to pair the device
+ * Second activity after user opens app
+ * Calibrate Button takes user to next activity which calibrates the device
  *
  * Primary Functions
  *
  * onCreate: Unpacks bundled device details from ScanDevicesActivity
  *            and verifies the device details by showing the name and MAC address in large text
- * setDetails: Initializes CPR depth specifications for different age groups as per
- *
- * cprVictim: Takes Info of paired Bluetooth device and bundles it
- *                          DeviceDetailsActivity
+ * connectDevice: starts new activity for calibrating the accelerometer
  *
  */
 
@@ -43,6 +39,19 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
             = "com.smartcpr.junaid.smartcpr.bluetoothdevicephysicaladdress";
 
 
+    /**
+     * onCreate
+     *
+     *
+     * Method:
+     *  on creating of activity, the details of the bluetooth device are unpacked via Intents
+     *  and sent to the fragment which displays the details to the user
+     *
+     * Params:
+     *   No specified parameters
+     */
+    @SuppressWarnings("deprecation")
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_details);
@@ -63,8 +72,14 @@ public class DeviceDetailsActivity extends AppCompatActivity implements
         deviceDetailsFragment.setDetailsText(mBTDeviceName, mBTDevicePhysicalAddress);
 
     }
-    
 
+    /**
+     * connectDevice
+     *
+     * Method:
+     *  starts new activity for calibrating the accelerometer
+     *
+     */
     @Override
     public void connectDevice() {
 

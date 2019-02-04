@@ -15,7 +15,7 @@ import com.smartcpr.junaid.smartcpr.R;
 
 
 /**
- * CompressionsButtonFragment Fragment
+ * CalibrateButtonFragment Fragment
  *
  * Functions:
  *

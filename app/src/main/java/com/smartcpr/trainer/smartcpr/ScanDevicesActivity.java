@@ -8,6 +8,7 @@ import android.util.Log;
 import com.smartcpr.junaid.smartcpr.R;
 import com.smartcpr.trainer.smartcpr.ScanDevicesFragments.ListDevicesFragment;
 import com.smartcpr.trainer.smartcpr.ScanDevicesFragments.ScanButtonFragment;
+
 /**
  * ScanDevicesActivity Ac
  *
@@ -35,11 +36,41 @@ public class ScanDevicesActivity extends AppCompatActivity implements ScanButton
         Log.d(TAG,"ScanDevicesActivity" );
     }
 
+    /**
+     * addDevice
+     *
+     *
+     * Method:
+     *  Adds the details of a bluetooth device to a list defined in the fragment to
+     *  display it as a list for the user to identify which BT device they want to connect to
+     *
+     * Params:
+     *  BTdevice - Identifier for BT device with MAC address and Name that appears to BT
+     *
+     *
+     */
+
     @Override
     public void addDevice(BluetoothDevice BTdevice) {
         ListDevicesFragment listDevicesFragment = (ListDevicesFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_list);
         listDevicesFragment.addDevicesToList(BTdevice);
     }
+
+    /**
+     * bluetoothDeviceBonded
+     *
+     *
+     * Method:
+     *  Using Android intents, hands off the details to the next activity (DeviceDetails)
+     *  that displays whether the device is paired and which one
+     *
+     * Params:
+     *  isBluetoothDeviceBonded - Boolean value that checks whether or not the Bluetooth
+     *    Device is bonded to the phone or not
+     *
+     *  mBluetoothDevice - Identifier for BT device with MAC address and Name that appears to BT
+     *
+     */
 
     @Override
     public void bluetoothDeviceBonded(Boolean isBluetoothDeviceBonded, BluetoothDevice mBluetoothDevice) {

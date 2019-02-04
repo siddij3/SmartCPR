@@ -21,6 +21,29 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * SpectralAnalysisActivity
+ *
+ * Fourth activity after user opens app
+ *
+ * Displays numbers for compression depths and rates, identifying which corresponds to user's
+ * compressions, and gives feedback for returning users
+ *
+ *
+ * Primary Functions
+ *
+ * onCreate: Initializes and instantiates variables, methods and class objects for IMU calibration
+ * handleMessage: handles messages from calibration thread
+ * handleFeedback: sets the details for victim ages, creates instance of victim class (child, youth,
+ *              adult) and begins preparations for spectral analysis activity
+ *
+ *
+ * makeFilePathAndGetPastScore: calibrates IMU, records offset data and sends message on succesful/failed
+ *                      calibration
+ *
+ *
+ */
+
 public class SpectralAnalysisActivity extends AppCompatActivity {
 
     private final static String TAG = "SpectralAnalysisActive";
@@ -56,7 +79,6 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     private double lastRateValue;
     double lastDepthValue;
 
-    private String userName;
     private boolean repeatUser;
     float[] userScores;
 
@@ -68,49 +90,67 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     CompressionDepthFragment compressionDepthFragment;
     CompressionRateFragment compressionRateFragment;
 
+
+    // Fragment and Object classes for giving user feedback
     UserScoreFragment userScoreFragment;
+    UserFeedback userFeedback;
+
 
     int minVictimDepth;
     int maxVictimDepth;
 
 
-    UserFeedback userFeedback;
 
     private String getMinDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MIN_DEPTH);  }
     private String getMaxDepth() { return Objects.requireNonNull(bundle).getString(EXTRA_VICTIM_MAX_DEPTH); }
     private String getOffsetAcceleration() { return Objects.requireNonNull(bundle).getString(EXTRA_OFFSET_ACCELERATION_VALUE); }
     private String getUserName() { return Objects.requireNonNull(bundle).getString(EXTRA_USER_NAME); }
 
+    /**
+     * onCreate
+     *
+     *
+     * Method:
+     *  Unpackages bundle from previous activity to get depths, username and offset acceleration
+     *  Initializes index items from IMU, and list lengths for compression windows
+     *
+     *  Initializes Fragments and object classes associated with spectral analysis
+     *
+     *  Initializes handlers for handling information from spectral analysis thread
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spectral_analysis);
 
+        context = getApplicationContext();
+
         intent = getIntent();
         bundle = intent.getExtras();
 
-        context = getApplicationContext();
-
         repeatUser = false;
 
+        // Parses information from previous activity
         minVictimDepth = Integer.parseInt(getMinDepth());
         maxVictimDepth = Integer.parseInt(getMaxDepth());
         offsetAcceleration = Float.parseFloat(getOffsetAcceleration());
-        userName = getUserName().toLowerCase();
+        String userName = getUserName().toLowerCase();
 
+        // For formatting and applying spectral analysis on data from IMU
         txyz = getResources().getInteger(R.integer.array_index_txyz);
         desiredListSizeForCompression = getResources().getInteger(R.integer.compression_list_size);
         GRAVITY = 9.8f;
 
+        // Iterations of analysis (512*5 lines of data) before giving feedback
         minIterations = 5;
         iteration = 0;
 
-
+        // Fragments
         compressionDepthFragment = (CompressionDepthFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_depth);
         compressionRateFragment = (CompressionRateFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_compression_rate);
 
         userScoreFragment = (UserScoreFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_user_score_feedback);
-
 
         compressionDepthFragment.compressionDepthsForAgeGroups(minVictimDepth, maxVictimDepth);
 
@@ -123,7 +163,14 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
         startSpectralAnalysis();
     }
 
-
+    /**
+     * handleMessage
+     *
+     *
+     * Method:
+     *  The depth and rate of the compressions are displayed to the user
+     *  via a change in colours of the text and background of the displayed text labels
+     */
     void handleMessage() {
         mHandler = new Handler(Looper.getMainLooper()) {
             public void handleMessage(Message message) {
@@ -158,23 +205,29 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
             }
         };
 
-    }    
-    
+    }
+
+    /**
+     * handleFeedback
+     *
+     *
+     * Method:
+     *  Takes the rate and depth of the compressions to add to the user's score file
+     *  for comparison with future compressions and to determine if there has been an improvement
+     */
     void handleFeedback() {
         nHandler = new Handler(Looper.getMainLooper()) {
-            //Change Fragment Text here
+
+            // Takes user scores and passes it off to fragment for feedback to user
             public void handleMessage(Message message) {
-                int depthRate = message.what;
 
                 String[] strScores =  message.obj.toString().split(",");
 
                 double depthScore = Double.valueOf(strScores[0]);
                 double rateScore = Double.valueOf(strScores[1]);
 
-                Log.d(TAG, "makeFilePathAndGetPastScore: ASDF" + depthScore + "\t" + rateScore);
 
-
-                userScoreFragment.compareScores(userScores, new double[]{depthRate, rateScore});
+                userScoreFragment.compareScores(userScores, new double[]{depthScore, rateScore});
 
 
             }
@@ -183,23 +236,39 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * makeFilePathAndGetPastScore
+     *
+     *
+     * Method:
+     *  Takes the name of the user, the min and max depths to create
+     *  or locate the file path. (Does not create)
+     *  If a file already exists, it creates a performance score and deletes the file
+     *
+     */
     private void makeFilePathAndGetPastScore(String userName, int min, int max) {
 
-        String filepath =  userName + "_"  + min + "_" + max +  ".csv";
 
+        // Creates an instance of specifying name and directory
+        String filepath =  userName + "_"  + min + "_" + max +  ".csv";
         file = new File(String.valueOf(context.getFilesDir()), filepath);
 
 
         float absRate = 120;
         float absDepth = SimpleMathOps.getMeanValue(new int[] {minVictimDepth, maxVictimDepth});
 
-        File directory = new File(String.valueOf(context.getFilesDir()));
-
+        // stores information about file - path and directory, rate and depth information
         userFeedback = new UserFeedback(file, absDepth, absRate, nHandler, context);
+
+        //  File directory information - file names of all files in the directory
+        File directory = new File(String.valueOf(context.getFilesDir()));
 
         Log.d(TAG, "makeFilePathAndGetPastScore: ASDF " + Arrays.toString(directory.listFiles()));
         File[] files = directory.listFiles();
 
+        // Checks if the file exists (if user is repeat user on the device for score comparison)
+        // If yes, score is calculated and the file is deleted to make space for the new
+        // performance checking
         for (File file : files) {
             if (file.getName().contains(filepath)) {
 
@@ -208,8 +277,9 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
 
                 userScores = userFeedback.getPreviousScores();
 
-                Log.d(TAG, "makeFilePathAndGetPastScore: ASDF " + Arrays.toString(userScores));
-                file.delete();
+                if (file.delete())
+                    Log.d(TAG, "makeFilePathAndGetPastScore: File was removed");
+
                 break;
             }
 
@@ -218,6 +288,8 @@ public class SpectralAnalysisActivity extends AppCompatActivity {
 
     }
 
+
+    // Starts spectral analysis thread
     private void startSpectralAnalysis() {
 
         SpectralAnalysis spectralAnalysisThread = new SpectralAnalysis(txyz,

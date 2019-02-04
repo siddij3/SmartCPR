@@ -1,5 +1,23 @@
 package com.smartcpr.trainer.smartcpr.ObjectClasses;
 
+/**
+ * Complex class
+ *
+ * Creates a 2-element array where the first element is real, and the second element is imaginary
+ *
+ * Abs: Absolute value of complex object
+ * Phase: arctan(imaginary/real) = phase
+ * plus: sum of complex objects
+ * minus: difference of complex objects
+ * times: product of two complex objects
+ * scale: multiplies complex by a scalar
+ * recipricol: 1/(complex number)
+ * divides: quotient of complex object(s)
+ * re:  real part
+ * im:  imaginary part
+ *
+ */
+
 public class Complex {
     private final double re;   // the real part
     private final double im;   // the imaginary part
@@ -9,7 +27,6 @@ public class Complex {
         re = real;
         im = imag;
     }
-
 
     // return abs/modulus/magnitude
     public double abs() {

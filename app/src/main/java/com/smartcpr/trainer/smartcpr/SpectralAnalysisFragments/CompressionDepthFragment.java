@@ -9,6 +9,43 @@ import android.widget.TextView;
 
 import com.smartcpr.junaid.smartcpr.R;
 
+/**
+ * CompressionDepthFragment Fragment
+ *
+ * Used to display compression depth to user by highlighting a box of text with the calculated
+ * depth
+ *
+ *
+ * Functions:
+ *
+ * compressionDepthsForAgeGroups: Given the depth requirements for each age group, a range with
+ *                                intervals of 0.5 cm is made
+ *                              Params:
+ *                                      minDepth: Minimum depth given the age specification
+ *                                      maxDepth: Maximum depth given the age specification
+ *
+ * setCompressionDepthTexts: Sets the texts in UI for the compression depths
+ *
+ *
+ * changeTextView: Changes the background colour of the textlabels
+ *                  Params:
+ *                         depth: Calculated depth for compressions
+ *
+ *
+ *
+ * findColour: find the colour needed for the depth using a
+ *             Params:
+ *                    roundedDepth: Rounds calculated depth to simplify finding the colour needed
+ *
+ * resetColours: Sets all the backgrounds back to white and the text back to their original colours
+ *               Params:
+ *                      lastDepthValue: The last calculated depth value
+ *
+ * findTextView:
+ *              Params: Finds the text label that corresponds to the depth calculated
+ *                     roundedDepth: Rounds calculated depth to simplify finding the colour needed
+ */
+
 public class CompressionDepthFragment extends Fragment{
 
     private final static String TAG = "CompressionDepthFrag";
@@ -19,7 +56,6 @@ public class CompressionDepthFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_compression_depth, container, false);
         this.view = view;
-
 
         return view;
     }
